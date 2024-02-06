@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task-2</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  </head>
+  <body>
+    <main>
+      <section class="side-nav" id="side-nav-bar">
+        <div>
+          <img src="./assets/TezoLogo.svg" alt="tezo logo-tezo" />
+          <div class="all mt-20">
+            <span>ALL</span>
+            <div class="mt-20">
+               <div class="dashboard">
+              <div class="img-dashboard">
+                <img src="./assets/Horizontal nav/Dashboard.svg" alt="" />
+              </div>
+              <div class="dash-head">
+                <span>Dashboard</span>
+              </div>
+            </div>
+            <div class="dashboard">
+              <div class="img-dashboard">
+                <img src="./assets/Horizontal nav/Employees-reoles.svg" alt="" />
+              </div>
+              <div class="dash-head">
+                <span>Employees</span>
+              </div>
+            </div>
+            </div>
+           
+          </div>
+
+          <div class="role-user mt-20">
+            <span>ROLE / USER MANAGEMENT</span>
+            <div class="mt-20">
+               <div class="emp-dashboard">
+              <div class="img-dashboard">
+                <img src="./assets/Horizontal nav/Roles-red.svg" alt="" />
+              </div>
+              <div class="dash-head">
+                <span>Roles</span>
+              </div>
+              <div class="arrow-right" id="arrow-right">
+                <i
+                  class="ph-bold ph-caret-right"
+                  onclick="showDropDownEmployees()"
+                ></i>
+              </div>
+            </div>
+            <div class="access-rights">
+              <div class="img-dashboard">
+                <img src="./assets/Horizontal nav/assign user.svg" alt="" />
+              </div>
+              <div class="dash-head">
+                <span>Access rights</span>
+              </div>
+              <div class="arrow-right">
+                <i class="ph-bold ph-caret-right"></i>
+              </div>
+            </div>
+            </div>
+           
+          </div>
+        </div>
+
+        <div class="install-update">
+          <p class="new-update">Install new update 2.3.1A</p>
+          <p class="allow-launch">
+            Allow to launch the new update for the AD application
+          </p>
+          <div class="accept-reject-btns">
+            <button class="btn-dismiss">Dismiss</button>
+            <button class="btn-accept">Accept</button>
+          </div>
+        </div>
+      </section>
+      <section class="vertical-page">
+        <div class="vertical-nav">
+          <div class="close-button">
+            <img
+              id="close-btn"
+              src="./assets/handle.png"
+              alt=""
+              onclick="hideNavBar()"
+            />
+          </div>
+          <div class="top-search-bar">
+            <div class="search-box">
+              <input type="search" placeholder="Search" size="70" />
+            </div>
+            <div class="icons">
+              <div class="search-icons">
+                <img src="./assets/IconButton.png" alt="" />
+                <img src="./assets/icon1.png" alt="" />
+                <img src="./assets/icon2.png" alt="" />
+                <img src="./assets/icon3.png" alt="" />
+                <img
+                  class="img-user-navbar"
+                  src="./assets/user-table.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="user-profile">
+                <span class="john">John Abraham</span>
+                <br />
+                <span class="admin">Admin</span>
+              </div>
+              <div class="search-drop-down">
+                <i class="ph-bold ph-caret-down"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="breadcrumb-addEmployee">
+          <nav class="nav-breadcrumb">
+            <ul>
+              <li><a href="#">Roles</a></li>
+              <li><a href="./index.html">Employees</a></li>
+            </ul>
+          </nav>
+          <button class="btn-add-emp">
+            <div>
+              <i class="ph-bold ph-plus"></i>
+            </div>
+            <span> ADD EMPLOYEE </span>
+          </button>
+        </div>
+        <span>All the roles are configured here</span>
+        <div class="role-description">
+          <h4>Role Description</h4>
+          <p>
+            Configure the providers that are available to users when they sihn in. Congigure the providers that are available to users when they sign in. Configure the providers that are
+            available  to users when they sign in.
+          </p>
+        </div>
+        <div class="description-cards">
+          <div class="card-item">
+            <div class="user-profile-card">
+              <div class="user-img">
+                <img
+                  src="./assets/user-table.jpg"
+                  width="35px"
+                  alt=""
+                />
+              </div>
+              <span class="user-info">
+                <span class="user">Robert Fox</span>
+                <span class="user-designation">Head of Product Design </span>
+              </span>
+            </div>
+            <div class="user-details">
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/Vector_roles(1).svg" alt="" />
+                </div>
+                <div class="user-name">
+                  <span>INF122</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/email-1_svgrepo.com.svg " alt="" />
+                </div>
+                <div class="user-name">
+                  <span>adamk@yahoo.com</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/team_svgrepo.com.svg" alt="" />
+                </div>
+                <div class="user-name">
+                  <span>Technology</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img
+                    src="./assets/location-pin-alt-1_svgrepo.com.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="user-name">
+                  <span>Stockton, New Hampshire</span>
+                </div>
+              </div>
+            </div>
+            <div class="view">
+              <div> View </div>
+              <div>
+                <img src="./assets/Vector.svg" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="card-item">
+            <div class="user-profile-card">
+              <div class="user-img">
+                <img
+                  src="./assets/user-table.jpg"
+                  width="35px"
+                  alt=""
+                />
+              </div>
+              <span class="user-info">
+                <span class="user">Robert Fox</span>
+                <span class="user-designation">Head of Product Design </span>
+              </span>
+            </div>
+            <div class="user-details">
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/Vector_roles(1).svg" alt="" />
+                </div>
+                <div class="user-name">
+                  <span>INF122</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/email-1_svgrepo.com.svg " alt="" />
+                </div>
+                <div class="user-name">
+                  <span>adamk@yahoo.com</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/team_svgrepo.com.svg" alt="" />
+                </div>
+                <div class="user-name">
+                  <span>Technology</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img
+                    src="./assets/location-pin-alt-1_svgrepo.com.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="user-name">
+                  <span>Stockton, New Hampshire</span>
+                </div>
+              </div>
+            </div>
+            <div class="view">
+              <span> View </span>
+              <span>
+                <img src="./assets/Vector.svg" alt="" />
+              </span>
+            </div>
+          </div>
+          <div class="card-item">
+            <div class="user-profile-card">
+              <div class="user-img">
+                <img
+                  src="./assets/user-table.jpg"
+                  width="35px"
+                  alt=""
+                />
+              </div>
+              <span class="user-info">
+                <span class="user">Robert Fox</span>
+                <span class="user-designation">Head of Product Design </span>
+              </span>
+            </div>
+            <div class="user-details">
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/Vector_roles(1).svg" alt="" />
+                </div>
+                <div class="user-name">
+                  <span>INF122</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/email-1_svgrepo.com.svg " alt="" />
+                </div>
+                <div class="user-name">
+                  <span>adamk@yahoo.com</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/team_svgrepo.com.svg" alt="" />
+                </div>
+                <div class="user-name">
+                  <span>Technology</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img
+                    src="./assets/location-pin-alt-1_svgrepo.com.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="user-name">
+                  <span>Stockton, New Hampshire</span>
+                </div>
+              </div>
+            </div>
+            <div class="view">
+              <span> View </span>
+              <span>
+                <img src="./assets/Vector.svg" alt="" />
+              </span>
+            </div>
+          </div>
+          <div class="card-item">
+            <div class="user-profile-card">
+              <div class="user-img">
+                <img
+                  src="./assets/user-table.jpg"
+                  width="35px"
+                  alt=""
+                />
+              </div>
+              <span class="user-info">
+                <span class="user">Robert Fox</span>
+                <span class="user-designation">Head of Product Design </span>
+              </span>
+            </div>
+            <div class="user-details">
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/Vector_roles(1).svg" alt="" />
+                </div>
+                <div class="user-name">
+                  <span>INF122</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/email-1_svgrepo.com.svg " alt="" />
+                </div>
+                <div class="user-name">
+                  <span>adamk@yahoo.com</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/team_svgrepo.com.svg" alt="" />
+                </div>
+                <div class="user-name">
+                  <span>Technology</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img
+                    src="./assets/location-pin-alt-1_svgrepo.com.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="user-name">
+                  <span>Stockton, New Hampshire</span>
+                </div>
+              </div>
+            </div>
+            <div class="view">
+              <span> View </span>
+              <span>
+                <img src="./assets/Vector.svg" alt="" />
+              </span>
+            </div>
+          </div>
+          <div class="card-item">
+            <div class="user-profile-card">
+              <div class="user-img">
+                <img
+                  src="./assets/user-table.jpg"
+                  width="35px"
+                  alt=""
+                />
+              </div>
+              <span class="user-info">
+                <span class="user">Robert Fox</span>
+                <span class="user-designation">Head of Product Design </span>
+              </span>
+            </div>
+            <div class="user-details">
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/Vector_roles(1).svg" alt="" />
+                </div>
+                <div class="user-name">
+                  <span>INF122</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/email-1_svgrepo.com.svg " alt="" />
+                </div>
+                <div class="user-name">
+                  <span>adamk@yahoo.com</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/team_svgrepo.com.svg" alt="" />
+                </div>
+                <div class="user-name">
+                  <span>Technology</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img
+                    src="./assets/location-pin-alt-1_svgrepo.com.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="user-name">
+                  <span>Stockton, New Hampshire</span>
+                </div>
+              </div>
+            </div>
+            <div class="view">
+              <span> View </span>
+              <span>
+                <img src="./assets/Vector.svg" alt="" />
+              </span>
+            </div>
+          </div>
+          <div class="card-item">
+            <div class="user-profile-card">
+              <div class="user-img">
+                <img
+                  src="./assets/user-table.jpg"
+                  width="35px"
+                  alt=""
+                />
+              </div>
+              <span class="user-info">
+                <span class="user">Robert Fox</span>
+                <span class="user-designation">Head of Product Design </span>
+              </span>
+            </div>
+            <div class="user-details">
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/Vector_roles(1).svg" alt="" />
+                </div>
+                <div class="user-name">
+                  <span>INF122</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/email-1_svgrepo.com.svg " alt="" />
+                </div>
+                <div class="user-name">
+                  <span>adamk@yahoo.com</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img src="./assets/team_svgrepo.com.svg" alt="" />
+                </div>
+                <div class="user-name">
+                  <span>Technology</span>
+                </div>
+              </div>
+              <div class="user-details-item">
+                <div class="img-user">
+                  <img
+                    src="./assets/location-pin-alt-1_svgrepo.com.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="user-name">
+                  <span>Stockton, New Hampshire</span>
+                </div>
+              </div>
+            </div>
+            <div class="view">
+              <span> View </span>
+              <span>
+                <img src="./assets/Vector.svg" alt="" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../task-2/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task-2</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  </head>
+  <body>
+    <main id="main-page">
+      <section class="side-navBar" id="side-nav-bar">
+        <div>
+          <img src="./assets/TezoLogo.svg" alt="tezo logo-tezo" />
+          <div class="all mt-20">
+            <span>ALL</span>
+            <div class="mt-20">
+              <div class="dashboard">
+                <div class="img-dashboard">
+                  <img src="./assets/Horizontal nav/Dashboard.svg" alt="" />
+                </div>
+                <div class="dash-head">
+                  <span>Dashboard</span>
+                </div>
+              </div>
+              <div class="emp-dashboard">
+                <div class="img-dashboard">
+                  <img src="./assets/Horizontal nav/Employees.svg" alt="" />
+                </div>
+                <div class="dash-head">
+                  <span>Employees</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="role-user mt-20">
+            <span>ROLE / USER MANAGEMENT</span>
+            <div class="mt-20">
+              <div class="dashboard">
+                <div class="img-dashboard">
+                  <img src="./assets/Horizontal nav/Roles.svg" alt="" />
+                </div>
+                <div class="dash-head">
+                  <span><a href="./roles.html">Roles</a></span>
+                </div>
+                <div class="arrow-right" id="arrow-right">
+                  <i
+                    class="ph-bold ph-caret-right"
+                    onclick="showDropDownEmployees()"
+                  ></i>
+                </div>
+              </div>
+              <div class="dashboard">
+                <div class="img-dashboard">
+                  <img src="./assets/Horizontal nav/assign user.svg" alt="" />
+                </div>
+                <div class="dash-head">
+                  <span>Access rights</span>
+                </div>
+                <div class="arrow-right">
+                  <i class="ph-bold ph-caret-right"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="install-update">
+          <p class="new-update">Install new update 2.3.1A</p>
+          <p class="allow-launch">
+            Allow to launch the new update for the AD application
+          </p>
+          <div class="accept-reject-btns">
+            <button class="btn-dismiss">Dismiss</button>
+            <button class="btn-accept">Accept</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="vertical-page">
+        <div class="vertical-nav">
+          <div class="close-button">
+            <img
+              id="close-btn"
+              src="./assets/handle.png"
+              alt=""
+              onclick="hideNavBar()"
+            />
+          </div>
+          <div class="top-search-bar">
+            <div class="search-box">
+              <input
+                type="search"
+                placeholder="Search"
+                size="70"
+                onkeypress="handleSearchBox()"
+                id="search-input"
+              />
+            </div>
+            <div class="icons">
+              <div class="search-icons">
+                <img src="./assets/IconButton.png" alt="" />
+                <img src="./assets/icon1.png" alt="" />
+                <img src="./assets/icon2.png" alt="" />
+                <img src="./assets/icon3.png" alt="" />
+                <img
+                  class="img-user-navbar"
+                  src="./assets/user-table.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="user-profile">
+                <span class="john">John Abraham</span>
+                <br />
+                <span class="admin">Admin</span>
+              </div>
+              <div class="search-drop-down">
+                <i class="ph-bold ph-caret-down"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="breadcrumb-addEmployee">
+          <nav class="nav-breadcrumb">
+            <ul>
+              <li><a href="#">Employees</a></li>
+            </ul>
+          </nav>
+          <div class="btns-section">
+            <button class="btn-export">
+              <div>
+                <img src="./assets/Masked Icon.png" alt="" />
+              </div>
+              <span>EXPORT</span>
+            </button>
+            <button class="btn-add-emp">
+              <div>
+                <i class="ph-bold ph-plus"></i>
+              </div>
+              <span onclick="handleAddEmployee()"> ADD EMPLOYEE </span>
+            </button>
+          </div>
+        </div>
+        <span
+          >Find all of your company's employee accounts and their associated
+          roles.</span
+        >
+        <div class="alphabets-section">
+          <span>
+            <img src="./assets/Vector.png" alt="" />
+          </span>
+          <div class="alphabets" id="demo"></div>
+        </div>
+        <div class="filter-row">
+          <div class="filter-row-left">
+            <span class="filter">Filter</span>
+            <span><img src="./assets/Interface/filter.svg" alt="" /></span>
+            <span class="filter-drop-down"
+              ><label for="">Status</label
+              ><select name="" id=""></select
+            ></span>
+            <span class="filter-drop-down">
+              <label for="">Department</label>
+              <select name="Department" id="filter-department" onfocus="handleFilterDept()">
+              <option value="" disabled></option>
+              </select>
+            </span>
+            <span class="filter-drop-down"
+              ><label for="">Location</label
+              ><select name="" id="filter-loc" onfocus="handleFilterLoc()">
+                <option value="" disabled></option></select
+            ></span>
+          </div>
+          <div class="filter-row-right">
+            <button class="btn-reset">Reset</button>
+            <button class="btn-apply" onclick="handleFilterApply()">Apply</button>
+          </div>
+        </div>
+        <div class="emp-table">
+          <table>
+            <div class="table-top">
+              <div class="delete">
+                <img src="./assets/arrow-turn left -down.png" alt="" />
+                <button class="btn-delete" id="btn-delete-active" onclick="handleDelete()">
+                  Delete
+                </button>
+              </div>
+              <div class="add-table">
+                <img src="./assets/table-add.png" alt="" />
+              </div>
+            </div>
+            <thead>
+              <tr>
+                <th>
+                  <input
+                    type="checkbox"
+                    id="inp-check-box"
+                    onclick="handleCheckBox(this)"
+                  />
+                </th>
+                <th>
+                  USER
+                  <i
+                    class="ph ph-sort-ascending"
+                    onclick="handleSortingUser(`USER`)"
+                    id="sort-btn"
+                  ></i>
+                </th>
+                <th>
+                  LOCATION<i
+                    class="ph ph-sort-ascending"
+                    onclick="handleSortingLoc(`LOCATION`)"
+                  ></i>
+                </th>
+                <th>
+                  DEPARTMENT<i
+                    class="ph ph-sort-ascending"
+                    onclick="handleSortingDep(`DEPARTMENT`)"
+                  ></i>
+                </th>
+                <th>
+                  ROLE<i
+                    class="ph ph-sort-ascending"
+                    onclick="handleSortingRole(`ROLE`)"
+                  ></i>
+                </th>
+                <th>
+                  EMP NO<i
+                    class="ph ph-sort-ascending"
+                    onclick="handleSortingEmp(`EMPNO`)"
+                  ></i>
+                </th>
+                <th>
+                  STATUS<i
+                    class="ph ph-sort-ascending"
+                    onclick="handleSortingStatus(`STATUS`)"
+                  ></i>
+                </th>
+                <th>
+                  JOIN DT<i
+                    class="ph ph-sort-ascending"
+                    onclick="handleSortingJoin(`JOINDT`)"
+                  ></i>
+                </th>
+                <th>...</th>
+              </tr>
+            </thead>
+            <tbody id="employee-table">
+              <!-- logic in script file-->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>

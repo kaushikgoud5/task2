@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task-2</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  </head>
+  <body>
+    <main>
+      <section class="side-nav" id="side-nav-bar">
+        <div>
+          <img src="./assets/TezoLogo.svg" alt="tezo logo-tezo" />
+          <div class="all mt-20">
+            <span>ALL</span>
+            <div class="mt-20">
+               <div class="dashboard">
+              <div class="img-dashboard">
+                <img src="./assets/Horizontal nav/Dashboard.svg" alt="" />
+              </div>
+              <div class="dash-head">
+                <span>Dashboard</span>
+              </div>
+            </div>
+            <div class="dashboard">
+              <div class="img-dashboard-roles">
+                <img src="./assets/Horizontal nav/Employees-reoles.svg" alt="" />
+              </div>
+              <div class="dash-head">
+                <span>Employees</span>
+              </div>
+            </div>
+            </div>
+           
+          </div>
+
+          <div class="role-user mt-20">
+            <span>ROLE / USER MANAGEMENT</span>
+            <div class="mt-20">
+              <div class="emp-dashboard">
+              <div class="img-dashboard">
+                <img src="./assets/Horizontal nav/Roles-red.svg" alt="" />
+              </div>
+              <div class="dash-head">
+                <span>Roles</span>
+              </div>
+              <div class="arrow-right" id="arrow-right">
+                <i
+                  class="ph-bold ph-caret-right"
+                  onclick="showDropDownEmployees()"
+                ></i>
+              </div>
+            </div>
+            <div class="access-rights">
+              <div class="img-dashboard">
+                <img src="./assets/Horizontal nav/assign user.svg" alt="" />
+              </div>
+              <div class="dash-head">
+                <span>Access rights</span>
+              </div>
+              <div class="arrow-right">
+                <i class="ph-bold ph-caret-right"></i>
+              </div>
+            </div>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="install-update">
+          <p class="new-update">Install new update 2.3.1A</p>
+          <p class="allow-launch">
+            Allow to launch the new update for the AD application
+          </p>
+          <div class="accept-reject-btns">
+            <button class="btn-dismiss">Dismiss</button>
+            <button class="btn-accept">Accept</button>
+          </div>
+        </div>
+      </section>
+      <section class="vertical-page">
+        <div class="vertical-nav">
+          <div class="close-button">
+            <img
+              id="close-btn"
+              src="./assets/handle.png"
+              alt=""
+              onclick="hideNavBar()"
+            />
+          </div>
+          <div class="top-search-bar">
+            <div class="search-box">
+              <input type="search" placeholder="Search" size="70" />
+            </div>
+            <div class="icons">
+              <div class="search-icons">
+                <img src="./assets/IconButton.png" alt="" />
+                <img src="./assets/icon1.png" alt="" />
+                <img src="./assets/icon2.png" alt="" />
+                <img src="./assets/icon3.png" alt="" />
+                <img
+                  class="img-user-navbar"
+                  src="./assets/user-table.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="user-profile">
+                <span class="john">John Abraham</span>
+                <br />
+                <span class="admin">Admin</span>
+              </div>
+              <div class="search-drop-down">
+                <i class="ph-bold ph-caret-down"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="breadcrumb-addEmployee">
+          <nav class="nav-breadcrumb">
+            <ul>
+              <li><a href="#">Roles</a></li>
+            </ul>
+          </nav>
+          <button class="btn-add-emp">
+            <div>
+              <i class="ph-bold ph-plus"></i>
+            </div>
+            <span> ADD ROLE </span>
+          </button>
+        </div>
+        <span>All the roles are configured here</span>
+        <div class="filter-row">
+          <div class="filter-row-left">
+            <div class="filter-img">
+            <span class="filter">Filter</span>
+            <span><i class="ph ph-funnel-simple" style="color:  #f44848"></i></span>
+            </div>
+           
+            <span class="filter-drop-down"
+              ><label for="">Department</label
+              ><select name="" id=""></select
+            ></span>
+            <span class="filter-drop-down"
+              ><label for="">Location</label
+              ><select name="" id="">
+                Location
+              </select></span
+            >
+          </div>
+          <div class="filter-row-right">
+            <button class="btn-reset">Reset</button>
+            <button class="btn-apply">Apply</button>
+          </div>
+        </div>
+
+        <div class="description-cards">
+          <div class="card-item">
+            <div class="card-item-top">
+              <div class="card-item-title">
+                <h5>Customer Service Manager</h5>
+              </div>
+              <div class="card-item-edit">
+                <img src="./assets/edit.svg" alt="" />
+              </div>
+            </div>
+
+            <div class="user-details">
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <img src="./assets/team_svgrepo.com.svg" alt="" />
+                  <span>Department</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span>IT</span>
+                </div>
+              </div>
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <img
+                    src="./assets/location-pin-alt-1_svgrepo.com.svg"
+                    alt=""
+                  />
+                  <span>Location</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span>Hyderabad</span>
+                </div>
+              </div>
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <span>Total Employees</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span><img src="./assets/" alt="" /></span>
+                </div>
+              </div>
+            </div>
+            <div class="view">
+              <a href="./rolesDetails.html">  <div>View all Employees</div></a>
+            
+              <div>
+                <img src="./assets/Vector.svg" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="card-item">
+            <div class="card-item-top">
+              <div class="card-item-title">
+                <h5>Customer Service Manager</h5>
+              </div>
+              <div class="card-item-edit">
+                <img src="./assets/edit.svg" alt="" />
+              </div>
+            </div>
+
+            <div class="user-details">
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <img src="./assets/team_svgrepo.com.svg" alt="" />
+                  <span>Department</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span>IT</span>
+                </div>
+              </div>
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <img
+                    src="./assets/location-pin-alt-1_svgrepo.com.svg"
+                    alt=""
+                  />
+                  <span>Location</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span>Hyderabad</span>
+                </div>
+              </div>
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <span>Total Employees</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span></span>
+                </div>
+              </div>
+            </div>
+            <div class="view">
+              <div>View all Employees</div>
+              <div>
+                <img src="./assets/Vector.svg" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="card-item">
+            <div class="card-item-top">
+              <div class="card-item-title">
+                <h5>Customer Service Manager</h5>
+              </div>
+              <div class="card-item-edit">
+                <img src="./assets/edit.svg" alt="" />
+              </div>
+            </div>
+
+            <div class="user-details">
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <img src="./assets/team_svgrepo.com.svg" alt="" />
+                  <span>Department</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span>IT</span>
+                </div>
+              </div>
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <img
+                    src="./assets/location-pin-alt-1_svgrepo.com.svg"
+                    alt=""
+                  />
+                  <span>Location</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span>Hyderabad</span>
+                </div>
+              </div>
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <span>Total Employees</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span></span>
+                </div>
+              </div>
+            </div>
+            <div class="view">
+              <div>View all Employees</div>
+              <div>
+                <img src="./assets/Vector.svg" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="card-item">
+            <div class="card-item-top">
+              <div class="card-item-title">
+                <h5>Customer Service Manager</h5>
+              </div>
+              <div class="card-item-edit">
+                <img src="./assets/edit.svg" alt="" />
+              </div>
+            </div>
+
+            <div class="user-details">
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <img src="./assets/team_svgrepo.com.svg" alt="" />
+                  <span>Department</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span>IT</span>
+                </div>
+              </div>
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <img
+                    src="./assets/location-pin-alt-1_svgrepo.com.svg"
+                    alt=""
+                  />
+                  <span>Location</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span>Hyderabad</span>
+                </div>
+              </div>
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <span>Total Employees</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span></span>
+                </div>
+              </div>
+            </div>
+            <div class="view">
+              <div>View all Employees</div>
+              <div>
+                <img src="./assets/Vector.svg" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="card-item">
+            <div class="card-item-top">
+              <div class="card-item-title">
+                <h5>Customer Service Manager</h5>
+              </div>
+              <div class="card-item-edit">
+                <img src="./assets/edit.svg" alt="" />
+              </div>
+            </div>
+
+            <div class="user-details">
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <img src="./assets/team_svgrepo.com.svg" alt="" />
+                  <span>Department</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span>IT</span>
+                </div>
+              </div>
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <img
+                    src="./assets/location-pin-alt-1_svgrepo.com.svg"
+                    alt=""
+                  />
+                  <span>Location</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span>Hyderabad</span>
+                </div>
+              </div>
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <span>Total Employees</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span></span>
+                </div>
+              </div>
+            </div>
+            <div class="view">
+              <div>View all Employees</div>
+              <div>
+                <img src="./assets/Vector.svg" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="card-item">
+            <div class="card-item-top">
+              <div class="card-item-title">
+                <h5>Customer Service Manager</h5>
+              </div>
+              <div class="card-item-edit">
+                <img src="./assets/edit.svg" alt="" />
+              </div>
+            </div>
+
+            <div class="user-details">
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <img src="./assets/team_svgrepo.com.svg" alt="" />
+                  <span>Department</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span>IT</span>
+                </div>
+              </div>
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <img
+                    src="./assets/location-pin-alt-1_svgrepo.com.svg"
+                    alt=""
+                  />
+                  <span>Location</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span>Hyderabad</span>
+                </div>
+              </div>
+              <div class="card-details-item">
+                <div class="user-detail">
+                  <span>Total Employees</span>
+                </div>
+                <div class="user-detail-ans">
+                  <span></span>
+                </div>
+              </div>
+            </div>
+            <div class="view">
+              <div>View all Employees</div>
+              <div>
+                <img src="./assets/Vector.svg" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../task-2/script.js"></script>
+  </body>
+</html>
