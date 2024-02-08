@@ -14,26 +14,39 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
   </head>
   <body>
-    <main id="main-page">
-      <section class="side-navBar" id="side-nav-bar">
+    <main class="d-flex">
+      <section class="side-nav" id="side-nav-bar">
         <div>
-          <img src="./assets/TezoLogo.svg" alt="tezo logo-tezo" />
+          <div class="d-flex jc-space-btwn">
+            <div class="logo-tezo">
+               <img src="./assets/TezoLogo.svg" alt="tezo logo-tezo" />
+            </div>
+              <div class="close-button">
+                <img
+                  id="close-btn"
+                  src="./assets/handle.png"
+                  alt=""
+                  onclick="hideNavBar()"
+                />
+              </div>
+          </div>
+         
           <div class="all mt-20">
             <span>ALL</span>
             <div class="mt-20">
-              <div class="dashboard">
-                <div class="img-dashboard">
-                  <img src="./assets/Horizontal nav/Dashboard.svg" alt="" />
+              <div class="side-nav-items">
+                <div>
+                  <img class="d-flex" src="./assets/Horizontal nav/Dashboard.svg" alt="" />
                 </div>
-                <div class="dash-head">
+                <div class="nav-item-name">
                   <span>Dashboard</span>
                 </div>
               </div>
-              <div class="emp-dashboard">
-                <div class="img-dashboard">
-                  <img src="./assets/Horizontal nav/Employees.svg" alt="" />
+              <div class="side-nav-items  bg-light-red-theme side-red" >
+                <div>
+                  <img class="d-flex" src="./assets/Horizontal nav/Employees.svg" alt="" />
                 </div>
-                <div class="dash-head">
+                <div class="nav-item-name">
                   <span>Employees</span>
                 </div>
               </div>
@@ -42,13 +55,15 @@
 
           <div class="role-user mt-20">
             <span>ROLE / USER MANAGEMENT</span>
-            <div class="mt-20">
-              <div class="dashboard">
-                <div class="img-dashboard">
-                  <img src="./assets/Horizontal nav/Roles.svg" alt="" />
+            <div class="mt-20"> 
+              <a href="./roles.html" class="td-none">
+              <div class="side-nav-items">
+               
+                <div>
+                  <img class="d-flex" src="./assets/Horizontal nav/Roles.svg" alt="" />
                 </div>
-                <div class="dash-head">
-                  <span><a href="./roles.html">Roles</a></span>
+                <div class="nav-item-name">
+                  <span>Roles</span>
                 </div>
                 <div class="arrow-right" id="arrow-right">
                   <i
@@ -56,12 +71,13 @@
                     onclick="showDropDownEmployees()"
                   ></i>
                 </div>
-              </div>
-              <div class="dashboard">
-                <div class="img-dashboard">
-                  <img src="./assets/Horizontal nav/assign user.svg" alt="" />
+             
+              </div> </a> 
+              <div class="side-nav-items">
+                <div>
+                  <img class="d-flex" src="./assets/Horizontal nav/assign user.svg" alt="" />
                 </div>
-                <div class="dash-head">
+                <div class="nav-item-name">
                   <span>Access rights</span>
                 </div>
                 <div class="arrow-right">
@@ -77,7 +93,7 @@
           <p class="allow-launch">
             Allow to launch the new update for the AD application
           </p>
-          <div class="accept-reject-btns">
+          <div class="accept-reject-btns d-flex">
             <button class="btn-dismiss">Dismiss</button>
             <button class="btn-accept">Accept</button>
           </div>
@@ -86,14 +102,7 @@
 
       <section class="vertical-page">
         <div class="vertical-nav">
-          <div class="close-button">
-            <img
-              id="close-btn"
-              src="./assets/handle.png"
-              alt=""
-              onclick="hideNavBar()"
-            />
-          </div>
+          
           <div class="top-search-bar">
             <div class="search-box">
               <input
@@ -104,7 +113,7 @@
                 id="search-input"
               />
             </div>
-            <div class="icons">
+            <div class="icons d-flex">
               <div class="search-icons">
                 <img src="./assets/IconButton.png" alt="" />
                 <img src="./assets/icon1.png" alt="" />
@@ -127,20 +136,27 @@
             </div>
           </div>
         </div>
-        <div class="breadcrumb-addEmployee">
-          <nav class="nav-breadcrumb">
-            <ul>
-              <li><a href="#">Employees</a></li>
-            </ul>
-          </nav>
-          <div class="btns-section">
-            <button class="btn-export">
+        <div class="breadcrumb-addEmployee mt-20">
+          <div>
+            <nav class="nav-breadcrumb">
+              <ul>
+                <li><a href="#">Employees</a></li>
+              </ul>
+            </nav>
+            <span class="breadcrumb-down-desc"
+              >Find all of your company's employee accounts and their associated
+              roles.</span
+            >
+          </div>
+
+          <div class="btns-section d-flex">
+            <button class="btn-items bg-white">
               <div>
                 <img src="./assets/Masked Icon.png" alt="" />
               </div>
               <span>EXPORT</span>
             </button>
-            <button class="btn-add-emp">
+            <button class="btn-items bg-red">
               <div>
                 <i class="ph-bold ph-plus"></i>
               </div>
@@ -148,10 +164,7 @@
             </button>
           </div>
         </div>
-        <span
-          >Find all of your company's employee accounts and their associated
-          roles.</span
-        >
+
         <div class="alphabets-section">
           <span>
             <img src="./assets/Vector.png" alt="" />
@@ -161,105 +174,144 @@
         <div class="filter-row">
           <div class="filter-row-left">
             <span class="filter">Filter</span>
-            <span><img src="./assets/Interface/filter.svg" alt="" /></span>
+            <span><i class="ph ph-funnel-simple" style="color: #f44848"></i
+              ></span>
             <span class="filter-drop-down"
-              ><label for="">Status</label
-              ><select name="" id=""></select
-            ></span>
+              ><select name="Status" id="">
+                <option value="">Status</option>
+              </select></span
+            >
             <span class="filter-drop-down">
-              <label for="">Department</label>
-              <select name="Department" id="filter-department" onfocus="handleFilterDept()">
-              <option value="" disabled></option>
+              <select
+                name="Department"
+                id="filter-department"
+                onfocus="handleFilterDept()"
+              >
+                <option value="">Department</option>
               </select>
             </span>
             <span class="filter-drop-down"
-              ><label for="">Location</label
               ><select name="" id="filter-loc" onfocus="handleFilterLoc()">
-                <option value="" disabled></option></select
-            ></span>
+                <option value="">Location</option>
+              </select></span
+            >
           </div>
           <div class="filter-row-right">
-            <button class="btn-reset">Reset</button>
-            <button class="btn-apply" onclick="handleFilterApply()">Apply</button>
+            <button class=" filter-btns btn-reset">Reset</button>
+            <button class="filter-btns btn-apply" onclick="handleFilterApply()">
+              Apply
+            </button>
           </div>
         </div>
         <div class="emp-table">
-          <table>
-            <div class="table-top">
-              <div class="delete">
-                <img src="./assets/arrow-turn left -down.png" alt="" />
-                <button class="btn-delete" id="btn-delete-active" onclick="handleDelete()">
-                  Delete
-                </button>
+          <div class="overflow">
+            <table>
+              <div class="table-top">
+                <div class="delete">
+                  <img src="./assets/arrow-turn left -down.png" alt="" />
+                  <button
+                    class="btn-delete"
+                    id="btn-delete-active"
+                    onclick="handleDelete()"
+                  >
+                    Delete
+                  </button>
+                </div>
+                <div class="add-table">
+                  <img src="./assets/table-add.png" alt="" />
+                </div>
               </div>
-              <div class="add-table">
-                <img src="./assets/table-add.png" alt="" />
-              </div>
-            </div>
-            <thead>
-              <tr>
-                <th>
-                  <input
-                    type="checkbox"
-                    id="inp-check-box"
-                    onclick="handleCheckBox(this)"
-                  />
-                </th>
-                <th>
-                  USER
-                  <i
-                    class="ph ph-sort-ascending"
-                    onclick="handleSortingUser(`USER`)"
-                    id="sort-btn"
-                  ></i>
-                </th>
-                <th>
-                  LOCATION<i
-                    class="ph ph-sort-ascending"
-                    onclick="handleSortingLoc(`LOCATION`)"
-                  ></i>
-                </th>
-                <th>
-                  DEPARTMENT<i
-                    class="ph ph-sort-ascending"
-                    onclick="handleSortingDep(`DEPARTMENT`)"
-                  ></i>
-                </th>
-                <th>
-                  ROLE<i
-                    class="ph ph-sort-ascending"
-                    onclick="handleSortingRole(`ROLE`)"
-                  ></i>
-                </th>
-                <th>
-                  EMP NO<i
-                    class="ph ph-sort-ascending"
-                    onclick="handleSortingEmp(`EMPNO`)"
-                  ></i>
-                </th>
-                <th>
-                  STATUS<i
-                    class="ph ph-sort-ascending"
-                    onclick="handleSortingStatus(`STATUS`)"
-                  ></i>
-                </th>
-                <th>
-                  JOIN DT<i
-                    class="ph ph-sort-ascending"
-                    onclick="handleSortingJoin(`JOINDT`)"
-                  ></i>
-                </th>
-                <th>...</th>
-              </tr>
-            </thead>
-            <tbody id="employee-table">
-              <!-- logic in script file-->
-            </tbody>
-          </table>
+              <thead>
+                <tr>
+                  <th>
+                    <input
+                      type="checkbox"
+                      id="inp-check-box"
+                      onclick="handleCheckBox(this)"
+                    />
+                  </th>
+                  <th>
+                    USER
+                    <i
+                      class="ph ph-sort-ascending"
+                      onclick="handleSortingUser(`USER`)"
+                      id="sort-btn"
+                    ></i>
+                  </th>
+                  <th>
+                    LOCATION<i
+                      class="ph ph-sort-ascending"
+                      onclick="handleSortingLoc(`LOCATION`)"
+                    ></i>
+                  </th>
+                  <th>
+                    DEPARTMENT<i
+                      class="ph ph-sort-ascending"
+                      onclick="handleSortingDep(`DEPARTMENT`)"
+                    ></i>
+                  </th>
+                  <th>
+                    ROLE<i
+                      class="ph ph-sort-ascending"
+                      onclick="handleSortingRole(`ROLE`)"
+                    ></i>
+                  </th>
+                  <th>
+                    EMP NO<i
+                      class="ph ph-sort-ascending"
+                      onclick="handleSortingEmp(`EMPNO`)"
+                    ></i>
+                  </th>
+                  <th>
+                    STATUS<i
+                      class="ph ph-sort-ascending"
+                      onclick="handleSortingStatus(`STATUS`)"
+                    ></i>
+                  </th>
+                  <th>
+                    JOIN DT<i
+                      class="ph ph-sort-ascending"
+                      onclick="handleSortingJoin(`JOINDT`)"
+                    ></i>
+                  </th>
+                  <th>...</th>
+                </tr>
+              </thead>
+              <tbody id="employee-table">
+                <!-- logic in script file-->
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
     </main>
+    <div id="new-user" class="hide-new-user">
+      <label for="">User : <input type="text" id="add" required /> </label>
 
-    <script type="module" src="./script.js"></script>
+      <label for=""
+        >Location : <input type="text" id="add-loc" required
+      /></label>
+
+      <label for=""
+        >Department : <input type="text" id="add-dept" required
+      /></label>
+
+      <label for="">Role : <input type="text" id="add-role" required /></label>
+
+      <label for="">Emp No.: <input type="text" id="add-id" required /></label>
+
+      <label for=""
+        >Status :<input type="checkbox" value="Active" />Active
+        <input type="checkbox" value="InActive" />InActive
+      </label>
+
+      <label for=""
+        >Join Date : <input type="date" id="add-date" required
+      /></label>
+
+      <button class="btn-submit" id="btn-submit-data">Submit</button>
+      <button onclick="handleCloseAddUser()">Close</button>
+    </div>
+    <script src="./script.js"></script>
   </body>
 </html>

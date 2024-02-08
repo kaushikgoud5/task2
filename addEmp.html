@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="d-flex">
+      <section class="side-nav" id="side-nav-bar">
+        <div>
+          <div class="d-flex jc-space-btwn">
+            <div class="logo-tezo">
+              <img src="./assets/TezoLogo.svg" alt="tezo logo-tezo" />
+            </div>
+            <div class="close-button">
+              <img
+                id="close-btn"
+                src="./assets/handle.png"
+                alt=""
+                onclick="hideNavBar()"
+              />
+            </div>
+          </div>
+
+          <div class="all mt-20">
+            <span>ALL</span>
+            <div class="mt-20">
+              <div class="side-nav-items">
+                <div>
+                  <img
+                    class="d-flex"
+                    src="./assets/Horizontal nav/Dashboard.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="nav-item-name">
+                  <span>Dashboard</span>
+                </div>
+              </div>
+              <div class="side-nav-items bg-light-red-theme side-red">
+                <div>
+                  <img
+                    class="d-flex"
+                    src="./assets/Horizontal nav/Employees.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="nav-item-name">
+                  <span>Employees</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="role-user mt-20">
+            <span>ROLE / USER MANAGEMENT</span>
+            <div class="mt-20">
+              <a href="./roles.html" class="td-none">
+                <div class="side-nav-items">
+                  <div>
+                    <img
+                      class="d-flex"
+                      src="./assets/Horizontal nav/Roles.svg"
+                      alt=""
+                    />
+                  </div>
+                  <div class="nav-item-name">
+                    <span>Roles</span>
+                  </div>
+                  <div class="arrow-right" id="arrow-right">
+                    <i
+                      class="ph-bold ph-caret-right"
+                      onclick="showDropDownEmployees()"
+                    ></i>
+                  </div>
+                </div>
+              </a>
+              <div class="side-nav-items">
+                <div>
+                  <img
+                    class="d-flex"
+                    src="./assets/Horizontal nav/assign user.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="nav-item-name">
+                  <span>Access rights</span>
+                </div>
+                <div class="arrow-right">
+                  <i class="ph-bold ph-caret-right"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="install-update">
+          <p class="new-update">Install new update 2.3.1A</p>
+          <p class="allow-launch">
+            Allow to launch the new update for the AD application
+          </p>
+          <div class="accept-reject-btns d-flex">
+            <button class="btn-dismiss">Dismiss</button>
+            <button class="btn-accept">Accept</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="vertical-page">
+        <div class="vertical-nav">
+          <div class="top-search-bar">
+            <div class="search-box">
+              <input
+                type="search"
+                placeholder="Search"
+                onkeypress="handleSearchBox()"
+                id="search-input"
+              />
+            </div>
+            <div class="icons d-flex">
+              <div class="search-icons">
+                <img src="./assets/IconButton.png" alt="" />
+                <img src="./assets/icon1.png" alt="" />
+                <img src="./assets/icon2.png" alt="" />
+                <img src="./assets/icon3.png" alt="" />
+                <img
+                  class="img-user-navbar"
+                  src="./assets/user-table.jpg"
+                  alt=""
+                />
+              </div>
+              <div class="user-profile">
+                <span class="john">John Abraham</span>
+                <br />
+                <span class="admin">Admin</span>
+              </div>
+              <div class="search-drop-down">
+                <i class="ph-bold ph-caret-down"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="emp-inp-form">
+          <form action="">
+            <h4>Add Employee</h4>
+            <div class="d-flex">
+              <div class="inp-form-profile">
+                <input type="image" name="" />
+              </div>
+              <div class="inp-form-info">
+                <h5>Personal Information</h5>
+                <div class="inp-form-row-1">
+                  <label for="" class="d-block">Emp No</label>
+                  <input
+                    class="d-block"
+                    type="text"
+                    name=""
+                    id=""
+                    placeholder="Text"
+                  />
+                </div>
+
+                <div class="inp-form-rows inp-form-row-1">
+                  <div class="col-1">
+                    <label for="">First Name</label><br />
+                    <input type="text" name="fname" id="fname" />
+                  </div>
+                  <div class="col-2">
+                    <label for="">Last Name</label><br />
+                    <input type="text" name="lname" id="lname" />
+                  </div>
+                  <div class="col-3">
+                    <label for="">Date of Birth</label><br />
+                    <input type="date" name="dob" id="dob" />
+                  </div>
+                </div>
+                <div class="inp-form-rows inp-form-row-1">
+                  <div class="col-1">
+                    <label for="">Email Id</label><br />
+                    <input type="email" name="email" id="email" />
+                  </div>
+                  <div class="col-2">
+                    <label for="">Mobile Nummber</label><br />
+                    <input type="number" name="number" id="number" />
+                  </div>
+                </div>
+                <h5>Employement Information</h5>
+                <div class="inp-form-rows inp-form-row-2">
+                  <div class="col-1">
+                    <label for="">Joining Date</label><br />
+                    <input
+                      type=""
+                      name="jdate"
+                      id="jdate"
+                      placeholder="12/08/2023"
+                    />
+                  </div>
+                  <div class="col-2">
+                    <label for="">Location</label><br />
+                    <select name="location" id="location">
+                      <option value="">Hyderabad</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="inp-form-rows inp-form-row-2">
+                  <div class="col-1">
+                    <label for="">Job Title</label><br />
+                    <select name="job-title" id="job-title">
+                      <option value="">UX Designer</option>
+                    </select>
+                  </div>
+                  <div class="col-2">
+                    <label for="">Department</label><br />
+                    <select name="dept" id="dept-inp-form">
+                      <option value="">UI/UX</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="inp-form-rows inp-form-row-2">
+                  <div class="col-1">
+                    <label for="">Assign Manager</label><br />
+                    <select name="assign" id="assign-job">
+                      <option value="" disabled>Search</option>
+                    </select>
+                  </div>
+                  <div class="col-2">
+                    <label for="">Assign Project</label><br />
+                    <select name="assign-proj" id="assign-inp-proj">
+                      <option value="">Search</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="inp-form-btns mt-20">
+                  <button class="btn-dismiss">Cancel</button>
+                  <button class="btn-accept">Add Employee</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

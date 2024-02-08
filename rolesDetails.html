@@ -14,63 +14,77 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
   </head>
   <body>
-    <main>
+    <main class="d-flex">
       <section class="side-nav" id="side-nav-bar">
         <div>
-          <img src="./assets/TezoLogo.svg" alt="tezo logo-tezo" />
+          <div class="d-flex jc-space-btwn">
+            <div class="logo-tezo">
+               <img src="./assets/TezoLogo.svg" alt="tezo logo-tezo" />
+            </div>
+              <div class="close-button">
+                <img
+                  id="close-btn"
+                  src="./assets/handle.png"
+                  alt=""
+                  onclick="hideNavBar()"
+                />
+              </div>
+          </div>
+         
           <div class="all mt-20">
             <span>ALL</span>
             <div class="mt-20">
-               <div class="dashboard">
-              <div class="img-dashboard">
-                <img src="./assets/Horizontal nav/Dashboard.svg" alt="" />
+              <div class="side-nav-items">
+                <div>
+                  <img class="d-flex" src="./assets/Horizontal nav/Dashboard.svg" alt="" />
+                </div>
+                <div class="nav-item-name">
+                  <span>Dashboard</span>
+                </div>
               </div>
-              <div class="dash-head">
-                <span>Dashboard</span>
+              <div class="side-nav-items  bg-light-red-theme side-red" >
+                <div>
+                  <img class="d-flex" src="./assets/Horizontal nav/Employees.svg" alt="" />
+                </div>
+                <div class="nav-item-name">
+                  <span>Employees</span>
+                </div>
               </div>
             </div>
-            <div class="dashboard">
-              <div class="img-dashboard">
-                <img src="./assets/Horizontal nav/Employees-reoles.svg" alt="" />
-              </div>
-              <div class="dash-head">
-                <span>Employees</span>
-              </div>
-            </div>
-            </div>
-           
           </div>
 
           <div class="role-user mt-20">
             <span>ROLE / USER MANAGEMENT</span>
-            <div class="mt-20">
-               <div class="emp-dashboard">
-              <div class="img-dashboard">
-                <img src="./assets/Horizontal nav/Roles-red.svg" alt="" />
-              </div>
-              <div class="dash-head">
-                <span>Roles</span>
-              </div>
-              <div class="arrow-right" id="arrow-right">
-                <i
-                  class="ph-bold ph-caret-right"
-                  onclick="showDropDownEmployees()"
-                ></i>
+            <div class="mt-20"> 
+              <a href="./roles.html" class="td-none">
+              <div class="side-nav-items">
+               
+                <div>
+                  <img class="d-flex" src="./assets/Horizontal nav/Roles.svg" alt="" />
+                </div>
+                <div class="nav-item-name">
+                  <span>Roles</span>
+                </div>
+                <div class="arrow-right" id="arrow-right">
+                  <i
+                    class="ph-bold ph-caret-right"
+                    onclick="showDropDownEmployees()"
+                  ></i>
+                </div>
+             
+              </div> </a> 
+              <div class="side-nav-items">
+                <div>
+                  <img class="d-flex" src="./assets/Horizontal nav/assign user.svg" alt="" />
+                </div>
+                <div class="nav-item-name">
+                  <span>Access rights</span>
+                </div>
+                <div class="arrow-right">
+                  <i class="ph-bold ph-caret-right"></i>
+                </div>
               </div>
             </div>
-            <div class="access-rights">
-              <div class="img-dashboard">
-                <img src="./assets/Horizontal nav/assign user.svg" alt="" />
-              </div>
-              <div class="dash-head">
-                <span>Access rights</span>
-              </div>
-              <div class="arrow-right">
-                <i class="ph-bold ph-caret-right"></i>
-              </div>
-            </div>
-            </div>
-           
           </div>
         </div>
 
@@ -79,7 +93,7 @@
           <p class="allow-launch">
             Allow to launch the new update for the AD application
           </p>
-          <div class="accept-reject-btns">
+          <div class="accept-reject-btns d-flex">
             <button class="btn-dismiss">Dismiss</button>
             <button class="btn-accept">Accept</button>
           </div>
@@ -87,19 +101,12 @@
       </section>
       <section class="vertical-page">
         <div class="vertical-nav">
-          <div class="close-button">
-            <img
-              id="close-btn"
-              src="./assets/handle.png"
-              alt=""
-              onclick="hideNavBar()"
-            />
-          </div>
+        
           <div class="top-search-bar">
             <div class="search-box">
               <input type="search" placeholder="Search" size="70" />
             </div>
-            <div class="icons">
+            <div class="icons d-flex">
               <div class="search-icons">
                 <img src="./assets/IconButton.png" alt="" />
                 <img src="./assets/icon1.png" alt="" />
@@ -122,13 +129,17 @@
             </div>
           </div>
         </div>
-        <div class="breadcrumb-addEmployee">
-          <nav class="nav-breadcrumb">
+        <div class="breadcrumb-addEmployee mt-20">
+          <div>
+            <nav class="nav-breadcrumb">
             <ul>
               <li><a href="#">Roles</a></li>
               <li><a href="./index.html">Employees</a></li>
             </ul>
           </nav>
+           <span class="breadcrumb-down-desc">All the roles are configured here</span>
+          </div>
+          
           <button class="btn-add-emp">
             <div>
               <i class="ph-bold ph-plus"></i>
@@ -136,7 +147,7 @@
             <span> ADD EMPLOYEE </span>
           </button>
         </div>
-        <span>All the roles are configured here</span>
+       
         <div class="role-description">
           <h4>Role Description</h4>
           <p>
