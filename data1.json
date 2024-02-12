@@ -1,6 +1,6 @@
 [{
     "USER": "etrevain0",
-    "LOCATION": "Jiachuan",
+    "LOCATION": "Hyderabad",
     "DEPARTMENT": "Sales",
     "ROLE": "Construction Manager",
     "EMPNO": "01HNYVWWWH6Z4M4P914RNPBM7A",
@@ -8,7 +8,7 @@
     "JOINDT": "8/14/2023"
   }, {
     "USER": "msparham1",
-    "LOCATION": "Odzi",
+    "LOCATION": "Chennai",
     "DEPARTMENT": "Marketing",
     "ROLE": "Electrician",
     "EMPNO": "01HNYVWWWMVE6CJJ7252JG3E9X",
@@ -16,7 +16,7 @@
     "JOINDT": "11/28/2023"
   }, {
     "USER": "overegan2",
-    "LOCATION": "Severnyy",
+    "LOCATION": "Pune",
     "DEPARTMENT": "Business Development",
     "ROLE": "Construction Manager",
     "EMPNO": "01HNYVWWWP7BMYKYVASRG461EE",

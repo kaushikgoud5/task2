@@ -9,13 +9,14 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
       rel="stylesheet"
     />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
   </head>
   <body>
     <main class="d-flex">
       <section class="side-nav" id="side-nav-bar">
         <div>
           <div class="d-flex jc-space-btwn">
-            <div class="logo-tezo">
+            <div class="logo-tezo" id="nav-hide-logo">
               <img src="./assets/TezoLogo.svg" alt="tezo logo-tezo" />
             </div>
             <div class="close-button">
@@ -29,7 +30,7 @@
           </div>
 
           <div class="all mt-20">
-            <span>ALL</span>
+            <span class="nav-text-vh">ALL</span>
             <div class="mt-20">
               <div class="side-nav-items">
                 <div>
@@ -40,7 +41,7 @@
                   />
                 </div>
                 <div class="nav-item-name">
-                  <span>Dashboard</span>
+                  <span class="nav-text">Dashboard</span>
                 </div>
               </div>
               <div class="side-nav-items bg-light-red-theme side-red">
@@ -52,14 +53,14 @@
                   />
                 </div>
                 <div class="nav-item-name">
-                  <span>Employees</span>
+                  <span class="nav-text">Employees</span>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="role-user mt-20">
-            <span>ROLE / USER MANAGEMENT</span>
+            <span class="nav-text-vh">ROLE / USER MANAGEMENT</span>
             <div class="mt-20">
               <a href="./roles.html" class="td-none">
                 <div class="side-nav-items">
@@ -71,7 +72,7 @@
                     />
                   </div>
                   <div class="nav-item-name">
-                    <span>Roles</span>
+                    <span class="nav-text">Roles</span>
                   </div>
                   <div class="arrow-right" id="arrow-right">
                     <i
@@ -90,7 +91,7 @@
                   />
                 </div>
                 <div class="nav-item-name">
-                  <span>Access rights</span>
+                  <span class="nav-text">Access rights</span>
                 </div>
                 <div class="arrow-right">
                   <i class="ph-bold ph-caret-right"></i>
@@ -100,7 +101,7 @@
           </div>
         </div>
 
-        <div class="install-update">
+        <div class="install-update" id="hide-install-box">
           <p class="new-update">Install new update 2.3.1A</p>
           <p class="allow-launch">
             Allow to launch the new update for the AD application
@@ -111,7 +112,6 @@
           </div>
         </div>
       </section>
-
       <section class="vertical-page">
         <div class="vertical-nav">
           <div class="top-search-bar">
@@ -147,11 +147,27 @@
           </div>
         </div>
         <div class="emp-inp-form">
-          <form action="">
+          <form action="" name="form-data">
             <h4>Add Employee</h4>
-            <div class="d-flex">
+            <div class="d-flex g-3" id="inp-form">
               <div class="inp-form-profile">
-                <input type="image" name="" />
+                <img src="./assets/user-image.png" alt="" id="user-img" />
+                <label for="upload-img" class="d-flex" id="edit">Edit</label>
+                <button
+                  class="btn-accept btn-emp"
+                  id="btn-upload"
+                  onclick="handleAddEmp()"
+                >
+                  <label for="upload-img" class="p-0"
+                    >Upload Profile Picture</label
+                  >
+                </button>
+                <input
+                  type="file"
+                  name="upload-image"
+                  id="upload-img"
+                  required
+                />
               </div>
               <div class="inp-form-info">
                 <h5>Personal Information</h5>
@@ -160,20 +176,45 @@
                   <input
                     class="d-block"
                     type="text"
-                    name=""
-                    id=""
+                    name="emp-no"
+                    id="emp-no"
                     placeholder="Text"
+                    required
                   />
+                  <p class="m-0 validation-msg d-none" id="validate-msg-empno">
+                    <span><i class="ph-fill ph-warning-diamond"></i></span> This
+                    field is required
+                  </p>
                 </div>
 
                 <div class="inp-form-rows inp-form-row-1">
                   <div class="col-1">
                     <label for="">First Name</label><br />
-                    <input type="text" name="fname" id="fname" />
+                    <input
+                      type="text"
+                      name="fname"
+                      id="fname"
+                      placeholder="Text"
+                      required
+                    />
+                    <p class="m-0 validation-msg d-none" id="validate-msg-fname">
+                      <span><i class="ph-fill ph-warning-diamond"></i></span>
+                      This field is required
+                    </p>
                   </div>
                   <div class="col-2">
                     <label for="">Last Name</label><br />
-                    <input type="text" name="lname" id="lname" />
+                    <input
+                      type="text"
+                      name="lname"
+                      id="lname"
+                      placeholder="Text"
+                      required
+                    />
+                    <p class="m-0 validation-msg d-none" id="validate-msg-lname">
+                      <span><i class="ph-fill ph-warning-diamond"></i></span>
+                      This field is required
+                    </p>
                   </div>
                   <div class="col-3">
                     <label for="">Date of Birth</label><br />
@@ -183,11 +224,30 @@
                 <div class="inp-form-rows inp-form-row-1">
                   <div class="col-1">
                     <label for="">Email Id</label><br />
-                    <input type="email" name="email" id="email" />
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      placeholder="Joe.j@technovert.com"
+                      required
+                    />
+                    <p class="m-0 validation-msg d-none" id="validate-msg-email">
+                      <span><i class="ph-fill ph-warning-diamond"></i></span>
+                      This field is required
+                    </p>
                   </div>
                   <div class="col-2">
-                    <label for="">Mobile Nummber</label><br />
-                    <input type="number" name="number" id="number" />
+                    <label for="">Mobile Number</label><br />
+                    <input
+                      type="number"
+                      name="number"
+                      id="mobile"
+                      placeholder="0000000000"
+                    />
+                    <p class="m-0 validation-msg d-none" id="validate-msg-mobile">
+                      <span><i class="ph-fill ph-warning-diamond"></i></span>
+                      This field is required
+                    </p>
                   </div>
                 </div>
                 <h5>Employement Information</h5>
@@ -200,11 +260,18 @@
                       id="jdate"
                       placeholder="12/08/2023"
                     />
+                    <p class="m-0 validation-msg d-none" id="validate-msg-jdate">
+                      <span><i class="ph-fill ph-warning-diamond"></i></span>
+                      This field is required
+                    </p>
                   </div>
                   <div class="col-2">
                     <label for="">Location</label><br />
                     <select name="location" id="location">
-                      <option value="">Hyderabad</option>
+                      <option value="" id="">Hyderabad</option>
+                      <option value="">Delhi</option>
+                      <option value="">Mumbai</option>
+                      <option value="">Chennai</option>
                     </select>
                   </div>
                 </div>
@@ -213,12 +280,18 @@
                     <label for="">Job Title</label><br />
                     <select name="job-title" id="job-title">
                       <option value="">UX Designer</option>
+                      <option value="">SDE1</option>
+                      <option value="">SDE2</option>
+                      <option value="">SDE3</option>
                     </select>
                   </div>
                   <div class="col-2">
                     <label for="">Department</label><br />
                     <select name="dept" id="dept-inp-form">
                       <option value="">UI/UX</option>
+                      <option value="">BI</option>
+                      <option value="">PE</option>
+                      <option value="">Testing</option>
                     </select>
                   </div>
                 </div>
@@ -226,7 +299,7 @@
                   <div class="col-1">
                     <label for="">Assign Manager</label><br />
                     <select name="assign" id="assign-job">
-                      <option value="" disabled>Search</option>
+                      <option value="">Search</option>
                     </select>
                   </div>
                   <div class="col-2">
@@ -238,7 +311,9 @@
                 </div>
                 <div class="inp-form-btns mt-20">
                   <button class="btn-dismiss">Cancel</button>
-                  <button class="btn-accept">Add Employee</button>
+                  <button class="btn-accept" onclick="handleAddEmp()">
+                    Add Employee
+                  </button>
                 </div>
               </div>
             </div>
@@ -247,5 +322,122 @@
       </section>
     </main>
     <script src="script.js"></script>
+    <script>
+      let inpFile = document.getElementById("upload-img");
+      let profilePic = document.getElementById("user-img");
+      let uploadbtn = document.getElementById("btn-upload");
+      inpFile.onchange = () => {
+        profilePic.src = URL.createObjectURL(inpFile.files[0]);
+      };
+      uploadbtn.onclick = () => {
+        profilePic.src = URL.createObjectURL(inpFile.files[0]);
+      };
+      let emptyfield = false;
+      function checkAllFields() {
+        let fields = [
+          "emp-no",
+          "fname",
+          "lname",
+          "email",
+          "jdate",
+        ];
+        for (let i = 0; i < fields.length; i++) {
+          if (document.forms["form-data"][fields[i]].value === "") {
+            emptyfield = true;
+          }
+        }
+        if (emptyfield) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+
+      handleAddEmp = () => {
+        if (checkAllFields()) {
+          let e = document.getElementById("dept-inp-form");
+          let DEPARTMENT = e.options[e.selectedIndex].text;
+
+          let l = document.getElementById("location");
+          let LOCATION = l.options[l.selectedIndex].text;
+
+          let j = document.getElementById("job-title");
+          let ROLE = j.options[j.selectedIndex].text;
+
+          let a = document.getElementById("assign-job");
+          let Assign_Job = a.options[a.selectedIndex].text;
+
+          let i = document.getElementById("assign-inp-proj");
+          let Assign_Project = i.options[i.selectedIndex].text;
+
+          let USER =
+            document.getElementById("fname").value +
+            document.getElementById("lname").value;
+          let EMPNO = document.getElementById("emp-no").value;
+          let dob = document.getElementById("dob").value;
+          let email = document.getElementById("email").value;
+          let mobile = document.getElementById("mobile").value;
+          let JOINDT = document.getElementById("jdate").value;
+
+          let obj = [
+            {
+              USER,
+              EMPNO,
+              dob,
+              mobile,
+              DEPARTMENT,
+              LOCATION,
+              JOINDT,
+              ROLE,
+              Assign_Job,
+              Assign_Project,
+            },
+          ];
+          let strObj = JSON.stringify(obj);
+          let prevData = localStorage.getItem("addData");
+          if (prevData) {
+            prevData = JSON.parse(prevData);
+            obj = obj.concat(prevData);
+            obj = JSON.stringify(obj);
+            localStorage.setItem("addData", obj);
+          } else {
+            localStorage.setItem("addData", strObj);
+          }
+          window.location.href = "./index.html";
+        } else {
+          let a = document.getElementsByClassName("validation-msg");
+
+            if(document.getElementById("fname").value===""){
+              document.getElementById("validate-msg-fname").classList.remove("d-none")
+            }
+            if(document.getElementById("lname").value===""){ document.getElementById("validate-msg-lname").classList.remove("d-none")}
+            if(document.getElementById("emp-no").value===""){
+              document.getElementById("validate-msg-empno").classList.remove("d-none")
+            };
+            if(document.getElementById("email").value===""){
+              document.getElementById("validate-msg-email").classList.remove("d-none")
+            };
+            if(document.getElementById("mobile").value===""){
+              document.getElementById("validate-msg-mobile").classList.remove("d-none")
+            };
+            if(document.getElementById("jdate").value===""){
+              document.getElementById("validate-msg-jdate").classList.remove("d-none")
+            };
+
+          document.getElementById("edit").className -= "d-flex";
+          document.getElementById("edit").className += " show";
+          document.getElementById("btn-upload").className -= " btn-emp";
+          document.getElementById("btn-upload").className +=
+            " btn-accept  h-3  ";
+          document.getElementById("inp-form").className -= "d-flex";
+          let y = document.getElementsByClassName("inp-form-profile");
+          y[0].className += " d-flex  g-05 align-items-center ";
+          let x = document.getElementsByClassName("inp-form-row-1");
+          for (let i = 0; i < x.length; i++) {
+            x[i].className += " inp-validation";
+          }
+        }
+      };
+    </script>
   </body>
 </html>

@@ -18,67 +18,82 @@
       <section class="side-nav" id="side-nav-bar">
         <div>
           <div class="d-flex jc-space-btwn">
-            <div class="logo-tezo">
-               <img src="./assets/TezoLogo.svg" alt="tezo logo-tezo" />
+            <div class="logo-tezo " id="nav-hide-logo">
+              <img src="./assets/TezoLogo.svg" alt="tezo logo-tezo"  />
             </div>
-              <div class="close-button">
-                <img
-                  id="close-btn"
-                  src="./assets/handle.png"
-                  alt=""
-                  onclick="hideNavBar()"
-                />
-              </div>
+            <div class="close-button">
+              <img
+                id="close-btn"
+                src="./assets/handle.png"
+                alt=""
+                onclick="hideNavBar()"
+              />
+            </div>
           </div>
-         
+
           <div class="all mt-20">
-            <span>ALL</span>
+            <span class="nav-text-vh">ALL</span>
             <div class="mt-20">
               <div class="side-nav-items">
                 <div>
-                  <img class="d-flex" src="./assets/Horizontal nav/Dashboard.svg" alt="" />
+                  <img
+                    class="d-flex"
+                    src="./assets/Horizontal nav/Dashboard.svg"
+                    alt=""
+                  />
                 </div>
                 <div class="nav-item-name">
-                  <span>Dashboard</span>
+                  <span class="nav-text">Dashboard</span>
                 </div>
               </div>
-              <div class="side-nav-items  bg-light-red-theme side-red" >
+              <div class="side-nav-items bg-light-red-theme side-red">
                 <div>
-                  <img class="d-flex" src="./assets/Horizontal nav/Employees.svg" alt="" />
+                  <img
+                    class="d-flex"
+                    src="./assets/Horizontal nav/Employees.svg"
+                    alt=""
+                  />
                 </div>
                 <div class="nav-item-name">
-                  <span>Employees</span>
+                  <span  class="nav-text" >Employees</span>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="role-user mt-20">
-            <span>ROLE / USER MANAGEMENT</span>
-            <div class="mt-20"> 
+            <span  class="nav-text-vh">ROLE / USER MANAGEMENT</span>
+            <div class="mt-20">
               <a href="./roles.html" class="td-none">
+                <div class="side-nav-items">
+                  <div>
+                    <img
+                      class="d-flex"
+                      src="./assets/Horizontal nav/Roles.svg"
+                      alt=""
+                    />
+                  </div>
+                  <div class="nav-item-name">
+                    <span  class="nav-text">Roles</span>
+                  </div>
+                  <div class="arrow-right" id="arrow-right">
+                    <i
+                      class="ph-bold ph-caret-right"
+                      onclick="showDropDownEmployees()"
+                    ></i>
+                  </div>
+                </div>
+              </a>
               <div class="side-nav-items">
-               
                 <div>
-                  <img class="d-flex" src="./assets/Horizontal nav/Roles.svg" alt="" />
+                  <img
+                    class="d-flex"
+                    src="./assets/Horizontal nav/assign user.svg"
+                    alt=""
+                  />
                 </div>
                 <div class="nav-item-name">
-                  <span>Roles</span>
-                </div>
-                <div class="arrow-right" id="arrow-right">
-                  <i
-                    class="ph-bold ph-caret-right"
-                    onclick="showDropDownEmployees()"
-                  ></i>
-                </div>
-             
-              </div> </a> 
-              <div class="side-nav-items">
-                <div>
-                  <img class="d-flex" src="./assets/Horizontal nav/assign user.svg" alt="" />
-                </div>
-                <div class="nav-item-name">
-                  <span>Access rights</span>
+                  <span  class="nav-text">Access rights</span>
                 </div>
                 <div class="arrow-right">
                   <i class="ph-bold ph-caret-right"></i>
@@ -88,7 +103,7 @@
           </div>
         </div>
 
-        <div class="install-update">
+        <div class="install-update " id="hide-install-box">
           <p class="new-update">Install new update 2.3.1A</p>
           <p class="allow-launch">
             Allow to launch the new update for the AD application
@@ -102,7 +117,6 @@
 
       <section class="vertical-page">
         <div class="vertical-nav">
-          
           <div class="top-search-bar">
             <div class="search-box">
               <input
@@ -154,14 +168,17 @@
               <div>
                 <img src="./assets/Masked Icon.png" alt="" />
               </div>
-              <span>EXPORT</span>
+              <span onclick="tableToCSV()">EXPORT</span>
             </button>
-            <button class="btn-items bg-red">
-              <div>
-                <i class="ph-bold ph-plus"></i>
-              </div>
-              <span onclick="handleAddEmployee()"> ADD EMPLOYEE </span>
-            </button>
+
+            <a href="./addEmp.html" class="td-none">
+              <button class="btn-items bg-red">
+                <div>
+                  <i class="ph-bold ph-plus"></i>
+                </div>
+                <span> ADD EMPLOYEE </span>
+              </button>
+            </a>
           </div>
         </div>
 
@@ -174,11 +191,14 @@
         <div class="filter-row">
           <div class="filter-row-left">
             <span class="filter">Filter</span>
-            <span><i class="ph ph-funnel-simple" style="color: #f44848"></i
-              ></span>
+            <span
+              ><i class="ph ph-funnel-simple" style="color: #f44848"></i
+            ></span>
             <span class="filter-drop-down"
               ><select name="Status" id="">
                 <option value="">Status</option>
+                <option value="">Active</option>
+                <option value="">Inactive</option>
               </select></span
             >
             <span class="filter-drop-down">
@@ -197,7 +217,7 @@
             >
           </div>
           <div class="filter-row-right">
-            <button class=" filter-btns btn-reset">Reset</button>
+            <button class="filter-btns btn-reset">Reset</button>
             <button class="filter-btns btn-apply" onclick="handleFilterApply()">
               Apply
             </button>
@@ -285,33 +305,7 @@
         </div>
       </section>
     </main>
-    <div id="new-user" class="hide-new-user">
-      <label for="">User : <input type="text" id="add" required /> </label>
 
-      <label for=""
-        >Location : <input type="text" id="add-loc" required
-      /></label>
-
-      <label for=""
-        >Department : <input type="text" id="add-dept" required
-      /></label>
-
-      <label for="">Role : <input type="text" id="add-role" required /></label>
-
-      <label for="">Emp No.: <input type="text" id="add-id" required /></label>
-
-      <label for=""
-        >Status :<input type="checkbox" value="Active" />Active
-        <input type="checkbox" value="InActive" />InActive
-      </label>
-
-      <label for=""
-        >Join Date : <input type="date" id="add-date" required
-      /></label>
-
-      <button class="btn-submit" id="btn-submit-data">Submit</button>
-      <button onclick="handleCloseAddUser()">Close</button>
-    </div>
     <script src="./script.js"></script>
   </body>
 </html>
