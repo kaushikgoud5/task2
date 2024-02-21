@@ -12,14 +12,15 @@
       rel="stylesheet"
     />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
   </head>
-  <body>
+  <body onload="EmployeePageLoad()" >
     <main class="d-flex">
       <section class="side-nav" id="side-nav-bar">
         <div>
           <div class="d-flex jc-space-btwn">
-            <div class="logo-tezo " id="nav-hide-logo">
-              <img src="./assets/TezoLogo.svg" alt="tezo logo-tezo"  />
+            <div class="logo-tezo" id="nav-hide-logo">
+              <img src="./assets/TezoLogo.svg" alt="tezo logo-tezo" />
             </div>
             <div class="close-button">
               <img
@@ -55,14 +56,14 @@
                   />
                 </div>
                 <div class="nav-item-name">
-                  <span  class="nav-text" >Employees</span>
+                  <span class="nav-text">Employees</span>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="role-user mt-20">
-            <span  class="nav-text-vh">ROLE / USER MANAGEMENT</span>
+            <span class="nav-text-vh">ROLE / USER MANAGEMENT</span>
             <div class="mt-20">
               <a href="./roles.html" class="td-none">
                 <div class="side-nav-items">
@@ -74,7 +75,7 @@
                     />
                   </div>
                   <div class="nav-item-name">
-                    <span  class="nav-text">Roles</span>
+                    <span class="nav-text">Roles</span>
                   </div>
                   <div class="arrow-right" id="arrow-right">
                     <i
@@ -93,7 +94,7 @@
                   />
                 </div>
                 <div class="nav-item-name">
-                  <span  class="nav-text">Access rights</span>
+                  <span class="nav-text">Access rights</span>
                 </div>
                 <div class="arrow-right">
                   <i class="ph-bold ph-caret-right"></i>
@@ -103,7 +104,7 @@
           </div>
         </div>
 
-        <div class="install-update " id="hide-install-box">
+        <div class="install-update" id="hide-install-box">
           <p class="new-update">Install new update 2.3.1A</p>
           <p class="allow-launch">
             Allow to launch the new update for the AD application
@@ -184,7 +185,7 @@
 
         <div class="alphabets-section">
           <span>
-            <img src="./assets/Vector.png" alt="" />
+            <img src="./assets/Interface/filter-black.svg"  id="filter-icon"  alt="" />
           </span>
           <div class="alphabets" id="demo"></div>
         </div>
@@ -194,31 +195,56 @@
             <span
               ><i class="ph ph-funnel-simple" style="color: #f44848"></i
             ></span>
-            <span class="filter-drop-down"
-              ><select name="Status" id="">
-                <option value="">Status</option>
-                <option value="">Active</option>
-                <option value="">Inactive</option>
-              </select></span
-            >
-            <span class="filter-drop-down">
-              <select
-                name="Department"
-                id="filter-department"
-                onfocus="handleFilterDept()"
-              >
-                <option value="">Department</option>
-              </select>
-            </span>
-            <span class="filter-drop-down"
-              ><select name="" id="filter-loc" onfocus="handleFilterLoc()">
-                <option value="">Location</option>
-              </select></span
-            >
+            <div class="filter-drop-down">
+              <div class="d-flex g-05 jc-space-btwn align-items-center"  onclick="handleStat()">
+                <div class="dept">Status  <span class="checked-number " id="no-of-checks-status"></span></div>
+
+                <div class="dept-drop-down">
+                  <i class="ph ph-caret-down"></i>
+                </div>
+              </div>
+
+              <div id="options-body-status" class="dept-drop d-none"></div>
+            </div>
+            <div class="filter-drop-down">
+              <div class="d-flex g-05 jc-space-btwn align-items-center " onclick="handleDpt()">
+                <div class="dept">Department  <span class="checked-number  " id="no-of-checks-dept"></span> </div>
+
+                <div class="dept-drop-down">
+                  <i class="ph ph-caret-down" ></i>
+                </div>
+              </div>
+
+              <div id="options-body" class="dept-drop d-none">
+
+              </div>
+            </div>
+
+
+            <div class="filter-drop-down">
+              <div class="d-flex g-05 jc-space-btwn align-items-center" onclick="handleLoc()">
+                <div class="dept">Location  <span class="checked-number " id="no-of-checks-loc"></span></div>
+
+                <div class="dept-drop-down">
+                  <i class="ph ph-caret-down" ></i>
+                </div>
+              </div>
+
+              <div id="options-body-loc" class="dept-drop d-none">
+
+
+              </div>
+            </div>
           </div>
           <div class="filter-row-right">
-            <button class="filter-btns btn-reset">Reset</button>
-            <button class="filter-btns btn-apply" onclick="handleFilterApply()">
+            <button class="filter-btns btn-reset" id="btn-reset-filter" onclick="handleFilterReset()">
+              Reset
+            </button>
+            <button
+              class="filter-btns btn-apply"
+              id="btn-filter-apply"
+              onclick="handleFilterApply()"
+            >
               Apply
             </button>
           </div>
@@ -252,47 +278,44 @@
                   </th>
                   <th>
                     USER
-                    <i
+                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="handleSortingUser(`USER`)"
+                    id="sort-btn" alt="">
+                    <!-- <i
                       class="ph ph-sort-ascending"
-                      onclick="handleSortingUser(`USER`)"
-                      id="sort-btn"
-                    ></i>
+                      
+                    ></i> -->
                   </th>
                   <th>
-                    LOCATION<i
-                      class="ph ph-sort-ascending"
-                      onclick="handleSortingLoc(`LOCATION`)"
-                    ></i>
+                    LOCATION
+                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="handleSortingLoc()"
+                    id="sort-btn" alt="">
+
                   </th>
                   <th>
-                    DEPARTMENT<i
-                      class="ph ph-sort-ascending"
-                      onclick="handleSortingDep(`DEPARTMENT`)"
-                    ></i>
+                    
+                    DEPARTMENT<img src="./assets/sort.png" width="10px" class="c-p" onclick="handleSortingDep()"
+                    id="sort-btn" alt="">
                   </th>
                   <th>
-                    ROLE<i
-                      class="ph ph-sort-ascending"
-                      onclick="handleSortingRole(`ROLE`)"
-                    ></i>
+                    ROLE
+                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="handleSortingRole()"
+                    id="sort-btn" alt="">
+
                   </th>
                   <th>
-                    EMP NO<i
-                      class="ph ph-sort-ascending"
-                      onclick="handleSortingEmp(`EMPNO`)"
-                    ></i>
+                    EMP NO<img src="./assets/sort.png" width="10px" class="c-p" onclick="handleSortingEmp()"
+                    id="sort-btn" alt="">
+                   
                   </th>
                   <th>
-                    STATUS<i
-                      class="ph ph-sort-ascending"
-                      onclick="handleSortingStatus(`STATUS`)"
-                    ></i>
+                    STATUS
+                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="handleSortingStatus()"
+                    id="sort-btn" alt="">
                   </th>
                   <th>
-                    JOIN DT<i
-                      class="ph ph-sort-ascending"
-                      onclick="handleSortingJoin(`JOINDT`)"
-                    ></i>
+                    JOIN DT
+                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="handleSortingJoin()"
+                    id="sort-btn" alt="">
                   </th>
                   <th>...</th>
                 </tr>

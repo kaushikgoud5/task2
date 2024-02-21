@@ -1,8 +1,9 @@
 dataEmployess = [];
 async function fetchData(data) {
   let response = await (await fetch("./data1.json")).json();
-  dataEmployess = response;
+
   response = response.concat(data);
+  dataEmployess = response;
   tableDisplay(response);
 }
 
@@ -15,50 +16,51 @@ function checkPreviousData() {
     return [];
   }
 }
+async function EmployeePageLoad() {
+  await fetchData(checkPreviousData());
+  handleFilterLoc();
+  handleFilterDept();
+  handleFilterStatus();
+}
 
-fetchData(checkPreviousData());
 navHidden = true;
 function hideNavBar() {
-
   document.getElementById("side-nav-bar").classList.toggle("hide-navbar");
   document.getElementById("hide-install-box").classList.toggle("hide-install");
   document.getElementById("nav-hide-logo").classList.toggle("trim-logo");
-  // document.getElementById("nav-text").classList.add("hide-text");
   let x = document.getElementsByClassName("nav-text");
   let y = document.getElementsByClassName("nav-text-vh");
-  y[0].classList.add("hide-vh")
-  y[1].classList.add("hide-vh")
+  y[0].classList.add("hide-vh");
+  y[1].classList.add("hide-vh");
   let i;
   if (navHidden) {
-
-    navHidden=false
+    navHidden = false;
     for (i = 0; i < x.length; i++) {
       x[i].className += " hide-text";
     }
-  } 
-  else{
-    y[0].classList.remove("hide-vh")
-    y[1].classList.remove("hide-vh")
-    navHidden=true;
+  } else {
+    y[0].classList.remove("hide-vh");
+    y[1].classList.remove("hide-vh");
+    navHidden = true;
     for (i = 0; i < x.length; i++) {
-     x[i].classList.remove("hide-text")
+      x[i].classList.remove("hide-text");
     }
   }
-
-  // document.getElementsByClassName("nav-text").classList.add("hide-text");
 
   document.getElementById("close-btn").classList.toggle("rotate-arrow");
 }
 function alphabetsDisplay() {
   let alpha = "";
   for (let i = 65; i < 91; i++) {
-    alpha += `<span id=${i} onclick="handleClickFilter(${i})">${String.fromCharCode(
+    alpha += `<span id=${i}  class="activate-icon" onclick="handleClickFilter(${i})">${String.fromCharCode(
       i
     )}</span>`;
   }
   document.getElementById("demo").innerHTML = alpha;
 }
 function tableDisplay(dataEmployess) {
+  let imgData = localStorage.getItem("addData");
+  imgData = JSON.parse(imgData);
   let rows_tr = "";
   dataEmployess.map(function (ele, index) {
     rows_tr += ` <tr id="${index}">
@@ -74,26 +76,35 @@ function tableDisplay(dataEmployess) {
    <td>${ele.LOCATION}</td>
    <td>${ele.DEPARTMENT}</td>
    <td>${ele.ROLE}</td>
-   <td>${ele.EMPNO.slice(0, 5)}</td>
-   <td><span>${ele.STATUS === true ? "Active" : "Inactive"}</span></td>
+   <td>${ele.EMPNO.slice(0, 8)}</td>
+   <td><span id="status-bg">${
+     ele.STATUS === true ? "Active" : "Inactive"
+   }</span></td>
    <td>${ele.JOINDT}</td>
-   <td>...</td>
+   <td class="c-p"  > <span onclick="handleEllipsis(this,${index})">...</span> <div class="d-flex  d-none c-p fs-10 d-flex-col align-items-center ellipsis" id="ellipsis-table-${index}" >
+                                                                <span class="td-none c-p">Add Details</span>
+                                                                <a href="./addEmp.html" class="td-none c-p"> <span>Edit</span></a>
+                                                                <span class="td-none c-p"  onclick="">Delete</span>
+                                                      </div>
+ </td>
    </tr>`;
   });
+
   document.getElementById("employee-table").innerHTML = rows_tr;
 }
 const arr = [];
 
 function handleClickFilter(a) {
   if (document.getElementById(a).classList.contains("active")) {
-    console.log(document.getElementById(a).innerText, "active");
     document.getElementById(a).classList.remove("active");
 
-    filterdArr=arr.filter((i)=>i.USER.toUpperCase().startsWith(document.getElementById(a).innerText))
-    for(let i=0;i<arr.length;i++){
-      for(let j=0;j<filterdArr.length;j++){
-        if(arr[i].USER==filterdArr[j].USER){
-          arr.splice(i,1);
+    filterdArr = arr.filter((i) =>
+      i.USER.toUpperCase().startsWith(document.getElementById(a).innerText)
+    );
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < filterdArr.length; j++) {
+        if (arr[i].USER == filterdArr[j].USER) {
+          arr.splice(i, 1);
         }
       }
     }
@@ -113,6 +124,20 @@ function handleClickFilter(a) {
       document.getElementById(a).classList.toggle("active");
       tableDisplay([...new Set(arr)]);
     }
+  }
+  let active = false;
+  let alphabetsArray = document.getElementsByClassName("activate-icon");
+  for (let i = 0; i < alphabetsArray.length; i++) {
+    if (alphabetsArray[i].classList.contains("active")) {
+      active = true;
+    }
+  }
+  if (active) {
+    document.getElementById("filter-icon").src =
+      "http://127.0.0.1:5500/task-2/assets/Interface/filter.svg";
+  } else {
+    document.getElementById("filter-icon").src =
+      "http://127.0.0.1:5500/task-2/assets/Interface/filter-black.svg";
   }
 }
 
@@ -359,49 +384,73 @@ function handleSortingJoin() {
 
 function handleDelete() {
   let cnt = 0;
-  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  const checkboxes = document.getElementsByClassName("inp-check");
+  console.log(checkboxes)
   for (var x of checkboxes) {
     if (x.classList.contains("checkbox-active")) {
       cnt += 1;
-      let remove_id = x.id.split("-")[1];
-      dataEmployess.splice(remove_id, 1);
     }
   }
-
-  if (allDeleteBtn && confirm("ALL DELETE???")) {
+  if (cnt == dataEmployess.length) {
     dataEmployess = [];
     tableDisplay(dataEmployess);
   } else {
-    if (confirm(`Delete ${cnt} records???`)) {
-      tableDisplay(dataEmployess);
-    }
+    for (var x of checkboxes) {
+      if (x.classList.contains("checkbox-active")) {
+        cnt += 1;
+        let remove_id = x.id.split("-")[1];
+        delete dataEmployess[remove_id];
+      }
+    } 
+    tableDisplay(dataEmployess);
   }
+  document.getElementById("btn-delete-active").classList.remove("btn-active");
+
+ 
 }
+let s = 0;
 let allDeleteBtn = false;
 function handleCheckBox(checkbox) {
-  allDeleteBtn = true;
   if (checkbox.checked == true) {
+    s = dataEmployess.length;
+    allDeleteBtn = true;
     document.getElementById("btn-delete-active").classList.add("btn-active");
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const checkboxes = document.getElementsByClassName("inp-check");
     for (var x of checkboxes) {
+      x.classList.add("checkbox-active");
       x.checked = true;
     }
   } else {
+    s = 0;
+    allDeleteBtn = false;
     document.getElementById("btn-delete-active").classList.remove("btn-active");
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const checkboxes = document.getElementsByClassName("inp-check");
     for (var x of checkboxes) {
+      x.classList.remove("checkbox-active");
       x.checked = false;
     }
   }
-}
-let s = 0;
+} 
+
 function handleSingleCheckbox(e, index) {
+
+if(  document.getElementById(`check-${index}`).classList.contains("checkbox-active")){
+    document.getElementById(`check-${index}`).classList.remove("checkbox-active")
+}
+else{
   document.getElementById(`check-${index}`).classList.add("checkbox-active");
+}
   e.checked ? (s += 1) : (s -= 1);
-  if (s > 0 || allDeleteBtn) {
+  console.log(s);
+  if (s > 0) {
     document.getElementById("btn-delete-active").classList.add("btn-active");
   } else {
     document.getElementById("btn-delete-active").classList.remove("btn-active");
+  }
+  if (s == dataEmployess.length) {
+    document.getElementById("inp-check-box").checked = true;
+  } else {
+    document.getElementById("inp-check-box").checked = false;
   }
 }
 function handleSearchBox() {
@@ -417,115 +466,375 @@ function handleSearchBox() {
 }
 
 function handleFilterDept() {
-  const deptData = [
-    {
-      DEPARTMENT: "Support",
-    },
-    {
-      DEPARTMENT: "Accounting",
-    },
-    {
-      DEPARTMENT: "Business Development",
-    },
-    {
-      DEPARTMENT: "IT",
-    },
-    {
-      DEPARTMENT: "Research and Development",
-    },
-    {
-      DEPARTMENT: "Engineering",
-    },
-    {
-      DEPARTMENT: "Services",
-    },
-  ];
+  let deptData = [];
+  dataEmployess.map((ele) => {
+    deptData.push(ele.DEPARTMENT);
+  });
+  deptData = [...new Set(deptData)];
   let deptDropDown = "";
   deptData.map((d) => {
-    deptDropDown += `<option value="${d.DEPARTMENT}">${d.DEPARTMENT}</option>`;
+    deptDropDown += `
+    <div class="d-flex jc-space-btwn p-3">
+    <div>
+            <span >${d}</span>
+    </div>
+    <div >
+        <input type="checkbox"  class="check-boxes"  onclick="enableFilter(this);getCheckedCountDept(this)"      name="${d}" id="">
+    </div>
+  </div>`;
   });
-  document.getElementById("filter-department").innerHTML = deptDropDown;
-}
 
+  document.getElementById("options-body").innerHTML = deptDropDown;
+}
 function handleFilterLoc() {
   let locDropDown = "";
-  const loc = [
+  let loc = [];
+  dataEmployess.map((ele) => {
+    loc.push(ele.LOCATION);
+  });
+  loc = [...new Set(loc)];
+
+  loc.map((d) => {
+    locDropDown += `<div class="d-flex jc-space-btwn p-3">
+    <div>
+            <span >${d}</span>
+    </div>
+    <div >
+        <input type="checkbox" class="check-boxes-loc" onclick="enableFilter(this);getCheckedCountLoc(this);"   name="${d}" id="">
+    </div>
+  </div>`;
+  });
+  document.getElementById("options-body-loc").innerHTML = locDropDown;
+}
+function handleFilterStatus() {
+  let statusDropDown = "";
+  const statusArray = [
     {
-      location: "Chennai",
+      status: "Active",
     },
     {
-      location: "Hyderabad",
-    },
-    {
-      location: "Delhi",
-    },
-    {
-      location: "Mumbai",
-    },
-    {
-      location: "Pune",
-    },
-    {
-      location: "Kashmir",
-    },
-    {
-      location: "Kerala",
+      status: "Inactive",
     },
   ];
-  loc.map((d) => {
-    locDropDown += `<option value="${d.location}">${d.location}</option>`;
+  statusArray.map((d) => {
+    statusDropDown += ` <div class="d-flex jc-space-btwn p-3">
+    <div>
+            <span >${d.status}</span>
+    </div>
+    <div >
+        <input type="checkbox" class="check-boxes-status"   onclick="enableFilter(this);getCheckedCountStatus(this);"  onclick=""  name="${d.status}" id="">
+    </div>
+  </div>`;
   });
-  document.getElementById("filter-loc").innerHTML = locDropDown;
+  document.getElementById("options-body-status").innerHTML = statusDropDown;
 }
-const deptArray = [];
-let applyBtn = false;
-const handleFilterApply = () => {
-  applyBtn = true;
-  if (arr.length > 0) {
-    const deptVal = document.getElementById("filter-department").value;
-    const locVal = document.getElementById("filter-loc").value;
-    arr.map((a) => {
-      if (a.DEPARTMENT.match(deptVal) && a.LOCATION.match(locVal)) {
-        deptArray.push(a);
-      }
-    });
+
+let deptChecked = false;
+let locChecked = false;
+let statusChecked = false;
+function handleLoc() {
+  document.getElementById("options-body-loc").classList.toggle("d-none");
+  if (!document.getElementById("options-body").classList.contains("d-none")) {
+    document.getElementById("options-body").classList.toggle("d-none");
+  }
+  if (
+    !document.getElementById("options-body-status").classList.contains("d-none")
+  ) {
+    document.getElementById("options-body-status").classList.toggle("d-none");
+  }
+}
+function handleDpt() {
+  document.getElementById("options-body").classList.toggle("d-none");
+  if (
+    !document.getElementById("options-body-status").classList.contains("d-none")
+  ) {
+    document.getElementById("options-body-status").classList.toggle("d-none");
+  }
+  if (
+    !document.getElementById("options-body-loc").classList.contains("d-none")
+  ) {
+    document.getElementById("options-body-loc").classList.toggle("d-none");
+  }
+}
+function handleStat() {
+  document.getElementById("options-body-status").classList.toggle("d-none");
+  if (
+    !document.getElementById("options-body-loc").classList.contains("d-none")
+  ) {
+    document.getElementById("options-body-loc").classList.toggle("d-none");
+  }
+  if (!document.getElementById("options-body").classList.contains("d-none")) {
+    document.getElementById("options-body").classList.toggle("d-none");
+  }
+}
+
+let value = 0;
+function enableFilter(a) {
+  a.checked ? (value += 1) : (value -= 1);
+  if (value > 0) {
+    document.getElementById("btn-reset-filter").style.opacity = 1;
+    document.getElementById("btn-filter-apply").style.backgroundColor = "red";
   } else {
-    const deptVal = document.getElementById("filter-department").value;
-    const locVal = document.getElementById("filter-loc").value;
-    dataEmployess.map((a) => {
-      if (a.DEPARTMENT.match(deptVal) && a.LOCATION.match(locVal)) {
-        deptArray.push(a);
-      }
-    });
+    document.getElementById("btn-filter-apply").style.backgroundColor =
+      "#f89191";
+    document.getElementById("btn-reset-filter").style.opacity = 0.6;
+  }
+}
+
+let locCount = 0;
+function getCheckedCountLoc(ele) {
+  ele.checked ? (locCount += 1) : (locCount -= 1);
+  document.getElementById("no-of-checks-loc").innerText =
+    locCount === 0 ? "" : `(${locCount})`;
+}
+let deptCount = 0;
+function getCheckedCountDept(ele) {
+  ele.checked ? (deptCount += 1) : (deptCount -= 1);
+  document.getElementById("no-of-checks-dept").innerText =
+    deptCount === 0 ? "" : `(${deptCount})`;
+}
+let statusCount = 0;
+function getCheckedCountStatus(ele) {
+  ele.checked ? (statusCount += 1) : (statusCount -= 1);
+  document.getElementById("no-of-checks-status").innerText =
+    statusCount === 0 ? "" : `(${statusCount})`;
+}
+
+const deptArray = [];
+const handleFilterApply = () => {
+  if (
+    !document.getElementById("options-body-loc").classList.contains("d-none")
+  ) {
+    document.getElementById("options-body-loc").classList.toggle("d-none");
+  }
+  if (!document.getElementById("options-body").classList.contains("d-none")) {
+    document.getElementById("options-body").classList.toggle("d-none");
+  }
+  if (
+    !document.getElementById("options-body-status").classList.contains("d-none")
+  ) {
+    document.getElementById("options-body-status").classList.toggle("d-none");
   }
 
-  tableDisplay(deptArray);
+  let selectedDept = [];
+  let checkboxArray = document.getElementsByClassName("check-boxes");
+  for (let cb of checkboxArray) {
+    if (cb.checked == true) {
+      selectedDept.push(cb.name);
+    }
+  }
+  let selectedLoc = [];
+  let checkboxLocArray = document.getElementsByClassName("check-boxes-loc");
+  for (let cb of checkboxLocArray) {
+    if (cb.checked == true) {
+      selectedLoc.push(cb.name);
+    }
+  }
+  let checkboxStatusArray =
+    document.getElementsByClassName("check-boxes-status");
+  let selectedStatus = [];
+  if (checkboxStatusArray[0].checked == true) {
+    selectedStatus.push(true);
+  }
+  if (checkboxStatusArray[1].checked == true) {
+    selectedStatus.push(false);
+  }
+
+  if (
+    selectedStatus.length > 0 &&
+    selectedDept.length == 0 &&
+    selectedLoc.length == 0
+  ) {
+    let statusArray = [];
+    dataEmployess.forEach((element) => {
+      if (selectedStatus.includes(element.STATUS)) {
+        statusArray.push(element);
+      }
+    });
+    tableDisplay(statusArray);
+  }
+  if (
+    selectedStatus.length == 0 &&
+    selectedDept.length > 0 &&
+    selectedLoc.length == 0
+  ) {
+    let depArray = [];
+    dataEmployess.forEach((element) => {
+      if (selectedDept.includes(element.DEPARTMENT)) {
+        depArray.push(element);
+      }
+    });
+    console.log(depArray);
+    tableDisplay(depArray);
+  }
+  if (
+    selectedStatus.length == 0 &&
+    selectedDept.length == 0 &&
+    selectedLoc.length > 0
+  ) {
+    let locArray = [];
+    dataEmployess.forEach((element) => {
+      if (selectedLoc.includes(element.LOCATION)) {
+        locArray.push(element);
+      }
+    });
+    tableDisplay(locArray);
+  }
+  if (
+    selectedStatus.length > 0 &&
+    selectedDept.length > 0 &&
+    selectedLoc.length == 0
+  ) {
+    let depArray = [];
+    dataEmployess.forEach((element) => {
+      if (
+        selectedStatus.includes(element.STATUS) &&
+        selectedDept.includes(element.DEPARTMENT)
+      ) {
+        depArray.push(element);
+      }
+    });
+    console.log(depArray);
+    tableDisplay(depArray);
+  }
+  if (
+    selectedStatus.length > 0 &&
+    selectedDept.length == 0 &&
+    selectedLoc.length > 0
+  ) {
+    let depArray = [];
+    dataEmployess.forEach((element) => {
+      if (
+        selectedStatus.includes(element.STATUS) &&
+        selectedLoc.includes(element.LOCATION)
+      ) {
+        depArray.push(element);
+      }
+    });
+    console.log(depArray);
+    tableDisplay(depArray);
+  }
+  if (
+    selectedStatus.length == 0 &&
+    selectedDept.length > 0 &&
+    selectedLoc.length > 0
+  ) {
+    let depArray = [];
+    dataEmployess.forEach((element) => {
+      if (
+        selectedLoc.includes(element.LOCATION) &&
+        selectedDept.includes(element.DEPARTMENT)
+      ) {
+        depArray.push(element);
+      }
+    });
+    console.log(depArray);
+    tableDisplay(depArray);
+  } else if (
+    selectedStatus.length > 0 &&
+    selectedDept.length > 0 &&
+    selectedLoc.length > 0
+  ) {
+    let filteredArray = [];
+    dataEmployess.forEach((element) => {
+      if (
+        selectedStatus.includes(element.STATUS) &&
+        selectedDept.includes(element.DEPARTMENT) &&
+        selectedLoc.includes(element.LOCATION)
+      ) {
+        filteredArray.push(element);
+      }
+    });
+    tableDisplay(filteredArray);
+  }
 };
 
-const tableToCSV=()=>{
-  let csvData=[];
-  let rows=document.getElementsByTagName('tr');
-  for(let i=0;i<rows.length;i++){
-    let cols=document.querySelectorAll('td,th')
-    let csvRow=[];
-    for(let j=0;j<cols.length;j++){
+const tableToCSV = () => {
+  let csvData = [];
+  let rows = document.getElementsByTagName("tr");
+  for (let i = 0; i < rows.length; i++) {
+    let cols = document.querySelectorAll("td,th");
+    let csvRow = [];
+    for (let j = 0; j < cols.length; j++) {
       csvRow.push(cols[j].innerText);
-     
     }
-    console.log(csvRow)
-    csvData.push(csvRow.join(','))
+    csvData.push(csvRow.join(","));
+    break;
   }
-  console.log(csvData)
-  csvData.join('\n');
-  csvFile=new Blob([csvData],{type:"text/csv"});
-  let tmp=document.createElement('a');
-  tmp.download="Data.csv";
-  let url=window.URL.createObjectURL(csvFile);
-  tmp.href=url;
-  tmp.style.display='none';
-  document.body.appendChild(tmp)
-  tmp.click()
-  document.body.removeChild(tmp)
-}
+
+  csvData.join("\n");
+  csvFile = new Blob([csvData], { type: "text/csv" });
+  let tmp = document.createElement("a");
+  tmp.download = "Data.csv";
+  let url = window.URL.createObjectURL(csvFile);
+  tmp.href = url;
+  tmp.style.display = "none";
+  document.body.appendChild(tmp);
+  tmp.click();
+  document.body.removeChild(tmp);
+};
+
+const handleEllipsis = (c, id) => {
+  const ellipsisArray = document.getElementsByClassName("ellipsis");
+  for (let i = 0; i < ellipsisArray.length; i++) {
+    if (
+      i != id &&
+      !document
+        .getElementsByClassName("ellipsis")
+        [i].classList.contains("d-none")
+    ) {
+      document.getElementsByClassName("ellipsis")[i].classList.toggle("d-none");
+    }
+  }
+
+  document.getElementById(`ellipsis-table-${id}`).classList.toggle("d-none");
+};
+
+const handleFilterReset = () => {
+  locCount=0;
+  statusCount=0;
+  deptCount=0;
+  document.getElementById("no-of-checks-loc").innerText = "";
+  document.getElementById("no-of-checks-dept").innerText = "";
+  document.getElementById("no-of-checks-status").innerText = "";
+  if (
+    !document.getElementById("options-body-loc").classList.contains("d-none")
+  ) {
+    document.getElementById("options-body-loc").classList.toggle("d-none");
+  }
+  if (!document.getElementById("options-body").classList.contains("d-none")) {
+    document.getElementById("options-body").classList.toggle("d-none");
+  }
+  if (
+    !document.getElementById("options-body-status").classList.contains("d-none")
+  ) {
+    document.getElementById("options-body-status").classList.toggle("d-none");
+  }
+  let checkboxLocArray = document.getElementsByClassName("check-boxes-loc");
+  for (let cb of checkboxLocArray) {
+    if (cb.checked == true) {
+      cb.checked = false;
+    }
+  }
+  let checkboxArray = document.getElementsByClassName("check-boxes");
+  for (let cb of checkboxArray) {
+    if (cb.checked == true) {
+      cb.checked = false;
+    }
+  }
+  let checkboxStatusArray =
+    document.getElementsByClassName("check-boxes-status");
+  let selectedStatus = [];
+  if (checkboxStatusArray[0].checked == true) {
+    checkboxStatusArray[0].checked = false;
+  }
+  if (checkboxStatusArray[1].checked == true) {
+    checkboxStatusArray[1].checked = false;
+  }
+  document.getElementById("btn-filter-apply").style.backgroundColor = "#f89191";
+  document.getElementById("btn-reset-filter").style.opacity = 0.6;
+  arr.length > 0 ? tableDisplay(arr) : tableDisplay(dataEmployess);
+};
+
 
 alphabetsDisplay();

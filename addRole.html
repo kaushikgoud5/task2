@@ -44,11 +44,12 @@
                   <span class="nav-text">Dashboard</span>
                 </div>
               </div>
-              <div class="side-nav-items bg-light-red-theme side-red">
+              <a href="./index.html" class="td-none">
+              <div class="side-nav-items ">
                 <div>
                   <img
                     class="d-flex"
-                    src="./assets/Horizontal nav/Employees.svg"
+                    src="./assets/Horizontal nav/Employees-reoles.svg"
                     alt=""
                   />
                 </div>
@@ -56,6 +57,7 @@
                   <span  class="nav-text" >Employees</span>
                 </div>
               </div>
+            </a>
             </div>
           </div>
 
@@ -63,11 +65,11 @@
             <span  class="nav-text-vh">ROLE / USER MANAGEMENT</span>
             <div class="mt-20">
               <a href="./roles.html" class="td-none">
-                <div class="side-nav-items">
+                <div class="side-nav-items bg-light-red-theme side-red">
                   <div>
                     <img
                       class="d-flex"
-                      src="./assets/Horizontal nav/Roles.svg"
+                      src="./assets/Horizontal nav/Roles-red.svg"
                       alt=""
                     />
                   </div>
@@ -147,7 +149,7 @@
           <div class="inp-form-info">
             <form action="">
               <h4>Create New Roles</h4>
-              <div class="inp-form-rows inp-form-row-2">
+              <div class="inp-form-rows role-form">
                 <div class="col-1">
                   <label for="">Role Name</label><br />
                   <input type="" name="rname" id="rname" placeholder="" />
@@ -161,7 +163,7 @@
               </div>
               <div class="roles-description">
                 <label for="">Description</label><br>
-                  <textarea name="description" id="add-role-desc" cols="110" rows="7" placeholder="Text"></textarea>
+                  <textarea name="description" id="add-role-desc" cols="80" rows="7" placeholder="Text" class="text-area"></textarea>
               </div>
               <div class="inp-form-rows inp-form-row-2">
                 <div class="col-2">
@@ -174,11 +176,12 @@
               <div class="inp-form-rows inp-form-row-2">
                 <div class="col-1">
                   <label for="">Assign employees</label><br />
-                  <select name="assign" id="assign-job" onfocus="">
-                    
-                  </select>
+                  <input name="assign" id="assign-job" onfocus="" >
+                  
+                </input
+                >
 
-                  <div class="inp-form-assign d-flex jc-space-btwn">
+                  <!-- <div class="inp-form-assign d-flex jc-space-btwn">
                     <div class="assign-left d-flex align-items-center g-05  ">
                             <img src="./assets/user-table.jpg" width="25px" height="20px" alt="">
                             <span >Kaushik Goud</span>
@@ -186,12 +189,12 @@
                     <div class="assign-right">
                             <input type="checkbox" name="" id="">
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <div class="inp-form-btns mt-20">
-                <button class="btn-dismiss">Cancel</button>
-                <button class="btn-accept">Add Role</button>
+                <button class="btn-dismiss padding-lr">Cancel</button>
+                <button class="btn-accept padding-lr">Add Role</button>
               </div>
             
             </form>

@@ -11,7 +11,7 @@
     />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
   </head>
-  <body>
+  <body onload="handleFilterLoc()">
     <main class="d-flex">
       <section class="side-nav" id="side-nav-bar">
         <div>
@@ -44,18 +44,21 @@
                   <span class="nav-text">Dashboard</span>
                 </div>
               </div>
-              <div class="side-nav-items bg-light-red-theme side-red">
-                <div>
-                  <img
-                    class="d-flex"
-                    src="./assets/Horizontal nav/Employees.svg"
-                    alt=""
-                  />
+              <a href="./index.html" class="td-none">
+                <div class="side-nav-items bg-light-red-theme side-red">
+                  <div>
+                    
+                    <img
+                      class="d-flex"
+                      src="./assets/Horizontal nav/Employees.svg"
+                      alt=""
+                    />
+                  </div>
+                  <div class="nav-item-name">
+                    <span class="nav-text">Employees</span>
+                  </div>
                 </div>
-                <div class="nav-item-name">
-                  <span class="nav-text">Employees</span>
-                </div>
-              </div>
+              </a>
             </div>
           </div>
 
@@ -154,7 +157,7 @@
                 <img src="./assets/user-image.png" alt="" id="user-img" />
                 <label for="upload-img" class="d-flex" id="edit">Edit</label>
                 <button
-                  class="btn-accept btn-emp"
+                  class="padding-lr btn-accept btn-emp"
                   id="btn-upload"
                   onclick="handleAddEmp()"
                 >
@@ -166,19 +169,19 @@
                   type="file"
                   name="upload-image"
                   id="upload-img"
-                  required
+                
                 />
               </div>
               <div class="inp-form-info">
-                <h5>Personal Information</h5>
+                <h5 >Personal Information</h5>
                 <div class="inp-form-row-1">
-                  <label for="" class="d-block">Emp No</label>
+                  <label for="" class="d-block">Emp No <i class="ph-bold ph-asterisk c-p star-validation"><span class="tool-tip-text ">Required</span></i></label>
                   <input
                     class="d-block"
                     type="text"
                     name="emp-no"
                     id="emp-no"
-                    placeholder="Text"
+                    placeholder="EX: TZ123"
                     required
                   />
                   <p class="m-0 validation-msg d-none" id="validate-msg-empno">
@@ -189,7 +192,7 @@
 
                 <div class="inp-form-rows inp-form-row-1">
                   <div class="col-1">
-                    <label for="">First Name</label><br />
+                    <label for="">First Name <i class="ph-bold ph-asterisk c-p star-validation"><span class="tool-tip-text">Required</span></i></label><br />
                     <input
                       type="text"
                       name="fname"
@@ -197,13 +200,16 @@
                       placeholder="Text"
                       required
                     />
-                    <p class="m-0 validation-msg d-none" id="validate-msg-fname">
+                    <p
+                      class="m-0 validation-msg d-none"
+                      id="validate-msg-fname"
+                    >
                       <span><i class="ph-fill ph-warning-diamond"></i></span>
                       This field is required
                     </p>
                   </div>
                   <div class="col-2">
-                    <label for="">Last Name</label><br />
+                    <label for="">Last Name <i class="ph-bold ph-asterisk c-p star-validation"><span class="tool-tip-text">Required</span></i></label><br />
                     <input
                       type="text"
                       name="lname"
@@ -211,7 +217,10 @@
                       placeholder="Text"
                       required
                     />
-                    <p class="m-0 validation-msg d-none" id="validate-msg-lname">
+                    <p
+                      class="m-0 validation-msg d-none"
+                      id="validate-msg-lname"
+                    >
                       <span><i class="ph-fill ph-warning-diamond"></i></span>
                       This field is required
                     </p>
@@ -223,7 +232,7 @@
                 </div>
                 <div class="inp-form-rows inp-form-row-1">
                   <div class="col-1">
-                    <label for="">Email Id</label><br />
+                    <label for="">Email Id <i class="ph-bold ph-asterisk c-p star-validation"><span class="tool-tip-text">Required</span></i></label><br />
                     <input
                       type="email"
                       name="email"
@@ -231,7 +240,10 @@
                       placeholder="Joe.j@technovert.com"
                       required
                     />
-                    <p class="m-0 validation-msg d-none" id="validate-msg-email">
+                    <p
+                      class="m-0 validation-msg d-none"
+                      id="validate-msg-email"
+                    >
                       <span><i class="ph-fill ph-warning-diamond"></i></span>
                       This field is required
                     </p>
@@ -244,7 +256,10 @@
                       id="mobile"
                       placeholder="0000000000"
                     />
-                    <p class="m-0 validation-msg d-none" id="validate-msg-mobile">
+                    <p
+                      class="m-0 validation-msg d-none"
+                      id="validate-msg-mobile"
+                    >
                       <span><i class="ph-fill ph-warning-diamond"></i></span>
                       This field is required
                     </p>
@@ -253,14 +268,19 @@
                 <h5>Employement Information</h5>
                 <div class="inp-form-rows inp-form-row-2">
                   <div class="col-1">
-                    <label for="">Joining Date</label><br />
+                    <label for="">Joining Date <i class="ph-bold ph-asterisk c-p star-validation"><span class="tool-tip-text">Required</span></i></label><br />
                     <input
-                      type=""
+                      placeholder="mm/dd/yyyy"
+                      type="date"
                       name="jdate"
+                    
                       id="jdate"
-                      placeholder="12/08/2023"
+                      
                     />
-                    <p class="m-0 validation-msg d-none" id="validate-msg-jdate">
+                    <p
+                      class="m-0 validation-msg d-none"
+                      id="validate-msg-jdate"
+                    >
                       <span><i class="ph-fill ph-warning-diamond"></i></span>
                       This field is required
                     </p>
@@ -310,37 +330,41 @@
                   </div>
                 </div>
                 <div class="inp-form-btns mt-20">
-                  <button class="btn-dismiss">Cancel</button>
-                  <button class="btn-accept" onclick="handleAddEmp()">
+                  <a href="./index.html" class="td-none"
+                    ><button class="btn-dismiss padding-lr">Cancel</button></a
+                  >
+                  <button
+                    class="btn-accept padding-lr"
+                    onclick="handleAddEmp()"
+                  >
                     Add Employee
                   </button>
                 </div>
               </div>
             </div>
+         
           </form>
         </div>
       </section>
     </main>
-    <script src="script.js"></script>
+
     <script>
       let inpFile = document.getElementById("upload-img");
       let profilePic = document.getElementById("user-img");
       let uploadbtn = document.getElementById("btn-upload");
       inpFile.onchange = () => {
+        let imgName = inpFile.files[0].name;
+        
+        localStorage.setItem("img", imgName);
         profilePic.src = URL.createObjectURL(inpFile.files[0]);
+        console.log(profilePic.src)
       };
       uploadbtn.onclick = () => {
         profilePic.src = URL.createObjectURL(inpFile.files[0]);
       };
       let emptyfield = false;
       function checkAllFields() {
-        let fields = [
-          "emp-no",
-          "fname",
-          "lname",
-          "email",
-          "jdate",
-        ];
+        let fields = ["emp-no", "fname", "lname", "email", "jdate"];
         for (let i = 0; i < fields.length; i++) {
           if (document.forms["form-data"][fields[i]].value === "") {
             emptyfield = true;
@@ -371,14 +395,14 @@
           let Assign_Project = i.options[i.selectedIndex].text;
 
           let USER =
-            document.getElementById("fname").value +
+            document.getElementById("fname").value + " "+
             document.getElementById("lname").value;
           let EMPNO = document.getElementById("emp-no").value;
           let dob = document.getElementById("dob").value;
           let email = document.getElementById("email").value;
           let mobile = document.getElementById("mobile").value;
           let JOINDT = document.getElementById("jdate").value;
-
+          let img=document.getElementById("user-img").src;
           let obj = [
             {
               USER,
@@ -391,10 +415,13 @@
               ROLE,
               Assign_Job,
               Assign_Project,
+              img
             },
           ];
+          console.log(obj)
           let strObj = JSON.stringify(obj);
           let prevData = localStorage.getItem("addData");
+          console.log(obj);
           if (prevData) {
             prevData = JSON.parse(prevData);
             obj = obj.concat(prevData);
@@ -403,26 +430,42 @@
           } else {
             localStorage.setItem("addData", strObj);
           }
+          alert("Record Added Successfulyy")
           window.location.href = "./index.html";
         } else {
           let a = document.getElementsByClassName("validation-msg");
 
-            if(document.getElementById("fname").value===""){
-              document.getElementById("validate-msg-fname").classList.remove("d-none")
-            }
-            if(document.getElementById("lname").value===""){ document.getElementById("validate-msg-lname").classList.remove("d-none")}
-            if(document.getElementById("emp-no").value===""){
-              document.getElementById("validate-msg-empno").classList.remove("d-none")
-            };
-            if(document.getElementById("email").value===""){
-              document.getElementById("validate-msg-email").classList.remove("d-none")
-            };
-            if(document.getElementById("mobile").value===""){
-              document.getElementById("validate-msg-mobile").classList.remove("d-none")
-            };
-            if(document.getElementById("jdate").value===""){
-              document.getElementById("validate-msg-jdate").classList.remove("d-none")
-            };
+          if (document.getElementById("fname").value === "") {
+            document
+              .getElementById("validate-msg-fname")
+              .classList.remove("d-none");
+          }
+          if (document.getElementById("lname").value === "") {
+            document
+              .getElementById("validate-msg-lname")
+              .classList.remove("d-none");
+          }
+          if (document.getElementById("emp-no").value === "") {
+            document
+              .getElementById("validate-msg-empno")
+              .classList.remove("d-none");
+          }
+          
+          if (document.getElementById("email").value === "") {
+            document
+              .getElementById("validate-msg-email")
+              .classList.remove("d-none");
+          }
+          if (document.getElementById("mobile").value === "") {
+            document
+              .getElementById("validate-msg-mobile")
+              .classList.remove("d-none");
+          }
+          if (document.getElementById("jdate").value === "") {
+            document
+              .getElementById("validate-msg-jdate")
+              .classList.remove("d-none");
+          }
 
           document.getElementById("edit").className -= "d-flex";
           document.getElementById("edit").className += " show";
@@ -439,5 +482,6 @@
         }
       };
     </script>
+    <script src="script.js"></script>
   </body>
 </html>
