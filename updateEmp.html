@@ -149,8 +149,8 @@
           </div>
         </div>
         <div class="emp-inp-form">
-          <form name="form-data" action="./updateEmp.html">
-            <h4>Add Employee</h4>
+          <form name="form-data">
+            <h4>Update Employee</h4>
             <div class="d-flex g-3" id="inp-form">
               <div class="inp-form-profile">
                 <img src="./assets/user-image.png" alt="" id="user-img" />
@@ -344,10 +344,10 @@
                   >
                   <button
                     class="btn-accept padding-lr"
-                    onclick="handleAddEmp()"
+                    onclick="handleUpdateEmp()"
                     type="button"
                   >
-                    Add Employee
+                    Update Employee
                   </button>
                 </div>
               </div>
@@ -356,28 +356,45 @@
         </div>
       </section>
       <div class="toaster d-none" id="show-toast">
-        Record Added Successfully
+        Record Updated Successfully
       </div>
     </main>
-  
+    <script src="script.js"></script>
     <script>
+      //accessing from the local storage and filling in the forms
+      let updateData = localStorage.getItem("updateEmp");
+      if (updateData != undefined) {
+        updateData = JSON.parse(updateData);
+        document.forms["form-data"]["emp-no"].value = updateData.EMPNO.slice(
+          0,
+          8
+        );
+        document.forms["form-data"]["fname"].value =
+          updateData.USER.split(" ")[0];
+        document.forms["form-data"]["lname"].value =
+          updateData.USER.split(" ")[1];
+        document.forms["form-data"]["email"].value =
+          updateData.USER.split(" ")[0] + "@tezo.com";
+        document.forms["form-data"]["jdate"].value = updateData.JOINDT;
+        let l = document.getElementById("location");
+        l.options[l.selectedIndex].text = updateData.LOCATION;
+      }
 
+      //For Upload the profile picture
       let inpFile = document.getElementById("upload-img");
       let profilePic = document.getElementById("user-img");
       let uploadbtn = document.getElementById("btn-upload");
       inpFile.onchange = () => {
-        const reader = new FileReader();
-        reader.addEventListener("load",()=>{
-          profilePic.src=reader.result;
-        })
-        console.log(reader.result)
-        reader.readAsDataURL(inpFile.files[0]);
-        // profilePic.src=reader.result;
-        // profilePic.src = URL.createObjectURL(inpFile.files[0]);
+        let imgName = inpFile.files[0].name;
+
+        localStorage.setItem("img", imgName);
+        profilePic.src = URL.createObjectURL(inpFile.files[0]);
       };
       uploadbtn.onclick = () => {
         profilePic.src = URL.createObjectURL(inpFile.files[0]);
       };
+
+      //for checking the fields are filled
       let emptyfield = false;
       function checkAllFields() {
         let fields = ["emp-no", "fname", "lname", "email", "jdate"];
@@ -392,13 +409,16 @@
           return true;
         }
       }
-      function resetForm(){
+
+      //Reseting the form brfore adding
+      function resetForm() {
         let fields = ["emp-no", "fname", "lname", "email", "jdate"];
         for (let i = 0; i < fields.length; i++) {
-          document.forms["form-data"][fields[i]].value = ""
+          document.forms["form-data"][fields[i]].value = "";
         }
       }
-      handleAddEmp = () => {
+
+      handleUpdateEmp = () => {
         if (checkAllFields()) {
           let e = document.getElementById("dept-inp-form");
           let DEPARTMENT = e.options[e.selectedIndex].text;
@@ -425,41 +445,29 @@
           let mobile = document.getElementById("mobile").value;
           let JOINDT = document.getElementById("jdate").value;
           let img = document.getElementById("user-img").src;
-          let obj = [
-            {
-              USER,
-              EMPNO,
-              dob,
-              mobile,
-              DEPARTMENT,
-              LOCATION,
-              JOINDT,
-              ROLE,
-              Assign_Job,
-              Assign_Project,
-              img,
-            },
-          ];
-          let strObj = JSON.stringify(obj);
-          let prevData = localStorage.getItem("addData");
-          if (prevData) {
-            prevData = JSON.parse(prevData);
-            obj = obj.concat(prevData);
-            obj = JSON.stringify(obj);
-            localStorage.setItem("addData", obj);
-          } else {
-            localStorage.setItem("addData", strObj);
+          let uniqID = EMPNO;
+          let oldData=(JSON.parse(localStorage.getItem("addData")));
+          let updateID;
+          for(k in oldData){
+            if(uniqID==oldData[k].EMPNO){
+                oldData[k].USER=USER;
+                oldData[k].dob=dob;
+                oldData[k].LOCATION=LOCATION;
+                oldData[k].JOINDT=JOINDT;
+                oldData[k].DEPARTMENT=DEPARTMENT;
+                oldData[k].ROLE=ROLE
+            }
           }
-        
-          resetForm();
-          window.scrollTo(top)
+          oldData=JSON.stringify(oldData);
+        localStorage.setItem("addData", oldData);
+          window.scrollTo(top);
           document.getElementById("show-toast").classList.toggle("d-none");
-          
-          setTimeout(()=>{
-              window.location.href = "./index.html";
-          },3000)
-        
-        } else {
+          resetForm();
+          setTimeout(() => {
+            window.location.href = "./index.html";
+          }, 3000);
+        } 
+        else {
           let a = document.getElementsByClassName("validation-msg");
 
           if (document.getElementById("fname").value === "") {
@@ -508,10 +516,6 @@
           }
         }
       };
-
-
-     
     </script>
-      <script src="script.js"></script>
   </body>
 </html>

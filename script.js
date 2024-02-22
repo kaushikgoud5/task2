@@ -1,7 +1,6 @@
 dataEmployess = [];
 async function fetchData(data) {
   let response = await (await fetch("./data1.json")).json();
-
   response = response.concat(data);
   dataEmployess = response;
   tableDisplay(response);
@@ -59,17 +58,18 @@ function alphabetsDisplay() {
   document.getElementById("demo").innerHTML = alpha;
 }
 function tableDisplay(dataEmployess) {
-  let imgData = localStorage.getItem("addData");
+  let imgData = JSON.parse(localStorage.getItem("addData"));
+  console.log(imgData[0].img)
   imgData = JSON.parse(imgData);
   let rows_tr = "";
   dataEmployess.map(function (ele, index) {
     rows_tr += ` <tr id="${index}">
    <td><input type="checkbox"  class="inp-check" id="check-${index}" onclick="handleSingleCheckbox(this,${index})" /></td>
    <td>
-     <div class="table-user-info d-flex" id="user-profile">
+     <div class="table-user-info d-flex align-items-center" id="user-profile">
          <img src="./assets/user-table.jpg" alt="">
        <div class="name-email" >
-         <span>${ele.USER.toUpperCase()}</span><br /><span class="e-mail">@tezo.com</span>
+         <span>${ele.USER.toUpperCase()}</span><br /><span class="e-mail">${ele.USER.split(" ")[0]}@tezo.com</span>
        </div>
      </div>
    </td>
@@ -83,14 +83,15 @@ function tableDisplay(dataEmployess) {
    <td>${ele.JOINDT}</td>
    <td class="c-p"  > <span onclick="handleEllipsis(this,${index})">...</span> <div class="d-flex  d-none c-p fs-10 d-flex-col align-items-center ellipsis" id="ellipsis-table-${index}" >
                                                                 <span class="td-none c-p">Add Details</span>
-                                                                <a href="./addEmp.html" class="td-none c-p"> <span>Edit</span></a>
-                                                                <span class="td-none c-p"  onclick="">Delete</span>
+                                                                <a href="#"   class="td-none c-p" onclick="handleEditEmp(${index})"> <span>Edit</span></a>
+                                                                <span class="td-none c-p"  onclick="handleDelete(${index})">Delete</span>
                                                       </div>
  </td>
    </tr>`;
   });
 
   document.getElementById("employee-table").innerHTML = rows_tr;
+ 
 }
 const arr = [];
 
@@ -382,10 +383,13 @@ function handleSortingJoin() {
   }
 }
 
-function handleDelete() {
+function handleDelete(rowNumber) {
+  if(rowNumber!=undefined){
+    dataEmployess.splice(rowNumber,1);
+    tableDisplay(dataEmployess)
+  }
   let cnt = 0;
   const checkboxes = document.getElementsByClassName("inp-check");
-  console.log(checkboxes)
   for (var x of checkboxes) {
     if (x.classList.contains("checkbox-active")) {
       cnt += 1;
@@ -836,5 +840,24 @@ const handleFilterReset = () => {
   arr.length > 0 ? tableDisplay(arr) : tableDisplay(dataEmployess);
 };
 
+// document.getElementById("body").addEventListener("click",()=>{
+//   if (!document.getElementById("options-body-loc").classList.contains("d-none")
+//   ) {
+//     document.getElementById("options-body-loc").classList.toggle("d-none");
+//   }
+//   if (!document.getElementById("options-body").classList.contains("d-none")) {
+//     document.getElementById("options-body").classList.toggle("d-none");
+//   }
+//   if ( !document.getElementById("options-body-status").classList.contains("d-none")
+//   ) {
+//     document.getElementById("options-body-status").classList.toggle("d-none");
+//   }
+
+// })
+
+const handleEditEmp=(idx)=>{
+localStorage.setItem("updateEmp",JSON.stringify(dataEmployess[idx]));
+window.location.href="./updateEmp.html";
+}
 
 alphabetsDisplay();
