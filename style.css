@@ -13,6 +13,9 @@
 .g-05 {
   gap: 0.5rem;
 }
+.w-100 {
+  margin-left: 100px !important;
+}
 .h-3 {
   height: 3rem;
 }
@@ -46,7 +49,9 @@
   flex-direction: column;
   justify-content: space-between;
   margin: 15px;
-  max-width: 250px;
+  width: 220px;
+  height: 100vh;
+  position: fixed;
 }
 .all > span,
 .role-user > span {
@@ -68,6 +73,7 @@
 }
 .vertical-page {
   flex-grow: 1;
+  margin-left: 250px;
 }
 .side-nav-items {
   display: flex;
@@ -110,6 +116,7 @@ i.ph.ph-funnel-simple {
   background-color: #fef6f6;
   border-radius: 10px;
   padding: 16px;
+  margin-bottom: 1.8rem;
 }
 .new-update {
   color: #f55555;
@@ -229,7 +236,8 @@ i.ph.ph-funnel-simple {
   padding: 8px;
   border-radius: 4px;
   margin: 4px;
-  flex-grow: 1;
+  flex: 1;
+  text-align: center;
 }
 
 .delete img {
@@ -261,6 +269,10 @@ i.ph.ph-funnel-simple {
   border-left: 0;
   border-right: 0;
   border-top: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: white;
 }
 .e-mail {
   font-size: 10px;
@@ -272,8 +284,8 @@ i.ph.ph-funnel-simple {
   margin-top: 10px;
   box-shadow: 0px 0px 20px 0px #e1d2d2;
   border-radius: 10px;
-  height: 350px;
-  overflow-y: scroll;
+  height: 320px;
+  overflow-y: auto;
 }
 table {
   border-collapse: collapse;
@@ -458,6 +470,7 @@ td img {
   flex-direction: column;
   padding: 5px;
 }
+
 .user {
   font-size: 12px;
   font-weight: bold;
@@ -544,7 +557,8 @@ td img {
   padding-left: 5px;
 } */
 
-.inp-form-info input::placeholder,input[type="date"] {
+.inp-form-info input::placeholder,
+input[type="date"] {
   font-size: 11px;
   opacity: 0.7;
 }
@@ -613,17 +627,30 @@ td img {
   width: 100px;
   height: 80px;
 }
-.inp-form-assign {
-  border: 2px solid #e1e3e7;
-  width: 20.4rem;
-  padding: 3px;
+
+.assign-emp-drop-down{
+  cursor: pointer;
+  border: 1px solid rgb(148, 148, 228);
+  padding: 5px 8px;
+  color: #5e6d86;
+  font-size: 12px;
+  height: 1rem;
+  width: 316px;
 }
+.inp-form-assign {
+  border: 1px solid #e1e3e7;
+  width: 325px;
+  padding: 3px;
+  margin-top: 3px;
+}
+
 .inp-form-assign span {
   font-size: 12px;
 }
 .assign-right input {
   width: 2rem;
   height: 1rem;
+  accent-color: red;
 }
 
 .inp-validation input {
@@ -642,12 +669,12 @@ td img {
 .ellipsis {
   position: absolute;
   z-index: 1;
-  right: 23px;
+  right: 35px;
   top: 2px;
   color: var(--gray);
   font-weight: bold;
   color: black;
-  width: 6rem;
+  width: 7rem;
   background-color: #ffffff;
   border: 1px solid #fbd3d3;
   border-radius: 10px;
@@ -658,11 +685,14 @@ td img {
   position: absolute;
   left: 106%;
   top: 50%;
-  /* left: 50%; */
   margin-left: -5px;
   border-width: 3px;
   border-style: solid;
   border-color: transparent transparent transparent #fbd3d3;
+}
+.ellipsis > span:hover {
+  color: #f66b6b;
+  font-weight: bold;
 }
 
 .ellipsis:hover {
@@ -674,7 +704,7 @@ td img {
   padding: 2px;
   border: 1px solid #ffcfcf;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-height: 5rem;
   overflow-y: auto;
   overflow-x: hidden;
@@ -726,13 +756,14 @@ td img {
   font-size: 14px;
   background-color: lightgreen;
   padding: 10px;
-animation-name: move;
-animation-duration: 3s;
+  animation-name: move;
+  animation-duration: 3s;
 }
 @keyframes move {
-  0%{ 
-  transform: translate(-20%,0);}
-  100%{
-    transform: translate(-80%,0);}
-  
+  0% {
+    transform: translate(50%, 0);
+  }
+  100% {
+    transform: translate(-80%, 0);
+  }
 }

@@ -14,7 +14,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   </head>
-  <body onload="EmployeePageLoad()" id="body">
+  <body onload="LoadEmployeePage()" id="body">
     <main class="d-flex">
       <section class="side-nav" id="side-nav-bar">
         <div>
@@ -123,8 +123,7 @@
               <input
                 type="search"
                 placeholder="Search"
-                size="70"
-                onkeypress="handleSearchBox()"
+                onkeyup="handleSearchBox()"
                 id="search-input"
               />
             </div>
@@ -172,14 +171,14 @@
               <span onclick="tableToCSV()">EXPORT</span>
             </button>
 
-            <a href="./addEmp.html" class="td-none">
-              <button class="btn-items bg-red">
+            <!-- <a href="./addEmp.html" class="td-none"> -->
+              <button class="btn-items bg-red" onclick="handleAddEmployee()">
                 <div>
                   <i class="ph-bold ph-plus"></i>
                 </div>
                 <span> ADD EMPLOYEE </span>
               </button>
-            </a>
+            <!-- </a> -->
           </div>
         </div>
 
@@ -196,7 +195,7 @@
               ><i class="ph ph-funnel-simple" style="color: #f44848"></i
             ></span>
             <div class="filter-drop-down">
-              <div class="d-flex g-05 jc-space-btwn align-items-center"  onclick="handleStat()">
+              <div class="d-flex g-05 jc-space-btwn align-items-center"  onclick="handleStat(event)">
                 <div class="dept">Status  <span class="checked-number " id="no-of-checks-status"></span></div>
 
                 <div class="dept-drop-down">
@@ -207,7 +206,7 @@
               <div id="options-body-status" class="dept-drop d-none"></div>
             </div>
             <div class="filter-drop-down">
-              <div class="d-flex g-05 jc-space-btwn align-items-center" onclick="handleDpt()">
+              <div class="d-flex g-05 jc-space-btwn align-items-center" onclick="handleDpt(event)">
                 <div class="dept">Department  <span class="checked-number" id="no-of-checks-dept"></span> </div>
 
                 <div class="dept-drop-down">
@@ -222,7 +221,7 @@
 
 
             <div class="filter-drop-down">
-              <div class="d-flex g-05 jc-space-btwn align-items-center" onclick="handleLoc()">
+              <div class="d-flex g-05 jc-space-btwn align-items-center" onclick="handleLoc(event)">
                 <div class="dept">Location  <span class="checked-number " id="no-of-checks-loc"></span></div>
 
                 <div class="dept-drop-down">
@@ -250,7 +249,7 @@
           </div>
         </div>
         <div class="emp-table">
-          <div class="overflow">
+      
             <table>
               <div class="table-top">
                 <div class="delete">
@@ -278,43 +277,39 @@
                   </th>
                   <th>
                     USER
-                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="handleSortingUser(`USER`)"
+                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="sorting(1)"
                     id="sort-btn" alt="">
-                    <!-- <i
-                      class="ph ph-sort-ascending"
-                      
-                    ></i> -->
                   </th>
                   <th>
                     LOCATION
-                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="handleSortingLoc()"
+                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="sorting(2)"
                     id="sort-btn" alt="">
 
                   </th>
                   <th>
                     
-                    DEPARTMENT<img src="./assets/sort.png" width="10px" class="c-p" onclick="handleSortingDep()"
+                    DEPARTMENT<img src="./assets/sort.png" width="10px" class="c-p" onclick="sorting(3)"
                     id="sort-btn" alt="">
                   </th>
                   <th>
                     ROLE
-                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="handleSortingRole()"
+                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="sorting(4)"
                     id="sort-btn" alt="">
 
                   </th>
                   <th>
-                    EMP NO<img src="./assets/sort.png" width="10px" class="c-p" onclick="handleSortingEmp()"
+                    EMP NO<img src="./assets/sort.png" width="10px" class="c-p" onclick="sorting(5)"
                     id="sort-btn" alt="">
                    
                   </th>
                   <th>
                     STATUS
-                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="handleSortingStatus()"
+                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="sorting(6)"
                     id="sort-btn" alt="">
                   </th>
                   <th>
                     JOIN DT
-                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="handleSortingJoin()"
+                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="sorting(7)"
                     id="sort-btn" alt="">
                   </th>
                   <th>...</th>
@@ -324,7 +319,7 @@
                 <!-- logic in script file-->
               </tbody>
             </table>
-          </div>
+      
         </div>
       </section>
       

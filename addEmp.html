@@ -11,6 +11,7 @@
     />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
   </head>
+
   <body>
     <main class="d-flex">
       <section class="side-nav" id="side-nav-bar">
@@ -149,13 +150,17 @@
           </div>
         </div>
         <div class="emp-inp-form">
-          <form name="form-data" action="./updateEmp.html">
-            <h4>Add Employee</h4>
+          <form name="form-data">
+            <h4 id="add-employee">Add Employee</h4>
             <div class="d-flex g-3" id="inp-form">
               <div class="inp-form-profile">
                 <img src="./assets/user-image.png" alt="" id="user-img" />
                 <label for="upload-img" class="d-flex" id="edit">Edit</label>
-                <button class="padding-lr btn-accept btn-emp" id="btn-upload">
+                <button
+                  class="padding-lr btn-accept btn-emp"
+                  id="btn-upload"
+                  type="button"
+                >
                   <label for="upload-img" class="p-0"
                     >Upload Profile Picture</label
                   >
@@ -297,6 +302,9 @@
                   <div class="col-2">
                     <label for="">Location</label><br />
                     <select name="location" id="location">
+                      <option value="" selected disabled>
+                        Select your Location
+                      </option>
                       <option value="" id="">Hyderabad</option>
                       <option value="">Delhi</option>
                       <option value="">Mumbai</option>
@@ -308,6 +316,9 @@
                   <div class="col-1">
                     <label for="">Job Title</label><br />
                     <select name="job-title" id="job-title">
+                      <option value="" selected disabled>
+                        Select your Job Title
+                      </option>
                       <option value="">UX Designer</option>
                       <option value="">SDE1</option>
                       <option value="">SDE2</option>
@@ -317,6 +328,9 @@
                   <div class="col-2">
                     <label for="">Department</label><br />
                     <select name="dept" id="dept-inp-form">
+                      <option value="" selected disabled>
+                        Select your Department
+                      </option>
                       <option value="">UI/UX</option>
                       <option value="">BI</option>
                       <option value="">PE</option>
@@ -328,21 +342,24 @@
                   <div class="col-1">
                     <label for="">Assign Manager</label><br />
                     <select name="assign" id="assign-job">
-                      <option value="">Search</option>
+                      <option value="" selected disabled>Search</option>
                     </select>
                   </div>
                   <div class="col-2">
                     <label for="">Assign Project</label><br />
                     <select name="assign-proj" id="assign-inp-proj">
-                      <option value="">Search</option>
+                      <option value="" selected disabled>Search</option>
                     </select>
                   </div>
                 </div>
                 <div class="inp-form-btns mt-20">
                   <a href="./index.html" class="td-none"
-                    ><button class="btn-dismiss padding-lr">Cancel</button></a
+                    ><button class="btn-dismiss padding-lr" type="button">
+                      Cancel
+                    </button></a
                   >
                   <button
+                    id="btn-employee"
                     class="btn-accept padding-lr"
                     onclick="handleAddEmp()"
                     type="button"
@@ -359,159 +376,7 @@
         Record Added Successfully
       </div>
     </main>
-  
-    <script>
-
-      let inpFile = document.getElementById("upload-img");
-      let profilePic = document.getElementById("user-img");
-      let uploadbtn = document.getElementById("btn-upload");
-      inpFile.onchange = () => {
-        const reader = new FileReader();
-        reader.addEventListener("load",()=>{
-          profilePic.src=reader.result;
-        })
-        console.log(reader.result)
-        reader.readAsDataURL(inpFile.files[0]);
-        // profilePic.src=reader.result;
-        // profilePic.src = URL.createObjectURL(inpFile.files[0]);
-      };
-      uploadbtn.onclick = () => {
-        profilePic.src = URL.createObjectURL(inpFile.files[0]);
-      };
-      let emptyfield = false;
-      function checkAllFields() {
-        let fields = ["emp-no", "fname", "lname", "email", "jdate"];
-        for (let i = 0; i < fields.length; i++) {
-          if (document.forms["form-data"][fields[i]].value === "") {
-            emptyfield = true;
-          }
-        }
-        if (emptyfield) {
-          return false;
-        } else {
-          return true;
-        }
-      }
-      function resetForm(){
-        let fields = ["emp-no", "fname", "lname", "email", "jdate"];
-        for (let i = 0; i < fields.length; i++) {
-          document.forms["form-data"][fields[i]].value = ""
-        }
-      }
-      handleAddEmp = () => {
-        if (checkAllFields()) {
-          let e = document.getElementById("dept-inp-form");
-          let DEPARTMENT = e.options[e.selectedIndex].text;
-
-          let l = document.getElementById("location");
-          let LOCATION = l.options[l.selectedIndex].text;
-
-          let j = document.getElementById("job-title");
-          let ROLE = j.options[j.selectedIndex].text;
-
-          let a = document.getElementById("assign-job");
-          let Assign_Job = a.options[a.selectedIndex].text;
-
-          let i = document.getElementById("assign-inp-proj");
-          let Assign_Project = i.options[i.selectedIndex].text;
-
-          let USER =
-            document.getElementById("fname").value +
-            " " +
-            document.getElementById("lname").value;
-          let EMPNO = document.getElementById("emp-no").value;
-          let dob = document.getElementById("dob").value;
-          let email = document.getElementById("email").value;
-          let mobile = document.getElementById("mobile").value;
-          let JOINDT = document.getElementById("jdate").value;
-          let img = document.getElementById("user-img").src;
-          let obj = [
-            {
-              USER,
-              EMPNO,
-              dob,
-              mobile,
-              DEPARTMENT,
-              LOCATION,
-              JOINDT,
-              ROLE,
-              Assign_Job,
-              Assign_Project,
-              img,
-            },
-          ];
-          let strObj = JSON.stringify(obj);
-          let prevData = localStorage.getItem("addData");
-          if (prevData) {
-            prevData = JSON.parse(prevData);
-            obj = obj.concat(prevData);
-            obj = JSON.stringify(obj);
-            localStorage.setItem("addData", obj);
-          } else {
-            localStorage.setItem("addData", strObj);
-          }
-        
-          resetForm();
-          window.scrollTo(top)
-          document.getElementById("show-toast").classList.toggle("d-none");
-          
-          setTimeout(()=>{
-              window.location.href = "./index.html";
-          },3000)
-        
-        } else {
-          let a = document.getElementsByClassName("validation-msg");
-
-          if (document.getElementById("fname").value === "") {
-            document
-              .getElementById("validate-msg-fname")
-              .classList.remove("d-none");
-          }
-          if (document.getElementById("lname").value === "") {
-            document
-              .getElementById("validate-msg-lname")
-              .classList.remove("d-none");
-          }
-          if (document.getElementById("emp-no").value === "") {
-            document
-              .getElementById("validate-msg-empno")
-              .classList.remove("d-none");
-          }
-
-          if (document.getElementById("email").value === "") {
-            document
-              .getElementById("validate-msg-email")
-              .classList.remove("d-none");
-          }
-          if (document.getElementById("mobile").value === "") {
-            document
-              .getElementById("validate-msg-mobile")
-              .classList.remove("d-none");
-          }
-          if (document.getElementById("jdate").value === "") {
-            document
-              .getElementById("validate-msg-jdate")
-              .classList.remove("d-none");
-          }
-
-          document.getElementById("edit").className -= "d-flex";
-          document.getElementById("edit").className += " show";
-          document.getElementById("btn-upload").className -= " btn-emp";
-          document.getElementById("btn-upload").className +=
-            " btn-accept  h-3  ";
-          document.getElementById("inp-form").className -= "d-flex";
-          let y = document.getElementsByClassName("inp-form-profile");
-          y[0].className += " d-flex  g-05 align-items-center ";
-          let x = document.getElementsByClassName("inp-form-row-1");
-          for (let i = 0; i < x.length; i++) {
-            x[i].className += " inp-validation";
-          }
-        }
-      };
-
-
-     
-    </script>
-      <script src="script.js"></script>
+    <script src="./script1.js"></script>
+    <script src="./script.js"></script>
   </body>
 </html>

@@ -176,20 +176,29 @@
               <div class="inp-form-rows inp-form-row-2">
                 <div class="col-1">
                   <label for="">Assign employees</label><br />
-                  <input name="assign" id="assign-job" onfocus="" >
-                  
-                </input
-                >
+                  <div class="assign-emp-drop-down" onclick="handleAssignDropDown(event)">
+                    <div
+                      class="d-flex g-05 jc-space-btwn align-items-center"
+>
+                      <div>
+                        Search for an employee
+                      </div>
+      
+                      <div class="dept-drop-down">
+                        <i class="ph ph-caret-down"></i>
+                      </div>
+                    </div>
+                  </div>
 
-                  <!-- <div class="inp-form-assign d-flex jc-space-btwn">
-                    <div class="assign-left d-flex align-items-center g-05  ">
+                  <div class="inp-form-assign d-none d-flex jc-space-btwn" id="add-roles">
+                    <div class="assign-left d-flex align-items-center g-05 ">
                             <img src="./assets/user-table.jpg" width="25px" height="20px" alt="">
                             <span >Kaushik Goud</span>
                     </div>
                     <div class="assign-right">
                             <input type="checkbox" name="" id="">
                     </div>
-                  </div> -->
+                  </div>
                 </div>
               </div>
               <div class="inp-form-btns mt-20">
@@ -203,5 +212,6 @@
       </section>
     </main>
     <script src="script.js"></script>
+
   </body>
 </html>
