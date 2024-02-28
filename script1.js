@@ -1,16 +1,26 @@
-isValidated = false;
-// const checkValidation=(empID,user)=>{
+// isValidated = false;
+// const checkValidation=(obj)=>{
 //   let regEmpId=/[TZ]+\d{5}/;
-//   if(regEmpId.test(empID)){
-//     isValidated=true;
+//   if(!regEmpId.test(obj.empId)){
+//     document.getElementById("validate-msg-emp-no").innerHTML=`<span><i class="ph-fill ph-warning-diamond"></i></span>Enter a Valid Employee Id`;
+//     document.getElementById("validate-msg-emp-no").classList.remove("d-none");
+//   }
+//   else{
+//     if(!document.getElementById("validate-msg-emp-no").classList.contains("d-none")){
+//         document.getElementById("validate-msg-emp-no").classList.add("d-none");
+//     }
+//     document.getElementById("validate-msg-emp-no").classList.add("d-none");
 //   }
 //   let regUser=/[A-Za-z\D]/;
-//   if(regUser.test(user)){
-//     isValidated=true;
+//   if(!regUser.test(obj.fname) || !regUser.test(obj.lname)){
+//     document.getElementById("validate-msg-emp-no").innerHTML=`<span><i class="ph-fill ph-warning-diamond"></i></span>Enter a Valid Employee Id`;
+//     document.getElementById("validate-msg-emp-no").classList.remove("d-none");
 //   }
+
 //  return isValidated;
 // }
-
+let emptyfield = false;
+let isExisiting = false;
 let updateData = localStorage.getItem("updateEmp");
 function uploadProfilePic() {
     let inpFile = document.getElementById("upload-img");
@@ -31,14 +41,13 @@ function uploadProfilePic() {
         reader.readAsDataURL(inpFile.files[0]);
     };
 }
-let emptyfield = false;
-let isExisiting = false;
-
 function isIdUnique(empID) {
     let lsData = JSON.parse(localStorage.getItem("addData"));
     for (obj in lsData) {
-        if (lsData[obj].EMPNO === empID) {
+        if (lsData[obj].empId === empID) {
             isExisiting = true;
+            document.getElementById("validate-msg-emp-no").innerHTML=`<span><i class="ph-fill ph-warning-diamond"></i></span>Already Used Check Your Employee ID`;
+            document.getElementById("validate-msg-emp-no").classList.remove("d-none");
             return false;
         }
     }
@@ -48,8 +57,16 @@ function checkAllFields() {
     let fields = ["emp-no", "fname", "lname", "email", "jdate"];
     for (let i = 0; i < fields.length; i++) {
         if (document.forms["form-data"][fields[i]].value === "") {
+            console.log(document.forms["form-data"][fields[i]].value)
+            document.getElementById(`validate-msg-${fields[i]}`).classList.remove("d-none");
             emptyfield = true;
         }
+        else{
+            if(!document.getElementById(`validate-msg-${fields[i]}`).classList.contains("d-none")){
+                document.getElementById(`validate-msg-${fields[i]}`).classList.add("d-none");
+            }
+        }
+
     }
     if (emptyfield) {
         return false;
@@ -78,14 +95,14 @@ function addEmployeeData(obj) {
 function updateEmployeeData(obj) {
     let oldData = JSON.parse(localStorage.getItem("addData"));
     for (k in oldData) {
-        if (obj[0].EMPNO == oldData[k].EMPNO) {
-            oldData[k].USER = obj[0].USER;
+        if (obj[0].empId == oldData[k].empId) {
+            oldData[k].user = obj[0].user;
             oldData[k].dob = obj[0].dob;
-            oldData[k].LOCATION = obj[0].LOCATION;
-            oldData[k].JOINDT = obj[0].JOINDT;
-            oldData[k].DEPARTMENT = obj[0].DEPARTMENT;
-            oldData[k].ROLE = obj[0].ROLE;
-            oldData[k].IMGSRC = obj[0].IMGSRC;
+            oldData[k].location = obj[0].location;
+            oldData[k].joinDate = obj[0].joinDate;
+            oldData[k].department = obj[0].department;
+            oldData[k].role = obj[0].role;
+            oldData[k].imgSrc = obj[0].imgSrc;
         }
     }
     oldData = JSON.stringify(oldData);
@@ -94,98 +111,68 @@ function updateEmployeeData(obj) {
 function handleAddEmp() {
     //retreiving all the form information and storing the variables
     let e = document.getElementById("dept-inp-form");
-    let DEPARTMENT = e.options[e.selectedIndex].text;
+    let department = e.options[e.selectedIndex].text;
 
     let l = document.getElementById("location");
-    let LOCATION = l.options[l.selectedIndex].text;
+    let location = l.options[l.selectedIndex].text;
 
     let j = document.getElementById("job-title");
-    let ROLE = j.options[j.selectedIndex].text;
+    let role = j.options[j.selectedIndex].text;
 
     let a = document.getElementById("assign-job");
-    let Assign_Job = a.options[a.selectedIndex].text;
+    let assignJob = a.options[a.selectedIndex].text;
 
     let i = document.getElementById("assign-inp-proj");
-    let Assign_Project = i.options[i.selectedIndex].text;
+    let assignProject = i.options[i.selectedIndex].text;
     let fname = document.getElementById("fname").value;
     let lname = document.getElementById("lname").value;
-    let USER =
-        document.getElementById("fname").value +
-        " " +
-        document.getElementById("lname").value;
-    let EMPNO = document.getElementById("emp-no").value;
+    let user = document.getElementById("fname").value +" " +document.getElementById("lname").value;
+    let empId = document.getElementById("emp-no").value;
     let dob = document.getElementById("dob").value;
     let email = document.getElementById("email").value;
     let mobile = document.getElementById("mobile").value;
-    let JOINDT = document.getElementById("jdate").value;
-    let IMGSRC = document.getElementById("user-img").src;
+    let joinDate = document.getElementById("jdate").value;
+    let imgSrc = document.getElementById("user-img").src;
     let obj = [
         {
-            USER,
-            EMPNO,
+            user,
+            empId,
             dob,
             mobile,
-            DEPARTMENT,
-            LOCATION,
-            JOINDT,
-            ROLE,
-            Assign_Job,
-            Assign_Project,
-            IMGSRC,
+            department,
+            location,
+            joinDate,
+            role,
+            assignJob,
+            assignProject,
+            imgSrc,
             email,
             fname,
             lname
         },
     ];
-    if (checkAllFields() && isIdUnique()) {
-        if (updateData == null) {
-            addEmployeeData(obj); // addding to the local storage.
-        } else {
-            updateEmployeeData(obj); //updating the employee details
+    if(updateData==null){
+        if (checkAllFields() & isIdUnique(empId) ) {
+            addEmployeeData(obj);
+            resetForm();  //reseting the form before adding or updating
+            window.scrollTo(top);
+            document.getElementById("show-toast").classList.toggle("d-none");
+            setTimeout(() => {
+                window.location.href = "./index.html";
+            }, 1000); 
         }
+    }
+    else if(updateData!=null){
+        updateEmployeeData(obj);
         resetForm();  //reseting the form before adding or updating
         window.scrollTo(top);
         document.getElementById("show-toast").classList.toggle("d-none");
         setTimeout(() => {
             window.location.href = "./index.html";
-        }, 1000);
-    } 
-    else {
-        showErrorMessage(obj[0]);
-        if (isExisiting) {
-            document.getElementById("validate-msg-empno").innerText = "Already Used Check Your Employee ID";
-            document.getElementById("validate-msg-empno").classList.remove("d-none");
-        }
-        document.getElementById("edit").className -= "d-flex";
-        document.getElementById("edit").className += " show";
-        document.getElementById("btn-upload").className -= " btn-emp";
-        document.getElementById("btn-upload").className += " btn-accept  h-3";
-        document.getElementById("inp-form").className -= "d-flex";
-        let y = document.getElementsByClassName("inp-form-profile");
-        y[0].className += " d-flex  g-05 align-items-center ";
-        let x = document.getElementsByClassName("inp-form-row-1");
-        for (let i = 0; i < x.length; i++) {
-            x[i].className += " inp-validation";
-        }
+        }, 1000); 
     }
-}
 
-function showErrorMessage(obj) {
-    if (!obj.fname.value) {
-        document.getElementById("validate-msg-fname").classList.remove("d-none");
-    }
-    if (!obj.lname.value) {
-        document.getElementById("validate-msg-lname").classList.remove("d-none");
-    }
-    if (!obj.EMPNO.value) {
-        document.getElementById("validate-msg-empno").classList.remove("d-none");
-    }
-    if (!obj.email.value) {
-        document.getElementById("validate-msg-email").classList.remove("d-none");
-    }
-    if (!obj.JOINDT.value) {
-        document.getElementById("validate-msg-jdate").classList.remove("d-none");
-    }
+   
 }
 
 function updateEmployeeAndFillForm() {
@@ -194,19 +181,35 @@ function updateEmployeeAndFillForm() {
         document.getElementById("btn-employee").innerText = "Update Employee";
         document.getElementById("show-toast").innerText = "Record Updated Successfully";
         updateData = JSON.parse(updateData);
-        document.forms["form-data"]["emp-no"].value = updateData.EMPNO.slice(0, 8);
-        document.forms["form-data"]["fname"].value = updateData.USER.split(" ")[0];
-        document.forms["form-data"]["lname"].value = updateData.USER.split(" ")[1];
-        document.forms["form-data"]["email"].value =updateData.USER.split(" ")[0] + "@tezo.com";
-        document.forms["form-data"]["jdate"].value = updateData.JOINDT;
+        document.forms["form-data"]["emp-no"].value = updateData.empId.slice(0, 8);
+        document.forms["form-data"]["fname"].value = updateData.user.split(" ")[0];
+        document.forms["form-data"]["lname"].value = updateData.user.split(" ")[1];
+        document.forms["form-data"]["email"].value =updateData.user.split(" ")[0] + "@tezo.com";
+        document.forms["form-data"]["jdate"].value = updateData.joinDate;
+        document.forms["form-data"]["mobile"].value = updateData.mobile;
+        document.forms["form-data"]["dob"].value = updateData.dob;
         let l = document.getElementById("location");
-        l.options[l.selectedIndex].text = updateData.LOCATION;
-        document.getElementById("user-img").src = updateData.IMGSRC;
+        l.options[l.selectedIndex].text = updateData.location;
+        document.getElementById("user-img").src = updateData.imgSrc;
         let e = document.getElementById("dept-inp-form");
-        e.options[e.selectedIndex].text = updateData.DEPARTMENT;
+        e.options[e.selectedIndex].text = updateData.department;
 
         let j = document.getElementById("job-title");
-        j.options[j.selectedIndex].text = updateData.ROLE;
+        j.options[j.selectedIndex].text = updateData.role;
+    }
+}
+
+function changeFormTemplate(){
+    document.getElementById("edit").className -= "d-flex";
+    document.getElementById("edit").className += " show";
+    document.getElementById("btn-upload").className -= " btn-emp";
+    document.getElementById("btn-upload").className += " btn-accept  h-3";
+    document.getElementById("inp-form").className -= "d-flex";
+    let y = document.getElementsByClassName("inp-form-profile");
+    y[0].className += " d-flex  g-05 align-items-center ";
+    let x = document.getElementsByClassName("inp-form-row-1");
+    for (let i = 0; i < x.length; i++) {
+        x[i].className += " inp-validation";
     }
 }
 

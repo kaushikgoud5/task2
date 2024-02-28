@@ -13,9 +13,11 @@ async function fetchData(data) {
   let response = await (await fetch("./data1.json")).json();
   response = response.concat(data);
   dataEmployess = response;
+  console.log(dataEmployess)
   displayTable(response);
 }
 
+//checking the data from th local storage adn adding it to the main data
 function checkPreviousData() {
   let newdata = localStorage.getItem("addData");
   if (newdata) {
@@ -25,6 +27,7 @@ function checkPreviousData() {
     return [];
   }
 }
+//initially loading the options in filter section 
 async function LoadEmployeePage() {
   await fetchData(checkPreviousData());
   handleFilterLoc();
@@ -32,6 +35,7 @@ async function LoadEmployeePage() {
   handleFilterStatus();
 }
 
+//hiding the nav-bar when user clicks on the icon
 function hideNavBar() {
   document.querySelector(".vertical-page").classList.toggle("w-100");
   document.getElementById("side-nav-bar").classList.toggle("hide-navbar");
@@ -74,23 +78,20 @@ function displayTable(dataEmployess) {
    <td><input type="checkbox"  class="inp-check" id="check-${index}" onclick="handleSingleCheckbox(this,${index})" /></td>
    <td>
      <div class="table-user-info d-flex align-items-center" id="user-profile">
-         <img src="${ele.IMGSRC}" alt="">
+         <img src="${ele.imgSrc}" alt="">
        <div class="name-email" >
-         <span>${ele.USER.toUpperCase()}</span><br /><span class="e-mail">${
-      ele.USER.split(" ")[0]
-    }@tezo.com</span>
+         <span>${ele.user.toUpperCase()}</span><br /><span class="e-mail">${ele.user.split(" ")[0]
+      }@tezo.com</span>
        </div>
      </div>
    </td>
-   <td>${ele.LOCATION}</td>
-   <td>${ele.DEPARTMENT}</td>
-   <td>${ele.ROLE}</td>
-   <td>${ele.EMPNO.slice(0, 8)}</td>
-   <td><span id="status-bg">${
-     ele.STATUS === true ? "Active" : "Inactive"
-   }</span></td>
-   <td>${ele.JOINDT}</td>
-   <td class="c-p"  > <span onclick="handleEllipsis(event,${index})">...</span> <div class="d-flex  d-none c-p fs-10 d-flex-col align-items-center ellipsis" id="ellipsis-table-${index}" >
+   <td>${ele.location}</td>
+   <td>${ele.department}</td>
+   <td>${ele.role}</td>
+   <td>${ele.empId.slice(0, 8)}</td>
+   <td><span id="status-bg">${ele.status === true ? "Active" : "Inactive"}</span></td>
+   <td>${ele.joinDate}</td>
+   <td class="c-p"> <span onclick="handleEllipsis(event,${index})">...</span> <div class="d-flex  d-none c-p fs-10 d-flex-col align-items-center ellipsis" id="ellipsis-table-${index}" >
                                                                        <span class="c-p">View Details</span>
                                                                <span class="c-p" onclick="handleEditEmp(${index})">   Edit</span>
                                                                 <span class= "c-p"  onclick="handleDelete(${index})">Delete</span>
@@ -108,11 +109,11 @@ function handleClickFilter(ascciiValue) {
   if (charClassList.contains("active")) {
     charClassList.remove("active");
     filterdArr = alphabetsFiltered.filter((i) =>
-      i.USER.toUpperCase().startsWith(char)
+      i.user.toUpperCase().startsWith(char)
     );
     for (let i = 0; i < alphabetsFiltered.length; i++) {
       for (let j = 0; j < filterdArr.length; j++) {
-        if (alphabetsFiltered[i].USER == filterdArr[j].USER) {
+        if (alphabetsFiltered[i].user == filterdArr[j].user) {
           alphabetsFiltered.splice(i, 1);
         }
       }
@@ -123,7 +124,7 @@ function handleClickFilter(ascciiValue) {
   } else {
     let isFound = false;
     dataEmployess.forEach((val) => {
-      if (val.USER.toUpperCase().startsWith(char)) {
+      if (val.user.toUpperCase().startsWith(char)) {
         isFound = true;
         alphabetsFiltered.push(val);
       }
@@ -155,224 +156,86 @@ function handleClickFilter(ascciiValue) {
 
 function sorting(column) {
   if (column == 1) {
-    document.getElementById("employee-table").innerHTML = ``;
-    if (isAscending) {
-      isAscending = false;
-      const sortedData = [...dataEmployess].sort(function (a, b) {
-        if (a.USER < b.USER) {
-          return -1;
-        }
-        if (a.USER > b.USER) {
-          return 1;
-        }
-        return 0;
-      });
+    isAscending = !isAscending;
+    const sortedData = [...dataEmployess].sort(function (a, b) {
+      if (a.user < b.user) return isAscending ? -1 : 1;
+      if (a.user > b.user) return isAscending ? 1 : -1;
+      return 0;
+    });
 
-      displayTable(sortedData);
-    } else {
-      isAscending = true;
-      document.getElementById("employee-table").innerHTML = ``;
-      const sortedData = [...dataEmployess].sort(function (a, b) {
-        if (a.USER > b.USER) {
-          return -1;
-        }
-        if (a.USER < b.USER) {
-          return 1;
-        }
-        return 0;
-      });
-
-      displayTable(sortedData);
-    }
+    displayTable(sortedData);
   }
+
   if (column == 2) {
-    document.getElementById("employee-table").innerHTML = ``;
-    if (isAscending) {
-      isAscending = false;
-      const sortedData = [...dataEmployess].sort(function (a, b) {
-        if (a.LOCATION < b.LOCATION) {
-          return -1;
-        }
-        if (a.LOCATION > b.LOCATION) {
-          return 1;
-        }
-        return 0;
-      });
+    isAscending = !isAscending;
+    const sortedData = [...dataEmployess].sort(function (a, b) {
+      if (a.location < b.location) return isAscending ? -1 : 1;
+      if (a.location > b.location) return isAscending ? 1 : -1;
+      return 0;
+    });
 
-      displayTable(sortedData);
-    } else {
-      isAscending = true;
-      document.getElementById("employee-table").innerHTML = ``;
-      const sortedData = [...dataEmployess].sort(function (a, b) {
-        if (a.LOCATION > b.LOCATION) {
-          return -1;
-        }
-        if (a.LOCATION < b.LOCATION) {
-          return 1;
-        }
-        return 0;
-      });
-
-      displayTable(sortedData);
-    }
+    displayTable(sortedData);
   }
+
   if (column == 3) {
-    document.getElementById("employee-table").innerHTML = ``;
-    if (isAscending) {
-      isAscending = false;
-      const sortedData = [...dataEmployess].sort(function (a, b) {
-        if (a.DEPARTMENT < b.DEPARTMENT) {
-          return -1;
-        }
-        if (a.DEPARTMENT > b.DEPARTMENT) {
-          return 1;
-        }
-        return 0;
-      });
-      displayTable(sortedData);
-    } else {
-      isAscending = true;
-      document.getElementById("employee-table").innerHTML = ``;
-      const sortedData = [...dataEmployess].sort(function (a, b) {
-        if (a.DEPARTMENT > b.DEPARTMENT) {
-          return -1;
-        }
-        if (a.DEPARTMENT < b.DEPARTMENT) {
-          return 1;
-        }
-        return 0;
-      });
+    isAscending = !isAscending;
+    const sortedData = [...dataEmployess].sort(function (a, b) {
+      if (a.department < b.department) return isAscending ? -1 : 1;
+      if (a.department > b.department) return isAscending ? 1 : -1;
+      return 0;
+    });
 
-      displayTable(sortedData);
-    }
+    displayTable(sortedData);
   }
+
   if (column == 4) {
-    document.getElementById("employee-table").innerHTML = ``;
-    if (isAscending) {
-      isAscending = false;
-      const sortedData = [...dataEmployess].sort(function (a, b) {
-        if (a.ROLE < b.ROLE) {
-          return -1;
-        }
-        if (a.ROLE > b.ROLE) {
-          return 1;
-        }
-        return 0;
-      });
-      displayTable(sortedData);
-    } else {
-      isAscending = true;
-      document.getElementById("employee-table").innerHTML = ``;
-      const sortedData = [...dataEmployess].sort(function (a, b) {
-        if (a.ROLE > b.ROLE) {
-          return -1;
-        }
-        if (a.ROLE < b.ROLE) {
-          return 1;
-        }
-        return 0;
-      });
+    isAscending = !isAscending;
+    const sortedData = [...dataEmployess].sort(function (a, b) {
+      if (a.role < b.role) return isAscending ? -1 : 1;
+      if (a.role > b.role) return isAscending ? 1 : -1;
+      return 0;
+    });
 
-      displayTable(sortedData);
-    }
+    displayTable(sortedData);
   }
+
   if (column == 5) {
-    document.getElementById("employee-table").innerHTML = ``;
-    if (isAscending) {
-      isAscending = false;
-      const sortedData = [...dataEmployess].sort(function (a, b) {
-        if (a.EMPNO < b.EMPNO) {
-          return -1;
-        }
-        if (a.EMPNO > b.EMPNO) {
-          return 1;
-        }
-        return 0;
-      });
+    isAscending = !isAscending;
+    const sortedData = [...dataEmployess].sort(function (a, b) {
+      if (a.empId < b.empId) return isAscending ? -1 : 1;
+      if (a.empId > b.empId) return isAscending ? 1 : -1;
+      return 0;
+    });
 
-      displayTable(sortedData);
-    } else {
-      isAscending = true;
-      document.getElementById("employee-table").innerHTML = ``;
-      const sortedData = [...dataEmployess].sort(function (a, b) {
-        if (a.EMPNO > b.EMPNO) {
-          return -1;
-        }
-        if (a.EMPNO < b.EMPNO) {
-          return 1;
-        }
-        return 0;
-      });
-
-      displayTable(sortedData);
-    }
+    displayTable(sortedData);
   }
+
   if (column == 6) {
-    document.getElementById("employee-table").innerHTML = ``;
-    if (isAscending) {
-      isAscending = false;
-      const sortedData = [...dataEmployess].sort(function (a, b) {
-        if (a.STATUS < b.STATUS) {
-          return -1;
-        }
-        if (a.STATUS > b.STATUS) {
-          return 1;
-        }
-        return 0;
-      });
+    isAscending = !isAscending;
+    const sortedData = [...dataEmployess].sort(function (a, b) {
+      if (a.status < b.status) return isAscending ? -1 : 1;
+      if (a.status > b.status) return isAscending ? 1 : -1;
+      return 0;
+    });
 
-      displayTable(sortedData);
-    } else {
-      isAscending = true;
-      document.getElementById("employee-table").innerHTML = ``;
-      const sortedData = [...dataEmployess].sort(function (a, b) {
-        if (a.STATUS > b.STATUS) {
-          return -1;
-        }
-        if (a.STATUS < b.STATUS) {
-          return 1;
-        }
-        return 0;
-      });
-      displayTable(sortedData);
-    }
+    displayTable(sortedData);
   }
-  if (column == 7) {
-    document.getElementById("employee-table").innerHTML = ``;
-    let sortedData = [];
-    if (isAscending) {
-      isAscending = false;
-      sortedData = [...dataEmployess].sort(function (a, b) {
-        if (a.JOINDT < b.JOINDT) {
-          return -1;
-        }
-        if (a.JOINDT > b.JOINDT) {
-          return 1;
-        }
-        return 0;
-      });
 
-      displayTable(sortedData);
-    } else {
-      isAscending = true;
-      document.getElementById("employee-table").innerHTML = ``;
-      const sortedData = [...dataEmployess].sort(function (a, b) {
-        if (a.JOINDT > b.JOINDT) {
-          return -1;
-        }
-        if (a.JOINDT < b.JOINDT) {
-          return 1;
-        }
-        return 0;
-      });
-      console.log(sortedData);
-      displayTable(sortedData.reverse());
-    }
+  if (column == 7) {
+    isAscending = !isAscending;
+    const sortedData = [...dataEmployess].sort(function (a, b) {
+      if (a.joinDate < b.joinDate) return isAscending ? -1 : 1;
+      if (a.joinDate > b.joinDate) return isAscending ? 1 : -1;
+      return 0;
+    });
+
+    displayTable(sortedData);
   }
 }
 
 function handleDelete(rowNumber) {
   if (rowNumber != undefined) {
+    console.log(rowNumber)
     dataEmployess.splice(rowNumber, 1);
     displayTable(dataEmployess);
   }
@@ -386,12 +249,13 @@ function handleDelete(rowNumber) {
   if (cnt == dataEmployess.length) {
     dataEmployess = [];
     displayTable(dataEmployess);
-  } 
+  }
   else {
     for (var x of checkboxes) {
       if (x.classList.contains("checkbox-active")) {
         cnt += 1;
         let remove_id = x.id.split("-")[1];
+        s-=1;
         delete dataEmployess[remove_id];
       }
     }
@@ -401,6 +265,7 @@ function handleDelete(rowNumber) {
 }
 let s = 0;
 function handleCheckBox(checkbox) {
+
   if (checkbox.checked == true) {
     s = dataEmployess.length;
     document.getElementById("btn-delete-active").classList.add("btn-active");
@@ -421,10 +286,9 @@ function handleCheckBox(checkbox) {
 }
 
 function handleSingleCheckbox(e, index) {
-  if (
-    document
-      .getElementById(`check-${index}`)
-      .classList.contains("checkbox-active")
+  if (document
+    .getElementById(`check-${index}`)
+    .classList.contains("checkbox-active")
   ) {
     document
       .getElementById(`check-${index}`)
@@ -449,8 +313,8 @@ function handleSearchBox() {
   const searchValue = document.getElementById("search-input").value;
   dataEmployess.map((val, idx) => {
     if (
-      val.USER.toUpperCase().startsWith(searchValue) ||
-      val.USER.toLowerCase().startsWith(searchValue)
+      val.user.toUpperCase().startsWith(searchValue) ||
+      val.user.toLowerCase().startsWith(searchValue)
     ) {
       searchArr.push(val);
     }
@@ -461,18 +325,18 @@ function handleSearchBox() {
 function handleFilterDept() {
   let deptData = [];
   dataEmployess.map((ele) => {
-    deptData.push(ele.DEPARTMENT);
+    deptData.push(ele.department);
   });
   deptData = [...new Set(deptData)];
   let deptDropDown = "";
   deptData.map((d) => {
     deptDropDown += `
-    <div class="d-flex jc-space-btwn p-3">
+    <div class="d-flex jc-space-btwn p-3" onclick="enableFilter(this,event)">
     <div>
             <span >${d}</span>
     </div>
     <div >
-        <input type="checkbox"  class="check-boxes"  onclick="enableFilter(this);getCheckedCountDept(this)"      name="${d}" id="">
+        <input type="checkbox"  class="check-boxes"  onclick="enableFilter(this,event);getCheckedCountDept(this,event)"      name="${d}" id="">
     </div>
   </div>`;
   });
@@ -483,17 +347,17 @@ function handleFilterLoc() {
   let locDropDown = "";
   let loc = [];
   dataEmployess.map((ele) => {
-    loc.push(ele.LOCATION);
+    loc.push(ele.location);
   });
   loc = [...new Set(loc)];
 
   loc.map((d) => {
-    locDropDown += `<div class="d-flex jc-space-btwn p-3">
+    locDropDown += `<div class="d-flex jc-space-btwn p-3" onclick="enableFilter(this,event)">
     <div>
             <span >${d}</span>
     </div>
     <div >
-        <input type="checkbox" class="check-boxes-loc" onclick="enableFilter(this);getCheckedCountLoc(this);"   name="${d}" id="">
+        <input type="checkbox" class="check-boxes-loc" onclick="enableFilter(this,event);getCheckedCountLoc(this,event);"   name="${d}" id="">
     </div>
   </div>`;
   });
@@ -510,12 +374,13 @@ function handleFilterStatus() {
     },
   ];
   statusArray.map((d) => {
-    statusDropDown += ` <div class="d-flex jc-space-btwn p-3">
-    <div>
+    statusDropDown += ` <div class="d-flex jc-space-btwn p-3" onclick="enableFilter(this,event)">
+    
+    <div >
             <span >${d.status}</span>
     </div>
     <div >
-        <input type="checkbox" class="check-boxes-status"   onclick="enableFilter(this);getCheckedCountStatus(this);"  onclick=""  name="${d.status}" id="">
+        <input type="checkbox" class="check-boxes-status"   onclick="enableFilter(this,event);getCheckedCountStatus(this,event);"  name="${d.status}" id="">
     </div>
   </div>`;
   });
@@ -553,13 +418,14 @@ function handleStat(event) {
   }
 }
 
-function handleAssignDropDown(event){
+function handleAssignDropDown(event) {
   event.stopPropagation();
   document.getElementById("add-roles").classList.toggle("d-none");
 }
 
 let value = 0;
-function enableFilter(a) {
+function enableFilter(a, event) {
+  event.stopPropagation()
   a.checked ? (value += 1) : (value -= 1);
   if (value > 0) {
     document.getElementById("btn-reset-filter").style.opacity = 1;
@@ -571,19 +437,22 @@ function enableFilter(a) {
   }
 }
 
-function getCheckedCountLoc(ele) {
+function getCheckedCountLoc(ele, event) {
+  event.stopPropagation();
   ele.checked ? (locCount += 1) : (locCount -= 1);
   document.getElementById("no-of-checks-loc").innerText =
     locCount === 0 ? "" : `(${locCount})`;
 }
 
-function getCheckedCountDept(ele) {
+function getCheckedCountDept(ele, event) {
+  event.stopPropagation();
   ele.checked ? (deptCount += 1) : (deptCount -= 1);
   document.getElementById("no-of-checks-dept").innerText =
     deptCount === 0 ? "" : `(${deptCount})`;
 }
 
-function getCheckedCountStatus(ele) {
+function getCheckedCountStatus(ele, event) {
+  event.stopPropagation()
   ele.checked ? (statusCount += 1) : (statusCount -= 1);
   document.getElementById("no-of-checks-status").innerText =
     statusCount === 0 ? "" : `(${statusCount})`;
@@ -626,20 +495,20 @@ const handleFilterApply = () => {
     selectedStatus.push(false);
   }
   //filtering into the new array
- let filteredArray = dataEmployess.filter(element => {
-    if (selectedStatus.length > 0 && !selectedStatus.includes(element.STATUS)) {
-        return false;
+  let filteredArray = dataEmployess.filter(element => {
+    if (selectedStatus.length > 0 && !selectedStatus.includes(element.status)) {
+      return false;
     }
-    if (selectedDept.length > 0 && !selectedDept.includes(element.DEPARTMENT)) {
-        return false;
+    if (selectedDept.length > 0 && !selectedDept.includes(element.department)) {
+      return false;
     }
-    if (selectedLoc.length > 0 && !selectedLoc.includes(element.LOCATION)) {
-        return false;
+    if (selectedLoc.length > 0 && !selectedLoc.includes(element.location)) {
+      return false;
     }
     return true;
-});
+  });
 
-displayTable(filteredArray);
+  displayTable(filteredArray);
 };
 
 const tableToCSV = () => {
@@ -743,9 +612,9 @@ const handleEditEmp = (idx) => {
   localStorage.setItem("updateEmp", JSON.stringify(dataEmployess[idx]));
   window.location.href = "./addEmp.html";
 };
-const handleAddEmployee=()=>{
+const handleAddEmployee = () => {
   localStorage.removeItem("updateEmp");
-  window.location.href="./addEmp.html"
+  window.location.href = "./addEmp.html"
 }
 
 

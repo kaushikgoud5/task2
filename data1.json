@@ -1,10 +1,10 @@
 [{
-  "USER": "kspurling0",
-  "LOCATION": "China",
-  "DEPARTMENT": "Support",
-  "ROLE": "Electrician",
-  "EMPNO": "01HPRAF9VX1ZSAS9TV87SBES2Z",
-  "STATUS": true ,
-  "JOINDT": "07/04/2023",
-  "IMGSRC":"./assets/user-table.jpg"
+  "user": "kspurling0",
+  "location": "China",
+  "department": "Support",
+  "role": "Electrician",
+  "empId": "01HPRAF9VX1ZSAS9TV87SBES2Z",
+  "status": true ,
+  "joinDate": "2024-01-16",
+  "imgSrc":"./assets/user-table.jpg"
 }]
