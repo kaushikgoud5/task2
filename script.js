@@ -1,8 +1,8 @@
 // import hideNavBar  from './hidenav';
 
-dataEmployess = [];
-isNavHidden = true;
-alphabetsFiltered = [];
+let dataEmployess = [];
+let isNavHidden = true;
+let alphabetsFiltered = [];
 let isAscending = true;
 let locCount = 0;
 let deptCount = 0;
@@ -164,7 +164,7 @@ function handleClickFilter(ascciiValue) {
       "http://127.0.0.1:5500/task-2/assets/Interface/filter-black.svg";
   }
 }
-
+//ewiuhdiwiouwhoidcw
 function sorting(column) {
   if (column == 1) {
     isAscending = !isAscending;

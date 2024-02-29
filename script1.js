@@ -163,7 +163,7 @@ function handleAddEmp() {
    
 }
 
-function updateEmployeeAndFillForm() {
+function updateEmployeeAndFillForm() {  
     if (updateData != undefined) {
         document.getElementById("add-employee").innerText = "Update Employee";
         document.getElementById("btn-employee").innerText = "Update Employee";
