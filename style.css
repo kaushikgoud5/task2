@@ -28,6 +28,13 @@
 .m-0 {
   margin: 0;
 }
+.w-5{
+  width: 5rem;
+}
+.w-7{
+  width: 8rem;
+
+}
 .mt-0 {
   margin-top: 0;
 }
@@ -333,6 +340,7 @@ td:nth-child(7) span {
 td img {
   width: 35px;
   height: 35px;
+  border-radius: 100%;
 }
 .name-email {
   margin-left: 10px;

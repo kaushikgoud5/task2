@@ -1,27 +1,15 @@
-// isValidated = false;
-// const checkValidation=(obj)=>{
-//   let regEmpId=/[TZ]+\d{5}/;
-//   if(!regEmpId.test(obj.empId)){
-//     document.getElementById("validate-msg-emp-no").innerHTML=`<span><i class="ph-fill ph-warning-diamond"></i></span>Enter a Valid Employee Id`;
-//     document.getElementById("validate-msg-emp-no").classList.remove("d-none");
-//   }
-//   else{
-//     if(!document.getElementById("validate-msg-emp-no").classList.contains("d-none")){
-//         document.getElementById("validate-msg-emp-no").classList.add("d-none");
+// define(function () {
+//     function sayHello() {
+//         console.log("Hello from module1!");
 //     }
-//     document.getElementById("validate-msg-emp-no").classList.add("d-none");
-//   }
-//   let regUser=/[A-Za-z\D]/;
-//   if(!regUser.test(obj.fname) || !regUser.test(obj.lname)){
-//     document.getElementById("validate-msg-emp-no").innerHTML=`<span><i class="ph-fill ph-warning-diamond"></i></span>Enter a Valid Employee Id`;
-//     document.getElementById("validate-msg-emp-no").classList.remove("d-none");
-//   }
-
-//  return isValidated;
-// }
+//     return {
+//         sayHello: sayHello
+//     };
+// });
 let emptyfield = false;
 let isExisiting = false;
 let updateData = localStorage.getItem("updateEmp");
+
 function uploadProfilePic() {
     let inpFile = document.getElementById("upload-img");
     let profilePic = document.getElementById("user-img");

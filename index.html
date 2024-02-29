@@ -11,6 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
       rel="stylesheet"
     />
+    <!-- <script data-main="./script.js"  src="https://requirejs.org/docs/release/2.3.6/minified/require.js" ></script> -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   </head>
@@ -194,7 +195,7 @@
             <span
               ><i class="ph ph-funnel-simple" style="color: #f44848"></i
             ></span>
-            <div class="filter-drop-down">
+            <div class="filter-drop-down w-5">
               <div class="d-flex g-05 jc-space-btwn align-items-center"  onclick="handleStat(event)">
                 <div class="dept">Status  <span class="checked-number " id="no-of-checks-status"></span></div>
 
@@ -203,9 +204,9 @@
                 </div>
               </div>
 
-              <div id="options-body-status" class="dept-drop d-none"></div>
+              <div id="options-body-status" class="dept-drop d-none w-5"  onclick={event.stopPropagation()}></div>
             </div>
-            <div class="filter-drop-down">
+            <div class="filter-drop-down w-7">
               <div class="d-flex g-05 jc-space-btwn align-items-center" onclick="handleDpt(event)">
                 <div class="dept">Department  <span class="checked-number" id="no-of-checks-dept"></span> </div>
 
@@ -214,13 +215,13 @@
                 </div>
               </div>
 
-              <div id="options-body" class="dept-drop d-none">
+              <div id="options-body" class="dept-drop d-none w-7"  onclick={event.stopPropagation()}>
 
               </div>
             </div>
 
 
-            <div class="filter-drop-down">
+            <div class="filter-drop-down w-7">
               <div class="d-flex g-05 jc-space-btwn align-items-center" onclick="handleLoc(event)">
                 <div class="dept">Location  <span class="checked-number " id="no-of-checks-loc"></span></div>
 
@@ -229,7 +230,7 @@
                 </div>
               </div>
 
-              <div id="options-body-loc" class="dept-drop d-none">
+              <div id="options-body-loc" class="dept-drop d-none w-7" onclick={event.stopPropagation()}>
 
 
               </div>
@@ -326,5 +327,7 @@
       </main>
 
     <script src="./script.js"></script>
+    <script src="./hidenav.js"></script>
+    <!-- <script src="./hidenav.js" type="module"></script> -->
   </body>
 </html>

@@ -1,21 +1,28 @@
+// import hideNavBar  from './hidenav';
+
 dataEmployess = [];
 isNavHidden = true;
-const alphabetsFiltered = [];
+alphabetsFiltered = [];
 let isAscending = true;
 let locCount = 0;
 let deptCount = 0;
 let statusCount = 0;
-const locationOptions = document.getElementById("options-body-loc").classList;
-const departmentOptions = document.getElementById("options-body").classList;
-const statusOptions = document.getElementById("options-body-status").classList;
+let locationOptions = document.getElementById("options-body-loc").classList;
+let departmentOptions = document.getElementById("options-body").classList;
+let statusOptions = document.getElementById("options-body-status").classList;
+
+// require(['./hidenav'], function (module1) {
+//   module1.hideNavBar();
+// });
 
 async function fetchData(data) {
   let response = await (await fetch("./data1.json")).json();
   response = response.concat(data);
   dataEmployess = response;
-  console.log(dataEmployess)
+
   displayTable(response);
 }
+
 
 //checking the data from th local storage adn adding it to the main data
 function checkPreviousData() {
@@ -35,33 +42,35 @@ async function LoadEmployeePage() {
   handleFilterStatus();
 }
 
-//hiding the nav-bar when user clicks on the icon
-function hideNavBar() {
-  document.querySelector(".vertical-page").classList.toggle("w-100");
-  document.getElementById("side-nav-bar").classList.toggle("hide-navbar");
-  document.getElementById("hide-install-box").classList.toggle("hide-install");
-  document.getElementById("nav-hide-logo").classList.toggle("trim-logo");
-  let x = document.getElementsByClassName("nav-text");
-  let y = document.getElementsByClassName("nav-text-vh");
-  y[0].classList.add("hide-vh");
-  y[1].classList.add("hide-vh");
-  let i;
-  if (isNavHidden) {
-    isNavHidden = false;
-    for (i = 0; i < x.length; i++) {
-      x[i].className += " hide-text";
-    }
-  } else {
-    y[0].classList.remove("hide-vh");
-    y[1].classList.remove("hide-vh");
-    isNavHidden = true;
-    for (i = 0; i < x.length; i++) {
-      x[i].classList.remove("hide-text");
-    }
-  }
+// hideNavBar();
 
-  document.getElementById("close-btn").classList.toggle("rotate-arrow");
-}
+//hiding the nav-bar when user clicks on the icon
+// function hideNavBar() {
+//   document.querySelector(".vertical-page").classList.toggle("w-100");
+// document.getElementById("side-nav-bar").classList.toggle("hide-navbar");
+// document.getElementById("hide-install-box").classList.toggle("hide-install");
+// document.getElementById("nav-hide-logo").classList.toggle("trim-logo");
+//   let x = document.getElementsByClassName("nav-text");
+//   let y = document.getElementsByClassName("nav-text-vh");
+//   y[0].classList.add("hide-vh");
+//   y[1].classList.add("hide-vh");
+//   let i;
+//   if (isNavHidden) {
+//     isNavHidden = false;
+//     for (i = 0; i < x.length; i++) {
+//       x[i].className += " hide-text";
+//     }
+//   } else {
+//     y[0].classList.remove("hide-vh");
+//     y[1].classList.remove("hide-vh");
+//     isNavHidden = true;
+//     for (i = 0; i < x.length; i++) {
+//       x[i].classList.remove("hide-text");
+//     }
+//   }
+
+//   document.getElementById("close-btn").classList.toggle("rotate-arrow");
+// }
 function displayAlphabets() {
   let alpha = "";
   for (let i = 65; i < 91; i++) {
@@ -69,7 +78,9 @@ function displayAlphabets() {
       i
     )}</span>`;
   }
-  document.getElementById("demo").innerHTML = alpha;
+
+  document.getElementById("demo").innerHTML =alpha;
+    
 }
 function displayTable(dataEmployess) {
   let rows_tr = "";
@@ -79,8 +90,8 @@ function displayTable(dataEmployess) {
    <td>
      <div class="table-user-info d-flex align-items-center" id="user-profile">
          <img src="${ele.imgSrc}" alt="">
-       <div class="name-email" >
-         <span>${ele.user.toUpperCase()}</span><br /><span class="e-mail">${ele.user.split(" ")[0]
+       <div class="name-email d-flex d-flex-col" >
+         <span>${ele.user.toUpperCase()}</span><span class="e-mail">${ele.user.split(" ")[0]
       }@tezo.com</span>
        </div>
      </div>
@@ -331,8 +342,8 @@ function handleFilterDept() {
   let deptDropDown = "";
   deptData.map((d) => {
     deptDropDown += `
-    <div class="d-flex jc-space-btwn p-3" onclick="enableFilter(this,event)">
-    <div>
+    <div class="d-flex jc-space-btwn p-3" >
+    <div class="w-5">
             <span >${d}</span>
     </div>
     <div >
@@ -352,8 +363,8 @@ function handleFilterLoc() {
   loc = [...new Set(loc)];
 
   loc.map((d) => {
-    locDropDown += `<div class="d-flex jc-space-btwn p-3" onclick="enableFilter(this,event)">
-    <div>
+    locDropDown += `<div class="d-flex jc-space-btwn p-3">
+    <div class="w-5">
             <span >${d}</span>
     </div>
     <div >
@@ -374,7 +385,7 @@ function handleFilterStatus() {
     },
   ];
   statusArray.map((d) => {
-    statusDropDown += ` <div class="d-flex jc-space-btwn p-3" onclick="enableFilter(this,event)">
+    statusDropDown += ` <div class="d-flex jc-space-btwn p-3" >
     
     <div >
             <span >${d.status}</span>
@@ -515,16 +526,16 @@ const tableToCSV = () => {
   let csvData = [];
   let rows = document.getElementsByTagName("tr");
   for (let i = 0; i < rows.length; i++) {
-    let cols = document.querySelectorAll("td,th");
+    let cols = rows[i].querySelectorAll('td,th')
     let csvRow = [];
-    for (let j = 0; j < cols.length; j++) {
+    for (let j = 1; j < cols.length; j++) {
       csvRow.push(cols[j].innerText);
     }
-    csvData.push(csvRow.join(","));
-    break;
+    csvData.push(csvRow.join(","));  
   }
 
-  csvData.join("\n");
+  csvData=csvData.join("\n");
+  console.log(csvData)
   csvFile = new Blob([csvData], { type: "text/csv" });
   let tmp = document.createElement("a");
   tmp.download = "Data.csv";
