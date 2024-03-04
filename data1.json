@@ -6,5 +6,15 @@
   "empId": "01HPRAF9VX1ZSAS9TV87SBES2Z",
   "status": true ,
   "joinDate": "2024-01-16",
-  "imgSrc":"./assets/user-table.jpg"
+  "imgSrc":"./assets/user-image.png"
+},
+{
+  "user": "anandkaushik",
+  "location": "chennai",
+  "department": "IT",
+  "role": "Buisnes",
+  "empId": "01HPRAF9VX1ZSAS9TV87SBES2Z",
+  "status": false ,
+  "joinDate": "2024-01-16",
+  "imgSrc":"./assets/user-image.png"
 }]

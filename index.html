@@ -11,11 +11,11 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
       rel="stylesheet"
     />
-    <!-- <script data-main="./script.js"  src="https://requirejs.org/docs/release/2.3.6/minified/require.js" ></script> -->
+    <script data-main="./JS/index.js"  src="https://requirejs.org/docs/release/2.3.6/minified/require.js" ></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   </head>
-  <body onload="LoadEmployeePage()" id="body">
+  <body  id="body">
     <main class="d-flex">
       <section class="side-nav" id="side-nav-bar">
         <div>
@@ -164,16 +164,16 @@
             >
           </div>
 
-          <div class="btns-section d-flex">
-            <button class="btn-items bg-white">
+          <div class="btns-section d-flex" >
+            <button class="btn-items bg-white" id="btn-export-to-csv">
               <div>
                 <img src="./assets/Masked Icon.png" alt="" />
               </div>
-              <span onclick="tableToCSV()">EXPORT</span>
+              <span>EXPORT</span>
             </button>
 
             <!-- <a href="./addEmp.html" class="td-none"> -->
-              <button class="btn-items bg-red" onclick="handleAddEmployee()">
+              <button class="btn-items bg-red" id="btn-add-emp">
                 <div>
                   <i class="ph-bold ph-plus"></i>
                 </div>
@@ -189,6 +189,7 @@
           </span>
           <div class="alphabets" id="demo"></div>
         </div>
+
         <div class="filter-row">
           <div class="filter-row-left">
             <span class="filter">Filter</span>
@@ -196,7 +197,7 @@
               ><i class="ph ph-funnel-simple" style="color: #f44848"></i
             ></span>
             <div class="filter-drop-down w-5">
-              <div class="d-flex g-05 jc-space-btwn align-items-center"  onclick="handleStat(event)">
+              <div class="d-flex g-05 jc-space-btwn align-items-center"  id="filter-status" onclick="{event.stopPropagation}">
                 <div class="dept">Status  <span class="checked-number " id="no-of-checks-status"></span></div>
 
                 <div class="dept-drop-down">
@@ -207,7 +208,7 @@
               <div id="options-body-status" class="dept-drop d-none w-5"  onclick={event.stopPropagation()}></div>
             </div>
             <div class="filter-drop-down w-7">
-              <div class="d-flex g-05 jc-space-btwn align-items-center" onclick="handleDpt(event)">
+              <div class="d-flex g-05 jc-space-btwn align-items-center" id="filter-department"  onclick="{event.stopPropagation()}">
                 <div class="dept">Department  <span class="checked-number" id="no-of-checks-dept"></span> </div>
 
                 <div class="dept-drop-down">
@@ -222,7 +223,7 @@
 
 
             <div class="filter-drop-down w-7">
-              <div class="d-flex g-05 jc-space-btwn align-items-center" onclick="handleLoc(event)">
+              <div class="d-flex g-05 jc-space-btwn align-items-center"  id="filter-location" onclick="{event.stopPropagation()}">
                 <div class="dept">Location  <span class="checked-number " id="no-of-checks-loc"></span></div>
 
                 <div class="dept-drop-down">
@@ -237,13 +238,12 @@
             </div>
           </div>
           <div class="filter-row-right">
-            <button class="filter-btns btn-reset" id="btn-reset-filter" onclick="handleFilterReset()">
+            <button class="filter-btns btn-reset" id="btn-reset-filter" >
               Reset
             </button>
             <button
               class="filter-btns btn-apply"
               id="btn-filter-apply"
-              onclick="handleFilterApply()"
             >
               Apply
             </button>
@@ -258,7 +258,7 @@
                   <button
                     class="btn-delete"
                     id="btn-delete-active"
-                    onclick="handleDelete()"
+                   
                   >
                     Delete
                   </button>
@@ -273,47 +273,47 @@
                     <input
                       type="checkbox"
                       id="inp-check-box"
-                      onclick="handleCheckBox(this)"
+                      
                     />
                   </th>
                   <th>
                     USER
-                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="sorting(1)"
-                    id="sort-btn" alt="">
+                    <img src="./assets/sort.png" width="10px"  itemid="" class="c-p" 
+                    id="sort-btn-user" alt="">
                   </th>
                   <th>
                     LOCATION
-                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="sorting(2)"
-                    id="sort-btn" alt="">
+                    <img src="./assets/sort.png" width="10px" class="c-p" 
+                    id="sort-btn-loc" alt="">
 
                   </th>
                   <th>
                     
-                    DEPARTMENT<img src="./assets/sort.png" width="10px" class="c-p" onclick="sorting(3)"
-                    id="sort-btn" alt="">
+                    DEPARTMENT <img src="./assets/sort.png" width="10px" class="c-p" 
+                    id="sort-btn-dep" alt="">
                   </th>
                   <th>
                     ROLE
-                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="sorting(4)"
-                    id="sort-btn" alt="">
+                    <img src="./assets/sort.png" width="10px" class="c-p" 
+                    id="sort-btn-role" alt="">
 
                   </th>
                   <th>
-                    EMP NO<img src="./assets/sort.png" width="10px" class="c-p" onclick="sorting(5)"
-                    id="sort-btn" alt="">
+                    EMP NO <img src="./assets/sort.png" width="10px" class="c-p"
+                    id="sort-btn-emp" alt="">
                    
                   </th>
                   <th>
                     STATUS
-                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="sorting(6)"
-                    id="sort-btn" alt="">
+                    <img src="./assets/sort.png" width="10px" class="c-p" 
+                    id="sort-btn-status" alt="">
                   </th>
                   <th>
                     JOIN DT
-                    <img src="./assets/sort.png" width="10px" class="c-p" onclick="sorting(7)"
-                    id="sort-btn" alt="">
+                    <img src="./assets/sort.png" width="10px" class="c-p"
+                    id="sort-btn-join-date" alt="">
                   </th>
-                  <th>...</th>
+                  <th >...</th>
                 </tr>
               </thead>
               <tbody id="employee-table">
@@ -326,8 +326,8 @@
       
       </main>
 
-    <script src="./script.js"></script>
-    <script src="./hidenav.js"></script>
+    <!-- <script src="./JS/script.js"></script>
+    <script src="./JS/hidenav.js"></script> -->
     <!-- <script src="./hidenav.js" type="module"></script> -->
   </body>
 </html>

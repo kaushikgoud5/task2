@@ -1,11 +1,3 @@
-// define(function () {
-//     function sayHello() {
-//         console.log("Hello from module1!");
-//     }
-//     return {
-//         sayHello: sayHello
-//     };
-// });
 let emptyfield = false;
 let isExisiting = false;
 let updateData = localStorage.getItem("updateEmp");
