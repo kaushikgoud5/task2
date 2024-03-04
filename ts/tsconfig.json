@@ -1,0 +1,6 @@
+{
+    "compilerOptions": {
+        "lib": [ "dom","ES2017" ]
+      // other compiler options...
+    }
+  }
