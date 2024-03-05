@@ -1,6 +1,6 @@
 var emptyfield = false;
 var isExisiting = false;
-var updateData = (localStorage.getItem("updateEmp"));
+var updateData = localStorage.getItem("updateEmp");
 function uploadProfilePic() {
     var inpFile = document.getElementById("upload-img");
     var profilePic = document.getElementById("user-img");
@@ -39,6 +39,7 @@ function checkAllFields() {
     for (var i = 0; i < fields.length; i++) {
         if (document.forms["form-data"][fields[i]].value === "") {
             document.getElementById("validate-msg-".concat(fields[i])).classList.remove("d-none");
+            console.log(fields[i]);
             emptyfield = true;
         }
         else {
@@ -47,6 +48,7 @@ function checkAllFields() {
             }
         }
     }
+    console.log(emptyfield);
     if (emptyfield) {
         return false;
     }
@@ -132,6 +134,8 @@ function handleAddEmp() {
     ];
     if (updateData == null) {
         if (checkAllFields() && isIdUnique(empId)) {
+            console.log(obj);
+            emptyfield = false;
             addEmployeeData(obj);
             resetForm(); //reseting the form before adding or updating
             window.scrollTo({ top: 0, behavior: "smooth" });
@@ -140,9 +144,9 @@ function handleAddEmp() {
                 window.location.href = "./index.html";
             }, 1000);
         }
-        else {
-            changeFormTemplate();
-        }
+        // else{
+        //     changeFormTemplate()
+        // }
     }
     else if (updateData != null) {
         updateEmployeeData(obj);
@@ -164,7 +168,7 @@ function updateEmployeeAndFillForm() {
         document.forms["form-data"]["fname"].value = updateDat.user.split(" ")[0];
         document.forms["form-data"]["lname"].value = updateDat.user.split(" ")[1];
         document.forms["form-data"]["email"].value = updateDat.user.split(" ")[0] + "@tezo.com";
-        // document.forms["form-data"]["jdate"].value = updateData.joinDate;
+        document.forms["form-data"]["jdate"].value = updateDat.joinDate;
         document.forms["form-data"]["mobile"].value = updateDat.mobile;
         document.forms["form-data"]["dob"].value = updateDat.dob;
         var l = document.getElementById("location");

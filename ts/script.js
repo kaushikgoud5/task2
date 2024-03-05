@@ -1,40 +1,3 @@
-// import hideNavBar  from './hidenav';
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
         if (ar || !(i in from)) {
@@ -46,53 +9,48 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 var _a, _b, _c, _d;
 var dataEmployess = [];
+var response = [];
 var alphabetsFiltered = [];
 var isAscending = true;
+var ifAnySelected = 0;
+var checkedCount = 0;
 var locCount = 0;
 var deptCount = 0;
 var statusCount = 0;
 var locationOptions = (_a = document.getElementById("options-body-loc")) === null || _a === void 0 ? void 0 : _a.classList;
 var departmentOptions = (_b = document.getElementById("options-body")) === null || _b === void 0 ? void 0 : _b.classList;
 var statusOptions = (_c = document.getElementById("options-body-status")) === null || _c === void 0 ? void 0 : _c.classList;
-// require(['./hidenav'], function (module1) {
-//   module1.hideNavBar();
-// });
-var response = [];
+var Sorting;
+(function (Sorting) {
+    Sorting[Sorting["user"] = 1] = "user";
+    Sorting[Sorting["location"] = 2] = "location";
+    Sorting[Sorting["department"] = 3] = "department";
+    Sorting[Sorting["role"] = 4] = "role";
+    Sorting[Sorting["empId"] = 5] = "empId";
+    Sorting[Sorting["status"] = 6] = "status";
+    Sorting[Sorting["joinDate"] = 7] = "joinDate";
+})(Sorting || (Sorting = {}));
 function fetchData(data) {
-    // let response = await (await fetch("./data1.json")).json();
     response = response.concat(data);
     dataEmployess = response;
     displayTable(response);
 }
-//checking the data from th local storage adn adding it to the main data
 function checkPreviousData() {
     var newdata = localStorage.getItem("addData");
     if (newdata) {
-        newdata = JSON.parse(newdata);
-        return newdata;
+        var newdataParsed = JSON.parse(newdata);
+        return newdataParsed;
     }
     else {
         return [];
     }
 }
-//initially loading the options in filter section
 function LoadEmployeePage() {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, fetchData(checkPreviousData())];
-                case 1:
-                    _a.sent();
-                    handleFilterLoc();
-                    handleFilterDept();
-                    handleFilterStatus();
-                    return [2 /*return*/];
-            }
-        });
-    });
+    fetchData(checkPreviousData());
+    handleFilterLoc();
+    handleFilterDept();
+    handleFilterStatus();
 }
-// hideNavBar();
-//hiding the nav-bar when user clicks on the icon
 function displayAlphabets() {
     var alpha = "";
     for (var i = 65; i < 91; i++) {
@@ -157,7 +115,7 @@ function handleClickFilter(ascciiValue) {
     }
 }
 function sorting(column) {
-    if (column == 1) {
+    if (Sorting.user === column) {
         isAscending = !isAscending;
         var sortedData = __spreadArray([], dataEmployess, true).sort(function (a, b) {
             if (a.user < b.user)
@@ -168,7 +126,7 @@ function sorting(column) {
         });
         displayTable(sortedData);
     }
-    if (column == 2) {
+    if (Sorting.location === column) {
         isAscending = !isAscending;
         var sortedData = __spreadArray([], dataEmployess, true).sort(function (a, b) {
             if (a.location < b.location)
@@ -179,7 +137,7 @@ function sorting(column) {
         });
         displayTable(sortedData);
     }
-    if (column == 3) {
+    if (Sorting.department === column) {
         isAscending = !isAscending;
         var sortedData = __spreadArray([], dataEmployess, true).sort(function (a, b) {
             if (a.department < b.department)
@@ -190,7 +148,7 @@ function sorting(column) {
         });
         displayTable(sortedData);
     }
-    if (column == 4) {
+    if (Sorting.role === column) {
         isAscending = !isAscending;
         var sortedData = __spreadArray([], dataEmployess, true).sort(function (a, b) {
             if (a.role < b.role)
@@ -201,7 +159,7 @@ function sorting(column) {
         });
         displayTable(sortedData);
     }
-    if (column == 5) {
+    if (Sorting.empId === column) {
         isAscending = !isAscending;
         var sortedData = __spreadArray([], dataEmployess, true).sort(function (a, b) {
             if (a.empId < b.empId)
@@ -212,7 +170,7 @@ function sorting(column) {
         });
         displayTable(sortedData);
     }
-    if (column == 6) {
+    if (Sorting.status === column) {
         isAscending = !isAscending;
         var sortedData = __spreadArray([], dataEmployess, true).sort(function (a, b) {
             if (a.status < b.status)
@@ -223,7 +181,7 @@ function sorting(column) {
         });
         displayTable(sortedData);
     }
-    if (column == 7) {
+    if (Sorting.joinDate === column) {
         isAscending = !isAscending;
         var sortedData = __spreadArray([], dataEmployess, true).sort(function (a, b) {
             if (a.joinDate < b.joinDate)
@@ -238,62 +196,50 @@ function sorting(column) {
 function handleDelete(rowNumber) {
     var _a;
     if (rowNumber != undefined) {
-        console.log(rowNumber);
         dataEmployess.splice(rowNumber, 1);
         displayTable(dataEmployess);
     }
     var cnt = 0;
     var checkboxes = document.getElementsByClassName("inp-check");
     for (var i = 0; i < checkboxes.length; i++) {
-        var x = checkboxes[i];
-        if (x.classList.contains("checkbox-active")) {
+        var singleCheckBoxItem = checkboxes[i];
+        if (singleCheckBoxItem.classList.contains("checkbox-active")) {
             cnt += 1;
+            var remove_id = singleCheckBoxItem.id.split("-")[1];
+            checkedCount -= 1;
+            delete dataEmployess[remove_id];
         }
     }
     if (cnt == dataEmployess.length) {
         dataEmployess = [];
-        displayTable(dataEmployess);
     }
-    else {
-        for (var i = 0; i < checkboxes.length; i++) {
-            var x = checkboxes[i];
-            if (x.classList.contains("checkbox-active")) {
-                cnt += 1;
-                var remove_id = x.id.split("-")[1];
-                s -= 1;
-                delete dataEmployess[remove_id];
-            }
-        }
-        displayTable(dataEmployess);
-    }
+    displayTable(dataEmployess);
     (_a = document.getElementById("btn-delete-active")) === null || _a === void 0 ? void 0 : _a.classList.remove("btn-active");
 }
-var s = 0;
 function handleCheckBox(checkbox) {
     var _a, _b;
     if (checkbox.checked == true) {
-        s = dataEmployess.length;
+        checkedCount = dataEmployess.length;
         (_a = document.getElementById("btn-delete-active")) === null || _a === void 0 ? void 0 : _a.classList.add("btn-active");
         var checkboxes = document.getElementsByClassName("inp-check");
         for (var i = 0; i < checkboxes.length; i++) {
-            var x = checkboxes[i];
-            x.classList.add("checkbox-active");
-            x.checked = true;
+            var singleCheckBoxItem = checkboxes[i];
+            singleCheckBoxItem.classList.add("checkbox-active");
+            singleCheckBoxItem.checked = true;
         }
     }
     else {
-        s = 0;
+        checkedCount = 0;
         (_b = document.getElementById("btn-delete-active")) === null || _b === void 0 ? void 0 : _b.classList.remove("btn-active");
         var checkboxes = document.getElementsByClassName("inp-check");
-        var cnt = 0;
         for (var i = 0; i < checkboxes.length; i++) {
-            var x = checkboxes[i];
-            x.classList.remove("checkbox-active");
-            x.checked = false;
+            var singleCheckBoxItem = checkboxes[i];
+            singleCheckBoxItem.classList.remove("checkbox-active");
+            singleCheckBoxItem.checked = false;
         }
     }
 }
-function handleSingleCheckbox(e, index) {
+function handleSingleCheckbox(currEvent, index) {
     var _a, _b, _c, _d, _e;
     if ((_a = document
         .getElementById("check-".concat(index))) === null || _a === void 0 ? void 0 : _a.classList.contains("checkbox-active")) {
@@ -303,42 +249,48 @@ function handleSingleCheckbox(e, index) {
     else {
         (_c = document.getElementById("check-".concat(index))) === null || _c === void 0 ? void 0 : _c.classList.add("checkbox-active");
     }
-    e.checked ? (s += 1) : (s -= 1);
-    if (s > 0) {
+    currEvent.checked ? (checkedCount += 1) : (checkedCount -= 1);
+    if (checkedCount > 0) {
         (_d = document.getElementById("btn-delete-active")) === null || _d === void 0 ? void 0 : _d.classList.add("btn-active");
     }
     else {
-        (_e = document
-            .getElementById("btn-delete-active")) === null || _e === void 0 ? void 0 : _e.classList.remove("btn-active");
+        (_e = document.getElementById("btn-delete-active")) === null || _e === void 0 ? void 0 : _e.classList.remove("btn-active");
     }
-    if (s == dataEmployess.length) {
-        document.getElementById("inp-check-box").checked =
-            true;
+    if (checkedCount == dataEmployess.length) {
+        document.getElementById("inp-check-box").checked = true;
     }
     else {
-        document.getElementById("inp-check-box").checked =
-            false;
+        document.getElementById("inp-check-box").checked = false;
     }
 }
 function handleSearchBox() {
     var searchArr = [];
     var searchValue = document.getElementById("search-input").value;
-    dataEmployess.map(function (val, idx) {
-        if (val.user.toUpperCase()[0] === searchValue ||
-            val.user.toLowerCase()[0] === searchValue) {
+    dataEmployess.map(function (val) {
+        if (searchValue === val.user.toUpperCase().slice(0, searchValue.length) ||
+            searchValue === val.user.toLowerCase().slice(0, searchValue.length)) {
             searchArr.push(val);
         }
     });
     displayTable(searchArr);
+}
+function removeDuplicates(data) {
+    var uniqueArray = [];
+    data.forEach(function (item) {
+        if (uniqueArray.indexOf(item) === -1) {
+            uniqueArray.push(item);
+        }
+    });
+    return uniqueArray;
 }
 function handleFilterDept() {
     var deptData = [];
     dataEmployess.map(function (ele) {
         deptData.push(ele.department);
     });
-    // deptData = [...new Set(deptData)];
+    var deptNewData = removeDuplicates(deptData);
     var deptDropDown = "";
-    deptData.map(function (d) {
+    deptNewData.map(function (d) {
         deptDropDown += "\n    <div class=\"d-flex jc-space-btwn p-3\" >\n    <div class=\"w-5\">\n            <span >".concat(d, "</span>\n    </div>\n    <div >\n        <input type=\"checkbox\"  class=\"check-boxes\"  onclick=\"enableFilter(this,event);getCheckedCountDept(this,event)\"      name=\"").concat(d, "\" id=\"\">\n    </div>\n  </div>");
     });
     document.getElementById("options-body").innerHTML = deptDropDown;
@@ -349,8 +301,8 @@ function handleFilterLoc() {
     dataEmployess.map(function (ele) {
         loc.push(ele.location);
     });
-    // loc = [...new Set(loc)];
-    loc.map(function (d) {
+    var locNewData = removeDuplicates(loc);
+    locNewData.map(function (d) {
         locDropDown += "<div class=\"d-flex jc-space-btwn p-3\">\n    <div class=\"w-5\">\n            <span >".concat(d, "</span>\n    </div>\n    <div >\n        <input type=\"checkbox\" class=\"check-boxes-loc\" onclick=\"enableFilter(this,event);getCheckedCountLoc(this,event);\"   name=\"").concat(d, "\" id=\"\">\n    </div>\n  </div>");
     });
     document.getElementById("options-body-loc").innerHTML = locDropDown;
@@ -405,11 +357,10 @@ function handleAssignDropDown(event) {
     event.stopPropagation();
     (_a = document.getElementById("add-roles")) === null || _a === void 0 ? void 0 : _a.classList.toggle("d-none");
 }
-var value = 0;
-function enableFilter(a, event) {
+function enableFilter(currEvent, event) {
     event.stopPropagation();
-    a.checked ? (value += 1) : (value -= 1);
-    if (value > 0) {
+    currEvent.checked ? (ifAnySelected += 1) : (ifAnySelected -= 1);
+    if (ifAnySelected > 0) {
         document.getElementById("btn-reset-filter").style.opacity = "1";
         document.getElementById("btn-filter-apply").style.backgroundColor = "red";
     }
@@ -419,15 +370,15 @@ function enableFilter(a, event) {
         document.getElementById("btn-reset-filter").style.opacity = "0.6";
     }
 }
-function getCheckedCountLoc(ele, event) {
+function getCheckedCountLoc(currEvent, event) {
     event.stopPropagation();
-    ele.checked ? (locCount += 1) : (locCount -= 1);
+    currEvent.checked ? (locCount += 1) : (locCount -= 1);
     document.getElementById("no-of-checks-loc").innerText =
         locCount === 0 ? "" : "(".concat(locCount, ")");
 }
-function getCheckedCountDept(ele, event) {
+function getCheckedCountDept(currEvent, event) {
     event.stopPropagation();
-    ele.checked ? (deptCount += 1) : (deptCount -= 1);
+    currEvent.checked ? (deptCount += 1) : (deptCount -= 1);
     document.getElementById("no-of-checks-dept").innerText =
         deptCount === 0 ? "" : "(".concat(deptCount, ")");
 }
@@ -564,7 +515,6 @@ var handleFilterReset = function () {
     document.getElementById("btn-filter-apply").style.backgroundColor =
         "#f89191";
     document.getElementById("btn-reset-filter").style.opacity = "0.6";
-    // alphabetsFiltered.length > 0 ? displayTable(alphabetsFiltered) : displayTable(dataEmployess);
     displayTable(dataEmployess);
 };
 (_d = document.getElementById("body")) === null || _d === void 0 ? void 0 : _d.addEventListener("click", function () {

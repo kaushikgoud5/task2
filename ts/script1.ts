@@ -1,6 +1,6 @@
 let emptyfield = false;
 let isExisiting = false;
-var updateData = (localStorage.getItem("updateEmp"));
+var updateData = localStorage.getItem("updateEmp");
 
 interface DataEdit{
     user:string,
@@ -58,6 +58,7 @@ function checkAllFields() {
     for (let i = 0; i < fields.length; i++) {
         if (document.forms["form-data"][fields[i]].value === "") {
             document.getElementById(`validate-msg-${fields[i]}`).classList.remove("d-none");
+            console.log(fields[i])
             emptyfield = true;
         }
         else{
@@ -67,11 +68,13 @@ function checkAllFields() {
         }
 
     }
+    console.log(emptyfield)
     if (emptyfield) {
         return false;
     } else {
         return true;
     }
+
 }
 function resetForm() {
     let fields = ["emp-no", "fname", "lname", "email", "jdate"];
@@ -154,6 +157,8 @@ function handleAddEmp() {
     ];
     if(updateData==null){
         if (checkAllFields() && isIdUnique(empId) ) {
+            console.log(obj,emptyfield);
+            emptyfield=false;
             addEmployeeData(obj);
             resetForm();  //reseting the form before adding or updating
             window.scrollTo({top:0,behavior:"smooth"});
@@ -180,16 +185,16 @@ function handleAddEmp() {
 }
 
 function updateEmployeeAndFillForm() {  
-    if (updateData != undefined) {
+    if (updateData!= undefined) {
         document.getElementById("add-employee").innerText = "Update Employee";
         document.getElementById("btn-employee").innerText = "Update Employee";
         document.getElementById("show-toast").innerText = "Record Updated Successfully";
-        let updateDat = JSON.parse(updateData);
+        let updateDat:DataEdit = JSON.parse(updateData);
         document.forms["form-data"]["emp-no"].value = updateDat.empId.slice(0, 8);
         document.forms["form-data"]["fname"].value = updateDat.user.split(" ")[0];
         document.forms["form-data"]["lname"].value = updateDat.user.split(" ")[1];
         document.forms["form-data"]["email"].value =updateDat.user.split(" ")[0] + "@tezo.com";
-        // document.forms["form-data"]["jdate"].value = updateData.joinDate;
+        document.forms["form-data"]["jdate"].value = updateDat.joinDate;
         document.forms["form-data"]["mobile"].value = updateDat.mobile;
         document.forms["form-data"]["dob"].value = updateDat.dob;
         let l = document.getElementById("location") as HTMLSelectElement;
@@ -210,7 +215,6 @@ function changeFormTemplate(){
     document.getElementById("btn-upload").classList.remove("btn-emp")
     document.getElementById("btn-upload").classList.add("btn-accept");
     document.getElementById("btn-upload").classList.add("h-3");
-
     document.getElementById("inp-form").classList.remove("d-flex");
     let y = document.getElementsByClassName("inp-form-profile");
     y[0].className += " d-flex  g-05 align-items-center ";
@@ -222,3 +226,5 @@ function changeFormTemplate(){
 
 uploadProfilePic();
 updateEmployeeAndFillForm();
+
+
