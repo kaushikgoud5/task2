@@ -1,3 +1,4 @@
+// import '../style.css';
 var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
         if (ar || !(i in from)) {
@@ -193,6 +194,11 @@ function sorting(column) {
         displayTable(sortedData);
     }
 }
+function deleteFromLocalStorage(row) {
+    var lsd = JSON.parse(localStorage.getItem("addData"));
+    lsd.splice(row, 1);
+    localStorage.setItem("addData", JSON.stringify(lsd));
+}
 function handleDelete(rowNumber) {
     var _a;
     if (rowNumber != undefined) {
@@ -206,6 +212,7 @@ function handleDelete(rowNumber) {
         if (singleCheckBoxItem.classList.contains("checkbox-active")) {
             cnt += 1;
             var remove_id = singleCheckBoxItem.id.split("-")[1];
+            deleteFromLocalStorage(remove_id);
             checkedCount -= 1;
             delete dataEmployess[remove_id];
         }
@@ -230,7 +237,8 @@ function handleCheckBox(checkbox) {
     }
     else {
         checkedCount = 0;
-        (_b = document.getElementById("btn-delete-active")) === null || _b === void 0 ? void 0 : _b.classList.remove("btn-active");
+        (_b = document
+            .getElementById("btn-delete-active")) === null || _b === void 0 ? void 0 : _b.classList.remove("btn-active");
         var checkboxes = document.getElementsByClassName("inp-check");
         for (var i = 0; i < checkboxes.length; i++) {
             var singleCheckBoxItem = checkboxes[i];
@@ -254,13 +262,16 @@ function handleSingleCheckbox(currEvent, index) {
         (_d = document.getElementById("btn-delete-active")) === null || _d === void 0 ? void 0 : _d.classList.add("btn-active");
     }
     else {
-        (_e = document.getElementById("btn-delete-active")) === null || _e === void 0 ? void 0 : _e.classList.remove("btn-active");
+        (_e = document
+            .getElementById("btn-delete-active")) === null || _e === void 0 ? void 0 : _e.classList.remove("btn-active");
     }
     if (checkedCount == dataEmployess.length) {
-        document.getElementById("inp-check-box").checked = true;
+        document.getElementById("inp-check-box").checked =
+            true;
     }
     else {
-        document.getElementById("inp-check-box").checked = false;
+        document.getElementById("inp-check-box").checked =
+            false;
     }
 }
 function handleSearchBox() {

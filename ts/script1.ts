@@ -19,7 +19,6 @@ interface DataEdit{
     lname:string,
     status:boolean
 }
-
 function uploadProfilePic() {
     let inpFile = document.getElementById("upload-img") as HTMLInputElement;
     let profilePic = document.getElementById("user-img") as HTMLImageElement;
@@ -58,7 +57,6 @@ function checkAllFields() {
     for (let i = 0; i < fields.length; i++) {
         if (document.forms["form-data"][fields[i]].value === "") {
             document.getElementById(`validate-msg-${fields[i]}`).classList.remove("d-none");
-            console.log(fields[i])
             emptyfield = true;
         }
         else{
@@ -68,8 +66,8 @@ function checkAllFields() {
         }
 
     }
-    console.log(emptyfield)
     if (emptyfield) {
+        emptyfield=false;
         return false;
     } else {
         return true;
@@ -110,6 +108,7 @@ function updateEmployeeData(obj:DataEdit[]) {
     oldData = JSON.stringify(oldData);
     localStorage.setItem("addData", oldData);
 }
+
 function handleAddEmp() {
     //retreiving all the form information and storing the variables
     let e = document.getElementById("dept-inp-form") as HTMLSelectElement;
@@ -157,7 +156,6 @@ function handleAddEmp() {
     ];
     if(updateData==null){
         if (checkAllFields() && isIdUnique(empId) ) {
-            console.log(obj,emptyfield);
             emptyfield=false;
             addEmployeeData(obj);
             resetForm();  //reseting the form before adding or updating
@@ -205,7 +203,7 @@ function updateEmployeeAndFillForm() {
 
         let j = document.getElementById("job-title") as HTMLSelectElement;
         j.options[j.selectedIndex].text = updateDat.role;
-        console.log(updateDat)
+
     }
 }
 
