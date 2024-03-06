@@ -1,3 +1,5 @@
+
+
 var isNavHidden = true;
 function hideNavBar() {
     var _a, _b, _c, _d, _e;

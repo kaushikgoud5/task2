@@ -56,15 +56,16 @@ function LoadEmployeePage() {
 }
 
 function displayAlphabets() {
-  let alpha = "";
+  let alphabets = "";
   for (let i = 65; i < 91; i++) {
-    alpha += `<span id=${i}  class="activate-icon" onclick="handleClickFilter(${i})">${String.fromCharCode(
+    alphabets += `<span id=${i}  class="activate-icon" onclick="handleClickFilter(${i})">${String.fromCharCode(
       i
     )}</span>`;
   }
 
-  document.getElementById("demo")!.innerHTML = alpha;
+  document.getElementById("alphabets-display")!.innerHTML = alphabets;
 }
+
 function displayTable(dataEmployess: Data[]) {
   let rows_tr = "";
   dataEmployess.map(function (ele: Data, index: number) {
@@ -148,6 +149,7 @@ function handleClickFilter(ascciiValue: string) {
       "http://127.0.0.1:5500/task-2/assets/Interface/filter-black.svg";
   }
 }
+
 function sorting(column: number) {
   if (Sorting.user === column) {
     isAscending = !isAscending;
@@ -284,6 +286,7 @@ function handleCheckBox(checkbox: HTMLInputElement) {
     }
   }
 }
+
 function handleSingleCheckbox(currEvent: HTMLInputElement, index: number) {
   if (
     document
@@ -312,6 +315,7 @@ function handleSingleCheckbox(currEvent: HTMLInputElement, index: number) {
       false;
   }
 }
+
 function handleSearchBox() {
   const searchArr: Data[] = [];
   const searchValue = (
@@ -327,6 +331,7 @@ function handleSearchBox() {
   });
   displayTable(searchArr);
 }
+
 function removeDuplicates(data: string[]) {
   let uniqueArray = [];
   data.forEach((item) => {
@@ -336,6 +341,7 @@ function removeDuplicates(data: string[]) {
   });
   return uniqueArray;
 }
+
 function handleFilterDept() {
   let deptData: string[] = [];
   dataEmployess.map((ele) => {
@@ -357,6 +363,7 @@ function handleFilterDept() {
 
   document.getElementById("options-body")!.innerHTML = deptDropDown;
 }
+
 function handleFilterLoc() {
   let locDropDown = "";
   let loc: string[] = [];
@@ -377,6 +384,7 @@ function handleFilterLoc() {
   });
   document.getElementById("options-body-loc")!.innerHTML = locDropDown;
 }
+
 function handleFilterStatus() {
   let statusDropDown = "";
   const statusArray = [
@@ -411,6 +419,7 @@ function handleLoc(event: Event) {
     statusOptions?.toggle("d-none");
   }
 }
+
 function handleDpt(event: Event) {
   event.stopPropagation();
   departmentOptions?.toggle("d-none");
@@ -421,6 +430,7 @@ function handleDpt(event: Event) {
     locationOptions?.toggle("d-none");
   }
 }
+
 function handleStat(event: Event) {
   event.stopPropagation();
   statusOptions?.toggle("d-none");

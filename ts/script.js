@@ -1,4 +1,3 @@
-// import '../style.css';
 var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
         if (ar || !(i in from)) {
@@ -53,11 +52,11 @@ function LoadEmployeePage() {
     handleFilterStatus();
 }
 function displayAlphabets() {
-    var alpha = "";
+    var alphabets = "";
     for (var i = 65; i < 91; i++) {
-        alpha += "<span id=".concat(i, "  class=\"activate-icon\" onclick=\"handleClickFilter(").concat(i, ")\">").concat(String.fromCharCode(i), "</span>");
+        alphabets += "<span id=".concat(i, "  class=\"activate-icon\" onclick=\"handleClickFilter(").concat(i, ")\">").concat(String.fromCharCode(i), "</span>");
     }
-    document.getElementById("demo").innerHTML = alpha;
+    document.getElementById("alphabets-display").innerHTML = alphabets;
 }
 function displayTable(dataEmployess) {
     var rows_tr = "";
