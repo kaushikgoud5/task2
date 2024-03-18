@@ -67,6 +67,8 @@ class AddEmployee {
     this._fname = fname;
     this._lname = lname;
     this._status = status;
+    this._email=email;
+
   }
 
   public addEmployeeData(): void {
@@ -90,7 +92,11 @@ class AddEmployee {
       },
     ];
     if (updateData == null) {
-      if (this.checkAllFields() && this.isIdUnique(this._empId)) {
+      let a = this.checkAllFields();
+      let b = this.isIdUnique(this._empId);
+      let c = this.validateEmail(this._email);
+      
+      if ( a && b && c) {
         this.emptyfield = false;
         this.addEmployee(obj);
         this.resetForm(); //reseting the form before adding or updating
@@ -190,6 +196,19 @@ class AddEmployee {
       return true;
     }
   }
+  public validateEmail(email:string):boolean{
+    console.log(typeof(document.getElementById("email") as HTMLInputElement).value )
+    console.log(email.length)
+    const regexEmail=/^[a-zA-z][a-zA-Z0-9]*@[a-zA-z]+[.][a-z]+$/
+    if(regexEmail.test(email)){  
+      return true;
+    }
+    else if(email.length>0){
+      document.getElementById("validate-msg-email").innerHTML = `<span><i class="ph-fill ph-warning-diamond"></i></span>Enter a valid Email`;
+      document.getElementById("validate-msg-email").classList.remove("d-none");
+      return false
+    }
+  }
 }
 
 document.getElementById("btn-employee").addEventListener("click", () => {
@@ -239,7 +258,6 @@ document.getElementById("btn-employee").addEventListener("click", () => {
   );
   objEmp.addEmployeeData();
 });
-
 
 function uploadProfilePic() {
   let inpFile = document.getElementById("upload-img") as HTMLInputElement;
@@ -306,5 +324,20 @@ function changeFormTemplate() {
   }
 }
 
+function Validations(event:KeyboardEvent) {
+  var value = event.key;
+  var assciiVal = value.charCodeAt(0);
+  if ((assciiVal >= 65 && assciiVal <= 90) || (assciiVal >= 97 && assciiVal <= 122)) {
+  }
+  else {
+      event.preventDefault();
+  }
+}
+document.getElementById("fname").addEventListener("keypress", function (event) {
+  Validations(event);
+});
+document.getElementById("lname").addEventListener("keypress", function (event) {
+  Validations(event);
+});
 uploadProfilePic();
 updateEmployeeAndFillForm();

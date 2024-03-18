@@ -17,6 +17,7 @@ var AddEmployee = /** @class */ (function () {
         this._fname = fname;
         this._lname = lname;
         this._status = status;
+        this._email = email;
     }
     AddEmployee.prototype.addEmployeeData = function () {
         var obj = [
@@ -39,7 +40,10 @@ var AddEmployee = /** @class */ (function () {
             },
         ];
         if (updateData == null) {
-            if (this.checkAllFields() && this.isIdUnique(this._empId)) {
+            var a = this.checkAllFields();
+            var b = this.isIdUnique(this._empId);
+            var c = this.validateEmail(this._email);
+            if (a && b && c) {
                 this.emptyfield = false;
                 this.addEmployee(obj);
                 this.resetForm(); //reseting the form before adding or updating
@@ -139,6 +143,19 @@ var AddEmployee = /** @class */ (function () {
             return true;
         }
     };
+    AddEmployee.prototype.validateEmail = function (email) {
+        console.log(typeof document.getElementById("email").value);
+        console.log(email.length);
+        var regexEmail = /^[a-zA-z][a-zA-Z0-9]*@[a-zA-z]+[.][a-z]+$/;
+        if (regexEmail.test(email)) {
+            return true;
+        }
+        else if (email.length > 0) {
+            document.getElementById("validate-msg-email").innerHTML = "<span><i class=\"ph-fill ph-warning-diamond\"></i></span>Enter a valid Email";
+            document.getElementById("validate-msg-email").classList.remove("d-none");
+            return false;
+        }
+    };
     return AddEmployee;
 }());
 document.getElementById("btn-employee").addEventListener("click", function () {
@@ -229,5 +246,20 @@ function changeFormTemplate() {
         x[i].className += " inp-validation";
     }
 }
+function Validations(event) {
+    var value = event.key;
+    var assciiVal = value.charCodeAt(0);
+    if ((assciiVal >= 65 && assciiVal <= 90) || (assciiVal >= 97 && assciiVal <= 122)) {
+    }
+    else {
+        event.preventDefault();
+    }
+}
+document.getElementById("fname").addEventListener("keypress", function (event) {
+    Validations(event);
+});
+document.getElementById("lname").addEventListener("keypress", function (event) {
+    Validations(event);
+});
 uploadProfilePic();
 updateEmployeeAndFillForm();

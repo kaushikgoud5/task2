@@ -20,6 +20,7 @@ interface Data {
   status: boolean;
   joinDate: string;
   imgSrc: string;
+  email:string
 }
 
 enum Sorting {
@@ -55,7 +56,7 @@ function LoadEmployeePage() {
   handleFilterStatus();
 }
 
-function displayAlphabets() {
+ function displayAlphabets() {
   let alphabets = "";
   for (let i = 65; i < 91; i++) {
     alphabets += `<span id=${i}  class="activate-icon" onclick="handleClickFilter(${i})">${String.fromCharCode(
@@ -75,9 +76,7 @@ function displayTable(dataEmployess: Data[]) {
      <div class="table-user-info d-flex align-items-center" id="user-profile">
          <img src="${ele.imgSrc}" alt="">
        <div class="name-email d-flex d-flex-col" >
-         <span>${ele.user.toUpperCase()}</span><span class="e-mail">${
-      ele.user.split(" ")[0]
-    }@tezo.com</span>
+         <span>${ele.user.toUpperCase()}</span><span class="e-mail">${ele.email}</span>
        </div>
      </div>
    </td>
@@ -253,6 +252,7 @@ function handleDelete(rowNumber:number) {
     }
   }
   if (cnt == dataEmployess.length) {
+    localStorage.removeItem("addData")
     dataEmployess = [];
   }
   displayTable(dataEmployess);
