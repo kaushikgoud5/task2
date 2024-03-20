@@ -11,13 +11,12 @@ import { handleAddEmployee } from './addEditEmployee.js';
 import { handleDelete } from './handleDelete.js';
 import { handleCheckBox } from './inpCheckbox.js';
 import { handleSearchBox } from './handleSearchBox.js'
+document.getElementById("close-btn").addEventListener('click', () => {
+    hideNavBar();
+})
 document.addEventListener('DOMContentLoaded', () => {
     LoadEmployeePage();
 });
-document.getElementById("close-btn").addEventListener('click', () => {
-    console.log('hi')
-    hideNavBar();
-})
 displayAlphabets();
 document.getElementById("filter-status").addEventListener("click", () => {
     handleStat();

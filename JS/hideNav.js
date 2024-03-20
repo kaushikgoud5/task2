@@ -1,6 +1,6 @@
 
+let isNavHidden = true;
 export function hideNavBar() {
-  let isNavHidden = true;
   document.querySelector(".vertical-page").classList.toggle("w-100");
   document.getElementById("side-nav-bar").classList.toggle("hide-navbar");
   document.getElementById("hide-install-box").classList.toggle("hide-install");
@@ -13,7 +13,8 @@ export function hideNavBar() {
   if (isNavHidden) {
     isNavHidden = false;
     for (i = 0; i < x.length; i++) {
-      x[i].className += " hide-text";
+      x[i].classList.add("hide-text");
+      console.log(x[i].classList);
     }
   } else {
     y[0].classList.remove("hide-vh");
@@ -21,6 +22,7 @@ export function hideNavBar() {
     isNavHidden = true;
     for (i = 0; i < x.length; i++) {
       x[i].classList.remove("hide-text");
+
     }
   }
 
