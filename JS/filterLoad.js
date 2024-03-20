@@ -2,8 +2,8 @@ let locCount = 0;
 let deptCount = 0;
 let statusCount = 0;
 let value = 0;
-define(function () {
-  function handleFilterDept() {
+
+export  function handleFilterDept(dataEmployess) {
     let deptData = [];
     dataEmployess.map((ele) => {
       deptData.push(ele.department);
@@ -24,7 +24,7 @@ define(function () {
     document.getElementById("options-body").innerHTML = deptDropDown;
     attachEventListenersDept(deptData);
   }
-  function handleFilterLoc() {
+export  function handleFilterLoc(dataEmployess) {
     let locDropDown = "";
     let loc = [];
     dataEmployess.map((ele) => {
@@ -45,7 +45,7 @@ define(function () {
     document.getElementById("options-body-loc").innerHTML = locDropDown;
     attachEventListenersLoc(loc);
   }
-  function handleFilterStatus() {
+export  function handleFilterStatus() {
     let statusDropDown = "";
     const statusArray = [
       {
@@ -70,7 +70,6 @@ define(function () {
     attachEventListenersStatus(statusArray);
   }
   function attachEventListenersDept(data) {
-    console.log(data)
     data.forEach(function (ele, idx) {
       document.getElementById(`check-box-dept-${idx}`).addEventListener('click', function (event) {
         enableFilter(this, event)
@@ -133,11 +132,3 @@ define(function () {
 
 
 
-  return {
-    handleFilterDept: handleFilterDept,
-    handleFilterLoc: handleFilterLoc,
-    handleFilterStatus: handleFilterStatus
-  }
-
-
-});

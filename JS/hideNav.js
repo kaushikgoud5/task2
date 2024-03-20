@@ -1,5 +1,6 @@
-isNavHidden = true;
-function hideNavBar() {
+
+export function hideNavBar() {
+  let isNavHidden = true;
   document.querySelector(".vertical-page").classList.toggle("w-100");
   document.getElementById("side-nav-bar").classList.toggle("hide-navbar");
   document.getElementById("hide-install-box").classList.toggle("hide-install");

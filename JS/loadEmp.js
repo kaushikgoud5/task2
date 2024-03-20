@@ -1,21 +1,20 @@
-define(function() {
-   async function LoadEmployeePage() {
+import {handleFilterDept,handleFilterLoc,handleFilterStatus} from './filterLoad.js'
+import { displayTable } from './displayTable.js';
+export  let dataEmployess;
+export async function LoadEmployeePage() {
     await fetchData(checkPreviousData());
-    require(['./filterLoad'],function(filter){
-        filter.handleFilterDept();
-        filter.handleFilterLoc();
-        filter.handleFilterStatus();
-    })
+        handleFilterDept(dataEmployess);
+        handleFilterLoc(dataEmployess);
+        handleFilterStatus();
 }
-    async function fetchData(data) {
+ export  async function fetchData(data) {
         let response = await (await fetch("./data1.json")).json();
         response = response.concat(data);
         dataEmployess = response;
-        require(['./tableDisplay'],function(display){
-                display.displayTable(dataEmployess);
-        })
+     
+        displayTable(dataEmployess);
     }
-    function checkPreviousData() {
+  export  function checkPreviousData() {
     let newdata = localStorage.getItem("addData");
     if (newdata) {
         newdata = JSON.parse(newdata);
@@ -26,8 +25,5 @@ define(function() {
     }
 
 
-return{
-    LoadEmployeePage:LoadEmployeePage,
-}    
-});
+
 

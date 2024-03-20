@@ -1,19 +1,28 @@
-function displayAlphabets() {
+import { displayTable } from "./displayTable.js";
+import { dataEmployess } from "./loadEmp.js";
+export function displayAlphabets() {
   let alpha = "";
   for (let i = 65; i < 91; i++) {
-    alpha += `<span id=${i}  class="activate-icon" onclick="handleClickFilter(${i})">${String.fromCharCode(
-      i
-    )}</span>`;
+    alpha += `<span id=${i}  class="activate-icon letter">${String.fromCharCode(i)}</span>`;
   }
   document.getElementById("demo").innerHTML = alpha;
+  addEventListenersforAlphabets();
 }
-alphabetsFiltered = [];
-function handleClickFilter(ascciiValue) {   
+function addEventListenersforAlphabets(){
+  document.querySelectorAll(".letter").forEach((letter)=>{
+    letter.addEventListener('click',(e)=>{
+      handleClickFilter(e.target.innerText,dataEmployess);
+    });
+  })
+}
+let alphabetsFiltered = [];
+function handleClickFilter(letter) {   
+  let ascciiValue = letter.charCodeAt(0);
   const char = document.getElementById(ascciiValue).innerText;
   const charClassList = document.getElementById(ascciiValue).classList;
   if (charClassList.contains("active")) {
     charClassList.remove("active");
-    filterdArr = alphabetsFiltered.filter((i) =>
+    let filterdArr = alphabetsFiltered.filter((i) =>
       i.user.toUpperCase().startsWith(char)
     );
     for (let i = 0; i < alphabetsFiltered.length; i++) {
@@ -23,11 +32,8 @@ function handleClickFilter(ascciiValue) {
         }
       }
     }
-    require(["./tableDisplay"], function (display) {
-      display.displayTable(
-        alphabetsFiltered.length == 0 ? dataEmployess : alphabetsFiltered
-      );
-    });
+    displayTable(alphabetsFiltered.length == 0 ? dataEmployess : alphabetsFiltered);
+  
   } else {
     let isFound = false;
     dataEmployess.forEach((val) => {
@@ -40,9 +46,9 @@ function handleClickFilter(ascciiValue) {
       alert("No data Available");
     } else {
       charClassList.toggle("active");
-      require(["./tableDisplay"], function (display) {
-        display.displayTable([...new Set(alphabetsFiltered)]);
-      });
+ 
+      displayTable([...new Set(alphabetsFiltered)]);
+     
     }
   }
 

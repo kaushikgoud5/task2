@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
       rel="stylesheet"
     />
-    <script data-main="./JS/index.js"  src="https://requirejs.org/docs/release/2.3.6/minified/require.js" ></script>
+    <!-- <script data-main="./JS/index.js"  src="https://requirejs.org/docs/release/2.3.6/minified/require.js" ></script> -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   </head>
@@ -28,7 +28,7 @@
                 id="close-btn"
                 src="./assets/handle.png"
                 alt=""
-                onclick="hideNavBar()"
+              
               />
             </div>
           </div>
@@ -124,7 +124,7 @@
               <input
                 type="search"
                 placeholder="Search"
-                onkeyup="handleSearchBox()"
+          
                 id="search-input"
               />
             </div>
@@ -197,7 +197,7 @@
               ><i class="ph ph-funnel-simple" style="color: #f44848"></i
             ></span>
             <div class="filter-drop-down w-5">
-              <div class="d-flex g-05 jc-space-btwn align-items-center"  id="filter-status" onclick="{event.stopPropagation}">
+              <div class="d-flex g-05 jc-space-btwn align-items-center"  id="filter-status" onclick="{event.stopPropagation()}">
                 <div class="dept">Status  <span class="checked-number " id="no-of-checks-status"></span></div>
 
                 <div class="dept-drop-down">
@@ -325,7 +325,7 @@
       </section>
       
       </main>
-
+      <script src="./JS/index.js" type="module"></script>
     <!-- <script src="./JS/script.js"></script>
     <script src="./JS/hidenav.js"></script> -->
     <!-- <script src="./hidenav.js" type="module"></script> -->

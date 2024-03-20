@@ -1,8 +1,9 @@
-define(function () {
+import { dataEmployess } from "./loadEmp.js";
+import { displayTable } from "./displayTable.js";
     let locationOptions = document.getElementById("options-body-loc").classList;
     let departmentOptions = document.getElementById("options-body").classList;
     let statusOptions = document.getElementById("options-body-status").classList;
-    const handleFilterApply = () => {
+  export  const handleFilterApply = () => {
 
         //closing the select tags if they are open in filter section
         if (!locationOptions.contains("d-none")) {
@@ -51,9 +52,7 @@ define(function () {
             }
             return true;
         });
-        require(['./tableDisplay'], function (display) {
-            display.displayTable(filteredArray);
-        })
+        
+            displayTable(filteredArray);
+        
     };
-    return handleFilterApply;
-});

@@ -1,6 +1,7 @@
-define(function () {
+import { dataEmployess } from "./loadEmp.js";
+import { displayTable } from "./displayTable.js";
     let isAscending = true;
-    function sorting(column) {
+ export   function sorting(column) {
         if (column == 1) {
             isAscending = !isAscending;
             const sortedData = [...dataEmployess].sort(function (a, b) {
@@ -9,9 +10,9 @@ define(function () {
                 return 0;
             });
 
-            require(['./tableDisplay'], function (display) {
-                display.displayTable(sortedData);
-            })
+          
+                displayTable(sortedData);
+            
         }
 
         if (column == 2) {
@@ -22,9 +23,8 @@ define(function () {
                 return 0;
             });
 
-            require(['./tableDisplay'], function (display) {
-                display.displayTable(sortedData);
-            })
+                displayTable(sortedData);
+            
         }
 
         if (column == 3) {
@@ -35,9 +35,9 @@ define(function () {
                 return 0;
             });
 
-            require(['./tableDisplay'], function (display) {
-                display.displayTable(sortedData);
-            })
+           
+                displayTable(sortedData);
+            
         }
 
         if (column == 4) {
@@ -48,9 +48,9 @@ define(function () {
                 return 0;
             });
 
-            require(['./tableDisplay'], function (display) {
-                display.displayTable(sortedData);
-            })
+            
+                displayTable(sortedData);
+            
         }
 
         if (column == 5) {
@@ -61,9 +61,9 @@ define(function () {
                 return 0;
             });
 
-            require(['./tableDisplay'], function (display) {
-                display.displayTable(sortedData);
-            })
+        
+            displayTable(sortedData);
+            
         }
 
         if (column == 6) {
@@ -74,9 +74,9 @@ define(function () {
                 return 0;
             });
 
-            require(['./tableDisplay'], function (display) {
-                display.displayTable(sortedData);
-            })
+            
+                displayTable(sortedData);
+          
         }
 
         if (column == 7) {
@@ -87,10 +87,8 @@ define(function () {
                 return 0;
             });
 
-            require(['./tableDisplay'], function (display) {
-                display.displayTable(sortedData);
-            })
+            
+                displayTable(sortedData);
+            
         }
     }
-    return sorting
-});

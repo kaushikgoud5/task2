@@ -2,7 +2,7 @@ let emptyfield = false;
 let isExisiting = false;
 let updateData = localStorage.getItem("updateEmp");
 
-function uploadProfilePic() {
+ function uploadProfilePic() {
     let inpFile = document.getElementById("upload-img");
     let profilePic = document.getElementById("user-img");
     let uploadbtn = document.getElementById("btn-upload");
@@ -21,7 +21,7 @@ function uploadProfilePic() {
         reader.readAsDataURL(inpFile.files[0]);
     };
 }
-function isIdUnique(empID) {
+ function isIdUnique(empID) {
     let lsData = JSON.parse(localStorage.getItem("addData"));
     for (obj in lsData) {
         if (lsData[obj].empId === empID) {
@@ -33,7 +33,7 @@ function isIdUnique(empID) {
     }
     return true;
 }
-function checkAllFields() {
+ function checkAllFields() {
     let fields = ["emp-no", "fname", "lname", "email", "jdate"];
     for (let i = 0; i < fields.length; i++) {
         if (document.forms["form-data"][fields[i]].value === "") {

@@ -1,6 +1,8 @@
-define(function() {
+  
+import { dataEmployess } from "./loadEmp.js";
+import { handleDelete } from "./handleDelete.js";
   let s = 0;
-    function displayTable(dataEmployess) {
+  export function displayTable(dataEmployess) {
         let rows_tr = "";
         dataEmployess.map(function (ele, index) {
           rows_tr += ` <tr id="${index}">
@@ -33,7 +35,7 @@ define(function() {
         attachEventListeners(dataEmployess);
 
       }
-     function attachEventListeners(dataEmployess){
+   function attachEventListeners(dataEmployess){
       dataEmployess.forEach(function(ele, index) {
         document.getElementById('check-' + index).addEventListener('click', function() {
           handleSingleCheckbox(this, index);
@@ -45,16 +47,16 @@ define(function() {
           handleEditEmp(index);
         })
         document.getElementById(`delete-emp-${index}`).addEventListener('click',()=>{
-          require(['handleDelete'],function(deleteEllipses){
-            deleteEllipses(index)
-        })
+          
+            handleDelete(index)
+        
         })
 
 
 
     });
      }
-      function handleSingleCheckbox(e, index) {
+ function handleSingleCheckbox(e, index) {
         if (document
           .getElementById(`check-${index}`)
           .classList.contains("checkbox-active")
@@ -88,14 +90,9 @@ define(function() {
         }
         document.getElementById(`ellipsis-table-${id}`).classList.toggle("d-none");
       };
-      const handleEditEmp = (idx) => {
+    const handleEditEmp = (idx) => {
         localStorage.setItem("updateEmp", JSON.stringify(dataEmployess[idx]));
         window.location.href = "./addEmp.html";
       };
       
-      return{
-        displayTable:displayTable,
-      }
-    
-});
 

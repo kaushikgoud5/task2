@@ -2,8 +2,8 @@ let locationOptions = document.getElementById("options-body-loc").classList;
 let departmentOptions = document.getElementById("options-body").classList;
 let statusOptions = document.getElementById("options-body-status").classList;
 
-define(function () {
-    function disableDropDowns() {
+
+ export function disableDropDowns() {
         if (!locationOptions.contains("d-none")) {
             locationOptions.toggle("d-none");
         }
@@ -21,6 +21,3 @@ define(function () {
         }
         
     }
-    return disableDropDowns;
-
-});

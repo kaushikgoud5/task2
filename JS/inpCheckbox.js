@@ -1,7 +1,9 @@
- define(function() {
-    function handleCheckBox(checkbox) {
+
+import { dataEmployess } from "./loadEmp.js";
+let s;
+  export  function handleCheckBox(checkbox) {
       if (checkbox.checked == true) {
-        s = dataEmployess.length;
+         s = dataEmployess.length;
         document.getElementById("btn-delete-active").classList.add("btn-active");
         const checkboxes = document.getElementsByClassName("inp-check");
         for (var x of checkboxes) {
@@ -18,5 +20,3 @@
         }
       }
     }
-    return handleCheckBox
-  });

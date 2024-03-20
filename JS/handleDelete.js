@@ -1,12 +1,13 @@
 let s=0;
-define(function() {
-    function handleDelete(rowNumber) {
+import { dataEmployess } from "./loadEmp.js";
+import { displayTable } from "./displayTable.js";
+  export  function handleDelete(rowNumber) {
         if (rowNumber != undefined) {
           console.log(rowNumber)
           dataEmployess.splice(rowNumber, 1);
-          require(['./tableDisplay'],function(display){
-            display.displayTable(dataEmployess);
-    })
+        
+            displayTable(dataEmployess);
+    
 
         }
         let cnt = 0;
@@ -18,9 +19,9 @@ define(function() {
         }
         if (cnt == dataEmployess.length) {
           dataEmployess = [];
-          require(['./tableDisplay'],function(display){
+     
             display.displayTable(dataEmployess);
-    })
+    
         }
         else {
           for (var x of checkboxes) {
@@ -31,12 +32,9 @@ define(function() {
               delete dataEmployess[remove_id];
             }
           }
-          require(['./tableDisplay'],function(display){
-            display.displayTable(dataEmployess);
-    })
+        
+            displayTable(dataEmployess);
+    
         }
         document.getElementById("btn-delete-active").classList.remove("btn-active");
       }
-      return handleDelete;
-    
-});

@@ -1,11 +1,12 @@
-  define(function() {
+import { displayTable } from "./displayTable.js";
+import { dataEmployess } from "./loadEmp.js";
     let locationOptions = document.getElementById("options-body-loc").classList;
     let departmentOptions = document.getElementById("options-body").classList;
     let statusOptions = document.getElementById("options-body-status").classList;
-   const handleFilterReset = () => {
-    locCount = 0;
-    statusCount = 0;
-    deptCount = 0;
+  export const handleFilterReset = () => {
+   let locCount = 0;
+   let statusCount = 0;
+   let deptCount = 0;
     document.getElementById("no-of-checks-loc").innerText = "";
     document.getElementById("no-of-checks-dept").innerText = "";
     document.getElementById("no-of-checks-status").innerText = "";
@@ -41,10 +42,7 @@
     }
     document.getElementById("btn-filter-apply").style.backgroundColor = "#f89191";
     document.getElementById("btn-reset-filter").style.opacity = 0.6;
-        require(['./tableDisplay'],function(display){
-            display.displayTable(dataEmployess);
-    })
-  };
- return handleFilterReset;
+       
+      displayTable(dataEmployess);
     
-  });
+  };

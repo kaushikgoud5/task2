@@ -1,6 +1,5 @@
-  define( function() {
-    const tableToCSV = () => {
-      alert("csv")
+
+ export const tableToCSV = () => {  
         let csvData = [];
         let rows = document.getElementsByTagName("tr");
         for (let i = 0; i < rows.length; i++) {
@@ -14,7 +13,7 @@
       
         csvData=csvData.join("\n");
         console.log(csvData)
-        csvFile = new Blob([csvData], { type: "text/csv" });
+        let csvFile = new Blob([csvData], { type: "text/csv" });
         let tmp = document.createElement("a");
         tmp.download = "Data.csv";
         let url = window.URL.createObjectURL(csvFile);
@@ -24,6 +23,5 @@
         tmp.click();
         document.body.removeChild(tmp);
       };
-      return tableToCSV;
+
     
-  });
