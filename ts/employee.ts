@@ -342,72 +342,39 @@ function removeDuplicates(data: string[]) {
   return uniqueArray;
 }
 
-function handleFilterDept() {
-  let deptData: string[] = [];
-  dataEmployess.map((ele) => {
-    deptData.push(ele.department);
+function generateFilterDropdown(data, id, className, clickHandler) {
+  let dropdown = "";
+  data.map((d) => {
+    dropdown += `
+      <div class="d-flex jc-space-btwn p-3">
+        <div class="w-5">
+          <span>${d}</span>
+        </div>
+        <div>
+          <input type="checkbox" class="${className}" onclick="${clickHandler}(this,event);" name="${d}" id="">
+        </div>
+      </div>`;
   });
-  let deptNewData = removeDuplicates(deptData);
-  let deptDropDown = "";
-  deptNewData.map((d) => {
-    deptDropDown += `
-    <div class="d-flex jc-space-btwn p-3" >
-    <div class="w-5">
-            <span >${d}</span>
-    </div>
-    <div >
-        <input type="checkbox"  class="check-boxes"  onclick="enableFilter(this,event);getCheckedCountDept(this,event)"      name="${d}" id="">
-    </div>
-  </div>`;
-  });
+  document.getElementById(id)!.innerHTML = dropdown;
+}
 
-  document.getElementById("options-body")!.innerHTML = deptDropDown;
+function handleFilterDept() {
+  const deptData = dataEmployess.map((ele) => ele.department);
+  const deptNewData = removeDuplicates(deptData);
+  generateFilterDropdown(deptNewData, "options-body", "check-boxes", "enableFilter");
 }
 
 function handleFilterLoc() {
-  let locDropDown = "";
-  let loc: string[] = [];
-  dataEmployess.map((ele) => {
-    loc.push(ele.location);
-  });
-  let locNewData = removeDuplicates(loc);
-
-  locNewData.map((d) => {
-    locDropDown += `<div class="d-flex jc-space-btwn p-3">
-    <div class="w-5">
-            <span >${d}</span>
-    </div>
-    <div >
-        <input type="checkbox" class="check-boxes-loc" onclick="enableFilter(this,event);getCheckedCountLoc(this,event);"   name="${d}" id="">
-    </div>
-  </div>`;
-  });
-  document.getElementById("options-body-loc")!.innerHTML = locDropDown;
+  const loc = dataEmployess.map((ele) => ele.location);
+  const locNewData = removeDuplicates(loc);
+  generateFilterDropdown(locNewData, "options-body-loc", "check-boxes-loc", "enableFilter");
 }
 
 function handleFilterStatus() {
-  let statusDropDown = "";
-  const statusArray = [
-    {
-      status: "Active",
-    },
-    {
-      status: "Inactive",
-    },
-  ];
-  statusArray.map((d) => {
-    statusDropDown += ` <div class="d-flex jc-space-btwn p-3" >
-    
-    <div >
-            <span >${d.status}</span>
-    </div>
-    <div >
-        <input type="checkbox" class="check-boxes-status"   onclick="enableFilter(this,event);getCheckedCountStatus(this,event);"  name="${d.status}" id="">
-    </div>
-  </div>`;
-  });
-  document.getElementById("options-body-status")!.innerHTML = statusDropDown;
+  const statusArray = ["Active", "Inactive"];
+  generateFilterDropdown(statusArray, "options-body-status", "check-boxes-status", "enableFilter");
 }
+
 
 function handleLoc(event: Event) {
   event.stopPropagation();
