@@ -20,22 +20,22 @@ var statusCount = 0;
 var locationOptions = (_a = document.getElementById("options-body-loc")) === null || _a === void 0 ? void 0 : _a.classList;
 var departmentOptions = (_b = document.getElementById("options-body")) === null || _b === void 0 ? void 0 : _b.classList;
 var statusOptions = (_c = document.getElementById("options-body-status")) === null || _c === void 0 ? void 0 : _c.classList;
-var Sorting;
-(function (Sorting) {
-    Sorting[Sorting["user"] = 1] = "user";
-    Sorting[Sorting["location"] = 2] = "location";
-    Sorting[Sorting["department"] = 3] = "department";
-    Sorting[Sorting["role"] = 4] = "role";
-    Sorting[Sorting["empId"] = 5] = "empId";
-    Sorting[Sorting["status"] = 6] = "status";
-    Sorting[Sorting["joinDate"] = 7] = "joinDate";
-})(Sorting || (Sorting = {}));
-function fetchData(data) {
+var EmployeeSortingCriteria;
+(function (EmployeeSortingCriteria) {
+    EmployeeSortingCriteria[EmployeeSortingCriteria["user"] = 1] = "user";
+    EmployeeSortingCriteria[EmployeeSortingCriteria["location"] = 2] = "location";
+    EmployeeSortingCriteria[EmployeeSortingCriteria["department"] = 3] = "department";
+    EmployeeSortingCriteria[EmployeeSortingCriteria["role"] = 4] = "role";
+    EmployeeSortingCriteria[EmployeeSortingCriteria["empId"] = 5] = "empId";
+    EmployeeSortingCriteria[EmployeeSortingCriteria["status"] = 6] = "status";
+    EmployeeSortingCriteria[EmployeeSortingCriteria["joinDate"] = 7] = "joinDate";
+})(EmployeeSortingCriteria || (EmployeeSortingCriteria = {}));
+function fetchAndDisplayEmployeesData(data) {
     response = response.concat(data);
     dataEmployess = response;
     displayTable(response);
 }
-function checkPreviousData() {
+function checkForStoredEmployeeData() {
     var newdata = localStorage.getItem("addData");
     if (newdata) {
         var newdataParsed = JSON.parse(newdata);
@@ -45,27 +45,27 @@ function checkPreviousData() {
         return [];
     }
 }
-function LoadEmployeePage() {
-    fetchData(checkPreviousData());
-    handleFilterLoc();
-    handleFilterDept();
-    handleFilterStatus();
+function initializeEmployeePage() {
+    fetchAndDisplayEmployeesData(checkForStoredEmployeeData());
+    handleLocationFilter();
+    handleDepartmentFilter();
+    handleStatusFilter();
 }
-function displayAlphabets() {
+function displayAlphabetFilterButtons() {
     var alphabets = "";
     for (var i = 65; i < 91; i++) {
-        alphabets += "<span id=".concat(i, "  class=\"activate-icon\" onclick=\"handleClickFilter(").concat(i, ")\">").concat(String.fromCharCode(i), "</span>");
+        alphabets += "<span id=".concat(i, "  class=\"activate-icon\" onclick=\"handleAlphabetFilterClick(").concat(i, ")\">").concat(String.fromCharCode(i), "</span>");
     }
     document.getElementById("alphabets-display").innerHTML = alphabets;
 }
 function displayTable(dataEmployess) {
     var rows_tr = "";
     dataEmployess.map(function (ele, index) {
-        rows_tr += " <tr id=\"".concat(index, "\">\n   <td><input type=\"checkbox\"  class=\"inp-check\" id=\"check-").concat(index, "\" onclick=\"handleSingleCheckbox(this,").concat(index, ")\" /></td>\n   <td>\n     <div class=\"table-user-info d-flex align-items-center\" id=\"user-profile\">\n         <img src=\"").concat(ele.imgSrc, "\" alt=\"\">\n       <div class=\"name-email d-flex d-flex-col\" >\n         <span>").concat(ele.user.toUpperCase(), "</span><span class=\"e-mail\">").concat(ele.email, "</span>\n       </div>\n     </div>\n   </td>\n   <td>").concat(ele.location, "</td>\n   <td>").concat(ele.department, "</td>\n   <td>").concat(ele.role, "</td>\n   <td>").concat(ele.empId.slice(0, 8), "</td>\n   <td><span id=\"status-bg\">Active</span></td>\n   <td>").concat(ele.joinDate, "</td>\n   <td class=\"c-p\"> <span onclick=\"handleEllipsis(event,").concat(index, ")\">...</span> <div class=\"d-flex  d-none c-p fs-10 d-flex-col align-items-center ellipsis\" id=\"ellipsis-table-").concat(index, "\" >\n                                                                       <span class=\"c-p\">View Details</span>\n                                                               <span class=\"c-p\" onclick=\"handleEditEmp(").concat(index, ")\">   Edit</span>\n                                                                <span class= \"c-p\"  onclick=\"handleDelete(").concat(index, ")\">Delete</span>\n                                                      </div>\n </td>\n   </tr>");
+        rows_tr += " <tr id=\"".concat(index, "\">\n   <td><input type=\"checkbox\"  class=\"inp-check\" id=\"check-").concat(index, "\" onclick=\"handleIndividualCheckBox(this,").concat(index, ")\" /></td>\n   <td>\n     <div class=\"table-user-info d-flex align-items-center\" id=\"user-profile\">\n         <img src=\"").concat(ele.imgSrc, "\" alt=\"\">\n       <div class=\"name-email d-flex d-flex-col\" >\n         <span>").concat(ele.user.toUpperCase(), "</span><span class=\"e-mail\">").concat(ele.email, "</span>\n       </div>\n     </div>\n   </td>\n   <td>").concat(ele.location, "</td>\n   <td>").concat(ele.department, "</td>\n   <td>").concat(ele.role, "</td>\n   <td>").concat(ele.empId.slice(0, 8), "</td>\n   <td><span id=\"status-bg\">Active</span></td>\n   <td>").concat(ele.joinDate, "</td>\n   <td class=\"c-p\"> <span onclick=\"toggleEllipsisMenu(event,").concat(index, ")\">...</span> <div class=\"d-flex  d-none c-p fs-10 d-flex-col align-items-center ellipsis\" id=\"ellipsis-table-").concat(index, "\" >\n                                                                       <span class=\"c-p\">View Details</span>\n                                                               <span class=\"c-p\" onclick=\"editEmployeeDetails(").concat(index, ")\">   Edit</span>\n                                                                <span class= \"c-p\"  onclick=\"handleDeleteEmployee(").concat(index, ")\">Delete</span>\n                                                      </div>\n </td>\n   </tr>");
     });
     document.getElementById("employee-table").innerHTML = rows_tr;
 }
-function handleClickFilter(ascciiValue) {
+function handleAlphabetFilterClick(ascciiValue) {
     var _a;
     var char = document.getElementById(ascciiValue).innerText;
     var charClassList = (_a = document.getElementById(ascciiValue)) === null || _a === void 0 ? void 0 : _a.classList;
@@ -114,8 +114,8 @@ function handleClickFilter(ascciiValue) {
             "http://127.0.0.1:5500/task-2/assets/Interface/filter-black.svg";
     }
 }
-function sorting(column) {
-    if (Sorting.user === column) {
+function sortEmployeeData(column) {
+    if (EmployeeSortingCriteria.user === column) {
         isAscending = !isAscending;
         var sortedData = __spreadArray([], dataEmployess, true).sort(function (a, b) {
             if (a.user < b.user)
@@ -126,7 +126,7 @@ function sorting(column) {
         });
         displayTable(sortedData);
     }
-    if (Sorting.location === column) {
+    if (EmployeeSortingCriteria.location === column) {
         isAscending = !isAscending;
         var sortedData = __spreadArray([], dataEmployess, true).sort(function (a, b) {
             if (a.location < b.location)
@@ -137,7 +137,7 @@ function sorting(column) {
         });
         displayTable(sortedData);
     }
-    if (Sorting.department === column) {
+    if (EmployeeSortingCriteria.department === column) {
         isAscending = !isAscending;
         var sortedData = __spreadArray([], dataEmployess, true).sort(function (a, b) {
             if (a.department < b.department)
@@ -148,7 +148,7 @@ function sorting(column) {
         });
         displayTable(sortedData);
     }
-    if (Sorting.role === column) {
+    if (EmployeeSortingCriteria.role === column) {
         isAscending = !isAscending;
         var sortedData = __spreadArray([], dataEmployess, true).sort(function (a, b) {
             if (a.role < b.role)
@@ -159,7 +159,7 @@ function sorting(column) {
         });
         displayTable(sortedData);
     }
-    if (Sorting.empId === column) {
+    if (EmployeeSortingCriteria.empId === column) {
         isAscending = !isAscending;
         var sortedData = __spreadArray([], dataEmployess, true).sort(function (a, b) {
             if (a.empId < b.empId)
@@ -170,7 +170,7 @@ function sorting(column) {
         });
         displayTable(sortedData);
     }
-    if (Sorting.status === column) {
+    if (EmployeeSortingCriteria.status === column) {
         isAscending = !isAscending;
         var sortedData = __spreadArray([], dataEmployess, true).sort(function (a, b) {
             if (a.status < b.status)
@@ -181,7 +181,7 @@ function sorting(column) {
         });
         displayTable(sortedData);
     }
-    if (Sorting.joinDate === column) {
+    if (EmployeeSortingCriteria.joinDate === column) {
         isAscending = !isAscending;
         var sortedData = __spreadArray([], dataEmployess, true).sort(function (a, b) {
             if (a.joinDate < b.joinDate)
@@ -198,7 +198,7 @@ function deleteFromLocalStorage(row) {
     lsd.splice(row, 1);
     localStorage.setItem("addData", JSON.stringify(lsd));
 }
-function handleDelete(rowNumber) {
+function handleDeleteEmployee(rowNumber) {
     var _a;
     if (rowNumber != undefined) {
         dataEmployess.splice(rowNumber, 1);
@@ -223,7 +223,7 @@ function handleDelete(rowNumber) {
     displayTable(dataEmployess);
     (_a = document.getElementById("btn-delete-active")) === null || _a === void 0 ? void 0 : _a.classList.remove("btn-active");
 }
-function handleCheckBox(checkbox) {
+function handleSelectAllCheckBoxes(checkbox) {
     var _a, _b;
     if (checkbox.checked == true) {
         checkedCount = dataEmployess.length;
@@ -247,7 +247,7 @@ function handleCheckBox(checkbox) {
         }
     }
 }
-function handleSingleCheckbox(currEvent, index) {
+function handleIndividualCheckBox(currEvent, index) {
     var _a, _b, _c, _d, _e;
     if ((_a = document
         .getElementById("check-".concat(index))) === null || _a === void 0 ? void 0 : _a.classList.contains("checkbox-active")) {
@@ -274,7 +274,7 @@ function handleSingleCheckbox(currEvent, index) {
             false;
     }
 }
-function handleSearchBox() {
+function handleEmployeeSearch() {
     var searchArr = [];
     var searchValue = document.getElementById("search-input").value;
     dataEmployess.map(function (val) {
@@ -294,46 +294,28 @@ function removeDuplicates(data) {
     });
     return uniqueArray;
 }
-function handleFilterDept() {
-    var deptData = [];
-    dataEmployess.map(function (ele) {
-        deptData.push(ele.department);
+function generateFilterDropdownOptions(data, id, className, clickHandler, clickHandlerForSelected) {
+    var dropdown = "";
+    data.map(function (d) {
+        dropdown += "\n      <div class=\"d-flex jc-space-btwn p-3\">\n        <div class=\"w-5\">\n          <span>".concat(d, "</span>\n        </div>\n        <div>\n          <input type=\"checkbox\" class=\"").concat(className, "\" onclick=\"").concat(clickHandler, "(this,event);").concat(clickHandlerForSelected, "(this,event)\" name=\"").concat(d, "\" id=\"\">\n        </div>\n      </div>");
     });
+    document.getElementById(id).innerHTML = dropdown;
+}
+function handleDepartmentFilter() {
+    var deptData = dataEmployess.map(function (ele) { return ele.department; });
     var deptNewData = removeDuplicates(deptData);
-    var deptDropDown = "";
-    deptNewData.map(function (d) {
-        deptDropDown += "\n    <div class=\"d-flex jc-space-btwn p-3\" >\n    <div class=\"w-5\">\n            <span >".concat(d, "</span>\n    </div>\n    <div >\n        <input type=\"checkbox\"  class=\"check-boxes\"  onclick=\"enableFilter(this,event);getCheckedCountDept(this,event)\"      name=\"").concat(d, "\" id=\"\">\n    </div>\n  </div>");
-    });
-    document.getElementById("options-body").innerHTML = deptDropDown;
+    generateFilterDropdownOptions(deptNewData, "options-body", "check-boxes", "handleEnableFilter", "getSelectedDepartmentCount");
 }
-function handleFilterLoc() {
-    var locDropDown = "";
-    var loc = [];
-    dataEmployess.map(function (ele) {
-        loc.push(ele.location);
-    });
+function handleLocationFilter() {
+    var loc = dataEmployess.map(function (ele) { return ele.location; });
     var locNewData = removeDuplicates(loc);
-    locNewData.map(function (d) {
-        locDropDown += "<div class=\"d-flex jc-space-btwn p-3\">\n    <div class=\"w-5\">\n            <span >".concat(d, "</span>\n    </div>\n    <div >\n        <input type=\"checkbox\" class=\"check-boxes-loc\" onclick=\"enableFilter(this,event);getCheckedCountLoc(this,event);\"   name=\"").concat(d, "\" id=\"\">\n    </div>\n  </div>");
-    });
-    document.getElementById("options-body-loc").innerHTML = locDropDown;
+    generateFilterDropdownOptions(locNewData, "options-body-loc", "check-boxes-loc", "handleEnableFilter", "getSelectedLocationCount");
 }
-function handleFilterStatus() {
-    var statusDropDown = "";
-    var statusArray = [
-        {
-            status: "Active",
-        },
-        {
-            status: "Inactive",
-        },
-    ];
-    statusArray.map(function (d) {
-        statusDropDown += " <div class=\"d-flex jc-space-btwn p-3\" >\n    \n    <div >\n            <span >".concat(d.status, "</span>\n    </div>\n    <div >\n        <input type=\"checkbox\" class=\"check-boxes-status\"   onclick=\"enableFilter(this,event);getCheckedCountStatus(this,event);\"  name=\"").concat(d.status, "\" id=\"\">\n    </div>\n  </div>");
-    });
-    document.getElementById("options-body-status").innerHTML = statusDropDown;
+function handleStatusFilter() {
+    var statusArray = ["Active", "Inactive"];
+    generateFilterDropdownOptions(statusArray, "options-body-status", "check-boxes-status", "handleEnableFilter", "getSelectedStatusCount");
 }
-function handleLoc(event) {
+function toggleLocationDropdown(event) {
     event.stopPropagation();
     locationOptions === null || locationOptions === void 0 ? void 0 : locationOptions.toggle("d-none");
     if (!(departmentOptions === null || departmentOptions === void 0 ? void 0 : departmentOptions.contains("d-none"))) {
@@ -343,7 +325,7 @@ function handleLoc(event) {
         statusOptions === null || statusOptions === void 0 ? void 0 : statusOptions.toggle("d-none");
     }
 }
-function handleDpt(event) {
+function toggleDepartmentDropdown(event) {
     event.stopPropagation();
     departmentOptions === null || departmentOptions === void 0 ? void 0 : departmentOptions.toggle("d-none");
     if (!(statusOptions === null || statusOptions === void 0 ? void 0 : statusOptions.contains("d-none"))) {
@@ -353,7 +335,7 @@ function handleDpt(event) {
         locationOptions === null || locationOptions === void 0 ? void 0 : locationOptions.toggle("d-none");
     }
 }
-function handleStat(event) {
+function toggleStatusDropdown(event) {
     event.stopPropagation();
     statusOptions === null || statusOptions === void 0 ? void 0 : statusOptions.toggle("d-none");
     if (!(locationOptions === null || locationOptions === void 0 ? void 0 : locationOptions.contains("d-none"))) {
@@ -363,12 +345,12 @@ function handleStat(event) {
         departmentOptions === null || departmentOptions === void 0 ? void 0 : departmentOptions.toggle("d-none");
     }
 }
-function handleAssignDropDown(event) {
+function toggleAssignRoleDropdown(event) {
     var _a;
     event.stopPropagation();
     (_a = document.getElementById("add-roles")) === null || _a === void 0 ? void 0 : _a.classList.toggle("d-none");
 }
-function enableFilter(currEvent, event) {
+function handleEnableFilter(currEvent, event) {
     event.stopPropagation();
     currEvent.checked ? (ifAnySelected += 1) : (ifAnySelected -= 1);
     if (ifAnySelected > 0) {
@@ -381,25 +363,25 @@ function enableFilter(currEvent, event) {
         document.getElementById("btn-reset-filter").style.opacity = "0.6";
     }
 }
-function getCheckedCountLoc(currEvent, event) {
+function getSelectedLocationCount(currEvent, event) {
     event.stopPropagation();
     currEvent.checked ? (locCount += 1) : (locCount -= 1);
     document.getElementById("no-of-checks-loc").innerText =
         locCount === 0 ? "" : "(".concat(locCount, ")");
 }
-function getCheckedCountDept(currEvent, event) {
+function getSelectedDepartmentCount(currEvent, event) {
     event.stopPropagation();
     currEvent.checked ? (deptCount += 1) : (deptCount -= 1);
     document.getElementById("no-of-checks-dept").innerText =
         deptCount === 0 ? "" : "(".concat(deptCount, ")");
 }
-function getCheckedCountStatus(ele, event) {
+function getSelectedStatusCount(ele, event) {
     event.stopPropagation();
     ele.checked ? (statusCount += 1) : (statusCount -= 1);
     document.getElementById("no-of-checks-status").innerText =
         statusCount === 0 ? "" : "(".concat(statusCount, ")");
 }
-var handleFilterApply = function () {
+var applyFiltersAndDisplayResults = function () {
     //closing the select tags if they are open in filter section
     if (!(locationOptions === null || locationOptions === void 0 ? void 0 : locationOptions.contains("d-none"))) {
         locationOptions === null || locationOptions === void 0 ? void 0 : locationOptions.toggle("d-none");
@@ -453,7 +435,7 @@ var handleFilterApply = function () {
     });
     displayTable(filteredArray);
 };
-var tableToCSV = function () {
+var exportTableDataToCSV = function () {
     var csvData = [];
     var rows = document.getElementsByTagName("tr");
     for (var i = 0; i < rows.length; i++) {
@@ -467,7 +449,7 @@ var tableToCSV = function () {
     var csvString = csvData.join("\n");
     var csvFile = new Blob([csvString], { type: "text/csv" });
     var tmp = document.createElement("a");
-    tmp.download = "Data.csv";
+    tmp.download = "EmployeeData.csv";
     var url = window.URL.createObjectURL(csvFile);
     tmp.href = url;
     tmp.style.display = "none";
@@ -475,7 +457,7 @@ var tableToCSV = function () {
     tmp.click();
     document.body.removeChild(tmp);
 };
-var handleEllipsis = function (event, id) {
+var toggleEllipsisMenu = function (event, id) {
     var _a;
     event.stopPropagation();
     var ellipsisArray = document.getElementsByClassName("ellipsis");
@@ -486,7 +468,7 @@ var handleEllipsis = function (event, id) {
     }
     (_a = document.getElementById("ellipsis-table-".concat(id))) === null || _a === void 0 ? void 0 : _a.classList.toggle("d-none");
 };
-var handleFilterReset = function () {
+var resetFilterOptions = function () {
     locCount = 0;
     statusCount = 0;
     deptCount = 0;
@@ -545,12 +527,12 @@ var handleFilterReset = function () {
         }
     }
 });
-var handleEditEmp = function (idx) {
+var editEmployeeDetails = function (idx) {
     localStorage.setItem("updateEmp", JSON.stringify(dataEmployess[idx]));
     window.location.href = "./addEmp.html";
 };
-var handleAddEmployee = function () {
+var navigateToAddEmployeePage = function () {
     localStorage.removeItem("updateEmp");
     window.location.href = "./addEmp.html";
 };
-displayAlphabets();
+displayAlphabetFilterButtons();

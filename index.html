@@ -15,7 +15,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   </head>
-  <body onload="LoadEmployeePage()" id="body">
+  <body onload="initializeEmployeePage()" id="body">
     <main class="d-flex">
       <section class="side-nav" id="side-nav-bar">
         <div>
@@ -124,7 +124,7 @@
               <input
                 type="search"
                 placeholder="Search"
-                onkeyup="handleSearchBox()"
+                onkeyup="handleEmployeeSearch()"
                 id="search-input"
               />
             </div>
@@ -169,11 +169,11 @@
               <div>
                 <img src="/task-2/assets/Masked Icon.png" alt="" />
               </div>
-              <span onclick="tableToCSV()">EXPORT</span>
+              <span onclick="exportTableDataToCSV()">EXPORT</span>
             </button>
 
             <!-- <a href="/task-2/addEmp.html" class="td-none"> -->
-              <button class="btn-items bg-red" onclick="handleAddEmployee()">
+              <button class="btn-items bg-red" onclick="navigateToAddEmployeePage()">
                 <div>
                   <i class="ph-bold ph-plus"></i>
                 </div>
@@ -196,7 +196,7 @@
               ><i class="ph ph-funnel-simple" style="color: #f44848"></i
             ></span>
             <div class="filter-drop-down w-5">
-              <div class="d-flex g-05 jc-space-btwn align-items-center"  onclick="handleStat(event)">
+              <div class="d-flex g-05 jc-space-btwn align-items-center"  onclick="toggleStatusDropdown(event)">
                 <div class="dept">Status  <span class="checked-number " id="no-of-checks-status"></span></div>
 
                 <div class="dept-drop-down">
@@ -207,7 +207,7 @@
               <div id="options-body-status" class="dept-drop d-none w-5"  onclick={event.stopPropagation()}></div>
             </div>
             <div class="filter-drop-down w-7">
-              <div class="d-flex g-05 jc-space-btwn align-items-center" onclick="handleDpt(event)">
+              <div class="d-flex g-05 jc-space-btwn align-items-center" onclick="toggleDepartmentDropdown(event)">
                 <div class="dept">Department  <span class="checked-number" id="no-of-checks-dept"></span> </div>
 
                 <div class="dept-drop-down">
@@ -222,7 +222,7 @@
 
 
             <div class="filter-drop-down w-7">
-              <div class="d-flex g-05 jc-space-btwn align-items-center" onclick="handleLoc(event)">
+              <div class="d-flex g-05 jc-space-btwn align-items-center" onclick="toggleLocationDropdown(event)">
                 <div class="dept">Location  <span class="checked-number " id="no-of-checks-loc"></span></div>
 
                 <div class="dept-drop-down">
@@ -237,13 +237,13 @@
             </div>
           </div>
           <div class="filter-row-right">
-            <button class="filter-btns btn-reset" id="btn-reset-filter" onclick="handleFilterReset()">
+            <button class="filter-btns btn-reset" id="btn-reset-filter" onclick="resetFilterOptions()">
               Reset
             </button>
             <button
               class="filter-btns btn-apply"
               id="btn-filter-apply"
-              onclick="handleFilterApply()"
+              onclick="applyFiltersAndDisplayResults()"
             >
               Apply
             </button>
@@ -258,7 +258,7 @@
                   <button
                     class="btn-delete"
                     id="btn-delete-active"
-                    onclick="handleDelete()"
+                    onclick="handleDeleteEmployee()"
                   >
                     Delete
                   </button>
@@ -273,44 +273,44 @@
                     <input
                       type="checkbox"
                       id="inp-check-box"
-                      onclick="handleCheckBox(this)"
+                      onclick="handleSelectAllCheckBoxes(this)"
                     />
                   </th>
                   <th>
                     USER
-                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sorting(1)"
+                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(1)"
                     id="sort-btn" alt="">
                   </th>
                   <th>
                     LOCATION
-                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sorting(2)"
+                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(2)"
                     id="sort-btn" alt="">
 
                   </th>
                   <th>
                     
-                    DEPARTMENT<img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sorting(3)"
+                    DEPARTMENT<img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(3)"
                     id="sort-btn" alt="">
                   </th>
                   <th>
                     ROLE
-                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sorting(4)"
+                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(4)"
                     id="sort-btn" alt="">
 
                   </th>
                   <th>
-                    EMP NO<img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sorting(5)"
+                    EMP NO<img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(5)"
                     id="sort-btn" alt="">
                    
                   </th>
                   <th>
                     STATUS
-                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sorting(6)"
+                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(6)"
                     id="sort-btn" alt="">
                   </th>
                   <th>
                     JOIN DT
-                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sorting(7)"
+                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(7)"
                     id="sort-btn" alt="">
                   </th>
                   <th>...</th>

@@ -1,6 +1,6 @@
-let dataEmployess: Data[] = [];
-let response: Data[] = [];
-let alphabetsFiltered: Data[] = [];
+let dataEmployess: EmployeeData[] = [];
+let response: EmployeeData[] = [];
+let alphabetsFiltered: EmployeeData[] = [];
 let isAscending = true;
 let ifAnySelected = 0;
 let checkedCount = 0;
@@ -11,7 +11,7 @@ let locationOptions = document.getElementById("options-body-loc")?.classList;
 let departmentOptions = document.getElementById("options-body")?.classList;
 let statusOptions = document.getElementById("options-body-status")?.classList;
 
-interface Data {
+interface EmployeeData {
   user: string;
   location: string;
   department: string;
@@ -23,7 +23,7 @@ interface Data {
   email:string
 }
 
-enum Sorting {
+enum EmployeeSortingCriteria {
   user = 1,
   location,
   department,
@@ -33,33 +33,33 @@ enum Sorting {
   joinDate,
 }
 
-function fetchData(data: Data[]) {
+function fetchAndDisplayEmployeesData(data: EmployeeData[]) {
   response = response.concat(data);
   dataEmployess = response;
   displayTable(response);
 }
 
-function checkPreviousData() {
+function checkForStoredEmployeeData() {
   let newdata = localStorage.getItem("addData");
   if (newdata) {
-    let newdataParsed: Data[] = JSON.parse(newdata);
+    let newdataParsed: EmployeeData[] = JSON.parse(newdata);
     return newdataParsed;
   } else {
     return [];
   }
 }
 
-function LoadEmployeePage() {
-  fetchData(checkPreviousData());
-  handleFilterLoc();
-  handleFilterDept();
-  handleFilterStatus();
+function initializeEmployeePage() {
+  fetchAndDisplayEmployeesData(checkForStoredEmployeeData());
+  handleLocationFilter();
+  handleDepartmentFilter();
+  handleStatusFilter();
 }
 
- function displayAlphabets() {
+ function displayAlphabetFilterButtons() {
   let alphabets = "";
   for (let i = 65; i < 91; i++) {
-    alphabets += `<span id=${i}  class="activate-icon" onclick="handleClickFilter(${i})">${String.fromCharCode(
+    alphabets += `<span id=${i}  class="activate-icon" onclick="handleAlphabetFilterClick(${i})">${String.fromCharCode(
       i
     )}</span>`;
   }
@@ -67,11 +67,11 @@ function LoadEmployeePage() {
   document.getElementById("alphabets-display")!.innerHTML = alphabets;
 }
 
-function displayTable(dataEmployess: Data[]) {
+function displayTable(dataEmployess: EmployeeData[]) {
   let rows_tr = "";
-  dataEmployess.map(function (ele: Data, index: number) {
+  dataEmployess.map(function (ele: EmployeeData, index: number) {
     rows_tr += ` <tr id="${index}">
-   <td><input type="checkbox"  class="inp-check" id="check-${index}" onclick="handleSingleCheckbox(this,${index})" /></td>
+   <td><input type="checkbox"  class="inp-check" id="check-${index}" onclick="handleIndividualCheckBox(this,${index})" /></td>
    <td>
      <div class="table-user-info d-flex align-items-center" id="user-profile">
          <img src="${ele.imgSrc}" alt="">
@@ -86,10 +86,10 @@ function displayTable(dataEmployess: Data[]) {
    <td>${ele.empId.slice(0, 8)}</td>
    <td><span id="status-bg">Active</span></td>
    <td>${ele.joinDate}</td>
-   <td class="c-p"> <span onclick="handleEllipsis(event,${index})">...</span> <div class="d-flex  d-none c-p fs-10 d-flex-col align-items-center ellipsis" id="ellipsis-table-${index}" >
+   <td class="c-p"> <span onclick="toggleEllipsisMenu(event,${index})">...</span> <div class="d-flex  d-none c-p fs-10 d-flex-col align-items-center ellipsis" id="ellipsis-table-${index}" >
                                                                        <span class="c-p">View Details</span>
-                                                               <span class="c-p" onclick="handleEditEmp(${index})">   Edit</span>
-                                                                <span class= "c-p"  onclick="handleDelete(${index})">Delete</span>
+                                                               <span class="c-p" onclick="editEmployeeDetails(${index})">   Edit</span>
+                                                                <span class= "c-p"  onclick="handleDeleteEmployee(${index})">Delete</span>
                                                       </div>
  </td>
    </tr>`;
@@ -98,7 +98,7 @@ function displayTable(dataEmployess: Data[]) {
   document.getElementById("employee-table")!.innerHTML = rows_tr;
 }
 
-function handleClickFilter(ascciiValue: string) {
+function handleAlphabetFilterClick(ascciiValue: string) {
   const char = document.getElementById(ascciiValue)!.innerText;
   const charClassList = document.getElementById(ascciiValue)?.classList;
   if (charClassList?.contains("active")) {
@@ -149,8 +149,8 @@ function handleClickFilter(ascciiValue: string) {
   }
 }
 
-function sorting(column: number) {
-  if (Sorting.user === column) {
+function sortEmployeeData(column: number) {
+  if (EmployeeSortingCriteria.user === column) {
     isAscending = !isAscending;
     const sortedData = [...dataEmployess].sort(function (a, b) {
       if (a.user < b.user) return isAscending ? -1 : 1;
@@ -161,7 +161,7 @@ function sorting(column: number) {
     displayTable(sortedData);
   }
 
-  if (Sorting.location === column) {
+  if (EmployeeSortingCriteria.location === column) {
     isAscending = !isAscending;
     const sortedData = [...dataEmployess].sort(function (a, b) {
       if (a.location < b.location) return isAscending ? -1 : 1;
@@ -172,7 +172,7 @@ function sorting(column: number) {
     displayTable(sortedData);
   }
 
-  if (Sorting.department === column) {
+  if (EmployeeSortingCriteria.department === column) {
     isAscending = !isAscending;
     const sortedData = [...dataEmployess].sort(function (a, b) {
       if (a.department < b.department) return isAscending ? -1 : 1;
@@ -183,7 +183,7 @@ function sorting(column: number) {
     displayTable(sortedData);
   }
 
-  if (Sorting.role === column) {
+  if (EmployeeSortingCriteria.role === column) {
     isAscending = !isAscending;
     const sortedData = [...dataEmployess].sort(function (a, b) {
       if (a.role < b.role) return isAscending ? -1 : 1;
@@ -194,7 +194,7 @@ function sorting(column: number) {
     displayTable(sortedData);
   }
 
-  if (Sorting.empId === column) {
+  if (EmployeeSortingCriteria.empId === column) {
     isAscending = !isAscending;
     const sortedData = [...dataEmployess].sort(function (a, b) {
       if (a.empId < b.empId) return isAscending ? -1 : 1;
@@ -205,7 +205,7 @@ function sorting(column: number) {
     displayTable(sortedData);
   }
 
-  if (Sorting.status === column) {
+  if (EmployeeSortingCriteria.status === column) {
     isAscending = !isAscending;
     const sortedData = [...dataEmployess].sort(function (a, b) {
       if (a.status < b.status) return isAscending ? -1 : 1;
@@ -216,7 +216,7 @@ function sorting(column: number) {
     displayTable(sortedData);
   }
 
-  if (Sorting.joinDate === column) {
+  if (EmployeeSortingCriteria.joinDate === column) {
     isAscending = !isAscending;
     const sortedData = [...dataEmployess].sort(function (a, b) {
       if (a.joinDate < b.joinDate) return isAscending ? -1 : 1;
@@ -234,7 +234,7 @@ function deleteFromLocalStorage(row) {
   localStorage.setItem("addData",JSON.stringify(lsd))
 }
 
-function handleDelete(rowNumber:number) {
+function handleDeleteEmployee(rowNumber:number) {
   if (rowNumber != undefined) {
     dataEmployess.splice(rowNumber, 1);
     displayTable(dataEmployess);
@@ -259,7 +259,7 @@ function handleDelete(rowNumber:number) {
   document.getElementById("btn-delete-active")?.classList.remove("btn-active");
 }
 
-function handleCheckBox(checkbox: HTMLInputElement) {
+function handleSelectAllCheckBoxes(checkbox: HTMLInputElement) {
   if (checkbox.checked == true) {
     checkedCount = dataEmployess.length;
     document.getElementById("btn-delete-active")?.classList.add("btn-active");
@@ -287,7 +287,7 @@ function handleCheckBox(checkbox: HTMLInputElement) {
   }
 }
 
-function handleSingleCheckbox(currEvent: HTMLInputElement, index: number) {
+function handleIndividualCheckBox(currEvent: HTMLInputElement, index: number) {
   if (
     document
       .getElementById(`check-${index}`)
@@ -316,8 +316,8 @@ function handleSingleCheckbox(currEvent: HTMLInputElement, index: number) {
   }
 }
 
-function handleSearchBox() {
-  const searchArr: Data[] = [];
+function handleEmployeeSearch() {
+  const searchArr: EmployeeData[] = [];
   const searchValue = (
     document.getElementById("search-input") as HTMLInputElement
   ).value;
@@ -342,7 +342,7 @@ function removeDuplicates(data: string[]) {
   return uniqueArray;
 }
 
-function generateFilterDropdown(data, id, className, clickHandler) {
+function generateFilterDropdownOptions(data, id, className, clickHandler,clickHandlerForSelected) {
   let dropdown = "";
   data.map((d) => {
     dropdown += `
@@ -351,32 +351,32 @@ function generateFilterDropdown(data, id, className, clickHandler) {
           <span>${d}</span>
         </div>
         <div>
-          <input type="checkbox" class="${className}" onclick="${clickHandler}(this,event);" name="${d}" id="">
+          <input type="checkbox" class="${className}" onclick="${clickHandler}(this,event);${clickHandlerForSelected}(this,event)" name="${d}" id="">
         </div>
       </div>`;
   });
   document.getElementById(id)!.innerHTML = dropdown;
 }
 
-function handleFilterDept() {
+function handleDepartmentFilter() {
   const deptData = dataEmployess.map((ele) => ele.department);
   const deptNewData = removeDuplicates(deptData);
-  generateFilterDropdown(deptNewData, "options-body", "check-boxes", "enableFilter");
+  generateFilterDropdownOptions(deptNewData, "options-body", "check-boxes", "handleEnableFilter","getSelectedDepartmentCount");
 }
 
-function handleFilterLoc() {
+function handleLocationFilter() {
   const loc = dataEmployess.map((ele) => ele.location);
   const locNewData = removeDuplicates(loc);
-  generateFilterDropdown(locNewData, "options-body-loc", "check-boxes-loc", "enableFilter");
+  generateFilterDropdownOptions(locNewData, "options-body-loc", "check-boxes-loc", "handleEnableFilter","getSelectedLocationCount");
 }
 
-function handleFilterStatus() {
+function handleStatusFilter() {
   const statusArray = ["Active", "Inactive"];
-  generateFilterDropdown(statusArray, "options-body-status", "check-boxes-status", "enableFilter");
+  generateFilterDropdownOptions(statusArray, "options-body-status", "check-boxes-status", "handleEnableFilter","getSelectedStatusCount");
 }
 
 
-function handleLoc(event: Event) {
+function toggleLocationDropdown(event: Event) {
   event.stopPropagation();
   locationOptions?.toggle("d-none");
   if (!departmentOptions?.contains("d-none")) {
@@ -387,7 +387,7 @@ function handleLoc(event: Event) {
   }
 }
 
-function handleDpt(event: Event) {
+function toggleDepartmentDropdown(event: Event) {
   event.stopPropagation();
   departmentOptions?.toggle("d-none");
   if (!statusOptions?.contains("d-none")) {
@@ -398,7 +398,7 @@ function handleDpt(event: Event) {
   }
 }
 
-function handleStat(event: Event) {
+function toggleStatusDropdown(event: Event) {
   event.stopPropagation();
   statusOptions?.toggle("d-none");
   if (!locationOptions?.contains("d-none")) {
@@ -409,12 +409,12 @@ function handleStat(event: Event) {
   }
 }
 
-function handleAssignDropDown(event: Event) {
+function toggleAssignRoleDropdown(event: Event) {
   event.stopPropagation();
   document.getElementById("add-roles")?.classList.toggle("d-none");
 }
 
-function enableFilter(currEvent: HTMLInputElement, event: Event) {
+function handleEnableFilter(currEvent: HTMLInputElement, event: Event) {
   event.stopPropagation();
   currEvent.checked ? (ifAnySelected += 1) : (ifAnySelected -= 1);
   if (ifAnySelected > 0) {
@@ -427,28 +427,28 @@ function enableFilter(currEvent: HTMLInputElement, event: Event) {
   }
 }
 
-function getCheckedCountLoc(currEvent: HTMLInputElement, event: Event) {
+function getSelectedLocationCount(currEvent: HTMLInputElement, event: Event) {
   event.stopPropagation();
   currEvent.checked ? (locCount += 1) : (locCount -= 1);
   document.getElementById("no-of-checks-loc")!.innerText =
     locCount === 0 ? "" : `(${locCount})`;
 }
 
-function getCheckedCountDept(currEvent: HTMLInputElement, event: Event) {
+function getSelectedDepartmentCount(currEvent: HTMLInputElement, event: Event) {
   event.stopPropagation();
   currEvent.checked ? (deptCount += 1) : (deptCount -= 1);
   document.getElementById("no-of-checks-dept")!.innerText =
     deptCount === 0 ? "" : `(${deptCount})`;
 }
 
-function getCheckedCountStatus(ele: HTMLInputElement, event: Event) {
+function getSelectedStatusCount(ele: HTMLInputElement, event: Event) {
   event.stopPropagation();
   ele.checked ? (statusCount += 1) : (statusCount -= 1);
   document.getElementById("no-of-checks-status")!.innerText =
     statusCount === 0 ? "" : `(${statusCount})`;
 }
 
-const handleFilterApply = () => {
+const applyFiltersAndDisplayResults = () => {
   //closing the select tags if they are open in filter section
   if (!locationOptions?.contains("d-none")) {
     locationOptions?.toggle("d-none");
@@ -512,7 +512,7 @@ const handleFilterApply = () => {
   displayTable(filteredArray);
 };
 
-const tableToCSV = () => {
+const exportTableDataToCSV = () => {
   let csvData: string[] = [];
   let rows = document.getElementsByTagName("tr");
   for (let i = 0; i < rows.length; i++) {
@@ -527,7 +527,7 @@ const tableToCSV = () => {
   let csvString = csvData.join("\n");
   let csvFile = new Blob([csvString], { type: "text/csv" });
   let tmp = document.createElement("a");
-  tmp.download = "Data.csv";
+  tmp.download = "EmployeeData.csv";
   let url = window.URL.createObjectURL(csvFile);
   tmp.href = url;
   tmp.style.display = "none";
@@ -536,7 +536,7 @@ const tableToCSV = () => {
   document.body.removeChild(tmp);
 };
 
-const handleEllipsis = (event: Event, id: number) => {
+const toggleEllipsisMenu = (event: Event, id: number) => {
   event.stopPropagation();
   const ellipsisArray = document.getElementsByClassName("ellipsis");
   for (let i = 0; i < ellipsisArray.length; i++) {
@@ -547,7 +547,7 @@ const handleEllipsis = (event: Event, id: number) => {
   document.getElementById(`ellipsis-table-${id}`)?.classList.toggle("d-none");
 };
 
-const handleFilterReset = () => {
+const resetFilterOptions = () => {
   locCount = 0;
   statusCount = 0;
   deptCount = 0;
@@ -609,13 +609,13 @@ document.getElementById("body")?.addEventListener("click", () => {
   }
 });
 
-const handleEditEmp = (idx: number) => {
+const editEmployeeDetails = (idx: number) => {
   localStorage.setItem("updateEmp", JSON.stringify(dataEmployess[idx]));
   window.location.href = "./addEmp.html";
 };
-const handleAddEmployee = () => {
+const navigateToAddEmployeePage = () => {
   localStorage.removeItem("updateEmp");
   window.location.href = "./addEmp.html";
 };
 
-displayAlphabets();
+displayAlphabetFilterButtons();
