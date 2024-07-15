@@ -95,8 +95,9 @@ class AddEmployee {
       let a = this.checkAllFields();
       let b = this.isIdUnique(this._empId);
       let c = this.validateEmail(this._email);
+      let d=this.validateDOB(this._dob,this._joinDate);
       
-      if ( a && b && c) {
+      if ( a && b && c && d) {
         this.emptyfield = false;
         this.addEmployee(obj);
         this.resetForm(); //reseting the form before adding or updating
@@ -206,6 +207,14 @@ class AddEmployee {
     else if(email.length>0){
       document.getElementById("validate-msg-email").innerHTML = `<span><i class="ph-fill ph-warning-diamond"></i></span>Enter a valid Email`;
       document.getElementById("validate-msg-email").classList.remove("d-none");
+      return false
+    }
+  }
+  public validateDOB(dob:string,jDate:string){
+    const dob1=new Date(dob);
+    const jDate1=new Date(jDate);
+    let diffInYears=jDate1.getFullYear()-dob1.getFullYear()
+    if(diffInYears<=18){
       return false
     }
   }

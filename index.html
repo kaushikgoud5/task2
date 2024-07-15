@@ -183,12 +183,13 @@
           </div>
         </div>
 
-        <div class="alphabets-section">
-          <span>
-            <img src="/task-2/assets/Interface/filter-black.svg"  id="filter-icon"  alt="" />
-          </span>
-          <div class="alphabets" id="alphabets-display"></div>
-        </div>
+          <div class="alphabets-section">
+            <span>
+              <img src="/task-2/assets/Interface/filter-black.svg"  id="filter-icon"  alt="" />
+            </span>
+            <div class="alphabets" id="alphabets-display"></div>
+          </div>
+
         <div class="filter-row">
           <div class="filter-row-left">
             <span class="filter">Filter</span>
@@ -267,55 +268,55 @@
                   <img src="/task-2/assets/table-add.png" alt="" />
                 </div>
               </div>
-              <thead>
-                <tr>
-                  <th>
-                    <input
-                      type="checkbox"
-                      id="inp-check-box"
-                      onclick="handleSelectAllCheckBoxes(this)"
-                    />
-                  </th>
-                  <th>
-                    USER
-                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(1)"
-                    id="sort-btn" alt="">
-                  </th>
-                  <th>
-                    LOCATION
-                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(2)"
-                    id="sort-btn" alt="">
+                <thead>
+                  <tr>
+                    <th>
+                      <input
+                        type="checkbox"
+                        id="inp-check-box"
+                        onclick="handleSelectAllCheckBoxes(this)"
+                      />
+                    </th>
+                    <th>
+                      USER
+                      <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(1)"
+                      id="sort-btn" alt="">
+                    </th>
+                    <th>
+                      LOCATION
+                      <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(2)"
+                      id="sort-btn" alt="">
 
-                  </th>
-                  <th>
+                    </th>
+                    <th>
+                      
+                      DEPARTMENT<img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(3)"
+                      id="sort-btn" alt="">
+                    </th>
+                    <th>
+                      ROLE
+                      <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(4)"
+                      id="sort-btn" alt="">
+
+                    </th>
+                    <th>
+                      EMP NO<img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(5)"
+                      id="sort-btn" alt="">
                     
-                    DEPARTMENT<img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(3)"
-                    id="sort-btn" alt="">
-                  </th>
-                  <th>
-                    ROLE
-                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(4)"
-                    id="sort-btn" alt="">
-
-                  </th>
-                  <th>
-                    EMP NO<img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(5)"
-                    id="sort-btn" alt="">
-                   
-                  </th>
-                  <th>
-                    STATUS
-                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(6)"
-                    id="sort-btn" alt="">
-                  </th>
-                  <th>
-                    JOIN DT
-                    <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(7)"
-                    id="sort-btn" alt="">
-                  </th>
-                  <th>...</th>
-                </tr>
-              </thead>
+                    </th>
+                    <th>
+                      STATUS
+                      <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(6)"
+                      id="sort-btn" alt="">
+                    </th>
+                    <th>
+                      JOIN DT
+                      <img src="/task-2/assets/sort.png" width="10px" class="c-p" onclick="sortEmployeeData(7)"
+                      id="sort-btn" alt="">
+                    </th>
+                    <th>...</th>
+                  </tr>
+                </thead>
               <tbody id="employee-table">
                 <!-- logic in script file-->
               </tbody>
@@ -324,7 +325,7 @@
         </div>
       </section>
       
-      </main>
+    </main>
 
     <script src="./js/employee.js"></script>
     <script src="./js/hidenav.js"></script> 

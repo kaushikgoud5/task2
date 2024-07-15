@@ -377,7 +377,7 @@ function handleStatusFilter() {
 
 
 function toggleLocationDropdown(event: Event) {
-  event.stopPropagation();
+
   locationOptions?.toggle("d-none");
   if (!departmentOptions?.contains("d-none")) {
     departmentOptions?.toggle("d-none");
@@ -449,7 +449,6 @@ function getSelectedStatusCount(ele: HTMLInputElement, event: Event) {
 }
 
 const applyFiltersAndDisplayResults = () => {
-  //closing the select tags if they are open in filter section
   if (!locationOptions?.contains("d-none")) {
     locationOptions?.toggle("d-none");
   }

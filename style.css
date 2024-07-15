@@ -538,7 +538,6 @@ td img {
 .hide-navbar {
   width: 5rem;
 }
-
 .drop-arrow {
   transform: rotate(270deg);
 }
@@ -702,6 +701,7 @@ input[type="date"] {
   color: #f66b6b;
   font-weight: bold;
 }
+
 
 .ellipsis:hover {
   transition: transform 0.5s ease-in-out;
